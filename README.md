@@ -3,7 +3,7 @@
 **Play:** https://kbiben29-hue.github.io/king-crown/
 
 A learn-to-play app for **The Old King's Crown** (Pablo Clark / Eerie Idol Games). It's an unofficial fan project.
-You play a real game against the computer with the real cards, and a coach explains each step the first time it comes up.
+You play a real game against the computer on a board built from the real Location art. You drag cards from your hand onto the Regions, and a coach explains each step the first time it comes up.
 
 - **All four factions:** the Nobility, the Clans, the Uprising and the Gathering. That's each faction's 14-card deck, its five
   Site of Power cards, its four Tactics and its Kingdom's Favour action.

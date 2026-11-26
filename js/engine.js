@@ -592,6 +592,18 @@ export class Game {
   async placeCards(p) {
     const s = this.s;
     let free = REGIONS.map((r) => r.id);
+    if (p.human) {
+      // People drag cards onto whichever Region they like: the answer is {uid, rid} (or a uid for the first free Region).
+      while (p.hand.length && free.length) {
+        const ans = await this.ask(p.i, { key: 'place', text: p.hand.length >= free.length ? `Drag a card face down onto a Region (${free.map(regionName).join(', ')} still need one).` : `You have fewer cards than Regions left: drag your cards onto the Regions you want.`, cards: p.hand.map((c) => c.uid), regions: free });
+        const uid = typeof ans === 'object' && ans ? ans.uid : ans;
+        const rid = typeof ans === 'object' && ans && free.includes(ans.rid) ? ans.rid : free[0];
+        const c = p.hand.find((x) => x.uid === uid) || p.hand[0];
+        this.takeFrom(p.hand, c); s.regions[rid].cards.push({ card: c, up: false, used: false });
+        free = free.filter((r) => r !== rid);
+      }
+      return;
+    }
     if (p.hand.length >= 3) {
       for (const rid of free) {
         const c = await this.pick(p.i, `Place a face-down card next to the ${regionName(rid)}. You must put one card by each Region.`, p.hand, { key: 'place', region: rid });

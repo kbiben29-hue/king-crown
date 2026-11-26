@@ -16,7 +16,10 @@ modules and has no build step or dependencies. It's a sibling of Argaia, Holodec
     `c.tmp` lasts the Round and `c.ctmp` lasts the Clash.
   - Regions: `cards` [{card, up, used}], `sup`/`fresh` Supporters, `ks` (Kingdom Cards placed there), `bonus`, `martial`.
 - `js/ai.js` holds `aiAnswer`, a generic chooser (highest option score + noise, card `ai` hints, plus Region planning for card placement).
-- `js/ui.js` is the phone-first UI (render from state, event delegation via `data-act`). `js/coach.js` and `js/rules.js`
+- `js/ui.js` is the board UI. It renders from state: the opponent, Great Road, Councils, the Map (Location art tiles, with card columns beside
+  each Region), your board, and a fixed dock with a fanned hand and stats bar. `targets()` maps the current prompt onto the board
+  (tiles, rows, road, Councils, opponent slots). Hand cards drag onto `[data-drop]` targets (`row:rid`, `bid`, `council:id`, `any`)
+  using pointer events; tapping a card opens a detail sheet with the action buttons. For people, `place` answers `{uid, rid}`. `js/coach.js` and `js/rules.js`
   are the teaching text, in our own words.
 - `npm test` (`test/sim.mjs`) runs bot-vs-bot games for 2–4 players and checks that all 19 cards per player, 5 Supporters
   per player and 51 Kingdom Cards are accounted for.
