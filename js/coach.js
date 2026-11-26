@@ -9,7 +9,8 @@ Every Round is one year with four seasons:<br>
 <b>Summer</b> — the 3 Regions Clash one at a time. Highest Strength wins Influence.<br>
 <b>Autumn</b> — Govern (cards into Councils) and Journey (cards away for Lore).<br>
 <b>Winter</b> — clean up and get ready for next year.<br><br>
-The big idea: your cards are everything. Every card you use for one thing can't be used for another — and you only draw back up at the start of each year.`,
+The big idea: your cards are everything. Every card you use for one thing can't be used for another — and you only draw back up at the start of each year.<br><br>
+Your faction also has four once-per-game <b>Tactics</b> and a <b>Kingdom's Favour</b> action (see your board). Tap any card, Location or Council to read it.`,
   },
   year: {
     title: 'Start of the Year',
@@ -41,7 +42,7 @@ Tap a card to see what it does, then choose it.`,
   supporters: {
     title: 'Spring 5: Spring Actions',
     text: `You can place <b>Supporters</b> on Regions. Each one is +1 Strength in that Region's Clash.<br><br>
-But Supporters are spent: in Winter they go to the Lost Pile, and you only get them back with the Council of Oaths or the Shrine. You have 5 for the whole game, so pick your moments.`,
+But Supporters are spent: in Winter they go to the Lost Pile, and you only get them back with the Council of Oaths or the Shrine. You have 5 for the whole game, so pick your moments.<br><br>Spring Actions on Kingdom Cards, Tactics and the Kingdom's Favour are offered here too.`,
   },
   clashOrder: {
     title: 'Summer: Clash order',
@@ -50,19 +51,22 @@ But Supporters are spent: in Winter they go to the Lost Pile, and you only get t
   reveal: {
     title: 'Summer: a Clash begins',
     text: `All face-down cards in this Region flip face up. They are now <b>Active</b>.<br><br>
-Next comes the <b>Day</b> (players use Commands like Ambush or Retreat in turn order), then the <b>Night</b> (automatic effects like Deadly), then everyone adds up their Strength.`,
+Next comes the <b>Day</b> (players use Commands like Ambush, Retreat or Flank in turn order), then the <b>Night</b> (automatic effects like Deadly), then everyone adds up their Strength.`,
   },
   day: {
     title: 'Day Actions',
     text: `If one of your revealed cards has a Command you can use it now:<br>
 <b>Ambush</b> — add another card from your hand to this Clash.<br>
-<b>Retreat</b> — pull your cards and Supporters out of this Region (to save them when you can't win).<br><br>
+<b>Retreat</b> — pull your cards and Supporters out of this Region (to save them when you can't win).<br>
+<b>Flank</b> — move the card to a Region that hasn't fought yet.<br>
+Your <b>Ruse!</b> (Strength 0) can Ambush <i>or</i> Retreat — it's a bluff card that lets you bring in your real fighter.<br><br>
+Kingdom Cards and Tactics with Day actions show up here too.<br>
 If you have nothing to do, the game skips you.`,
   },
   night: {
     title: 'Night Effects',
     text: `Night effects happen automatically. <b>Deadly</b> Eliminates every opposing Active card in this Clash. Eliminated cards go to the <b>Lost Pile</b> — gone for good — unless they are <b>Resilient</b> (back to the Discard Pile) or <b>Invulnerable</b> (not Eliminated at all).<br><br>
-Two Assassins in the same Clash wipe each other out.`,
+Watch out for your Agents: if an opponent has an Active <b>Follower</b> in the Clash, your Agent Eliminates itself at Night. Followers are cheap, but they protect against Agents.`,
   },
   tally: {
     title: 'Adding up Strength',
@@ -75,13 +79,17 @@ If everybody passes, nobody wins this Region this Round.`,
   },
   claim: {
     title: 'Claiming a Location',
-    text: `The winner picks one of the Region's two Locations. You gain its Influence and its extra effect. If your Herald is on the Location you pick, you also get the Herald Reward.`,
+    text: `The winner picks one of the Region's two Locations and gains its Influence and effect:<br>
+<b>Castle</b> — Govern (and wipe that Council). <b>Wilderness</b> — Journey. <b>Harvest Field</b> — the Kingdom's Favour. <b>Battlefield</b> — 2 Influence. <b>Shrine</b> — save up to 3 cards to the bottom of your Deck. <b>Necropolis</b> — draw from your Discard Pile.<br><br>
+If your Herald is on the Location you pick, you also get the Herald Reward.`,
   },
   autumn: {
     title: 'Autumn',
     text: `In turn order, each player may:<br>
 <b>Govern</b> once — put a card with Votes from your hand into a Council. It stays there every Round, giving you that Council's power.<br>
 <b>Journey</b> once — send a card with Lore away to gain Lore, then buy Advanced or HQ cards from your Site of Power.<br>
+<b>Rally</b> — your Heir (Rally self) or Trader (Rally any two) can bring Active cards back to your hand.<br>
+<b>Deploy</b> — a War Machine in your hand can be placed face up by a Region with 1 Influence on it: it survives Winter and fights next Summer.<br>
 <b>Use Councils</b> — Secrets and Oaths are used now.<br><br>
 Careful: every card you use here is out of your hand, and you only draw back up next year.`,
   },
@@ -102,6 +110,6 @@ More Votes = stronger power. Watch out: winning the Castle lets someone clear a 
   },
   winter: {
     title: 'Winter',
-    text: `Winter effects happen (like Tax Rolls). Then cleanup: Heralds go home, Supporters on the Map go to the Lost Pile, and Active cards go to their owners' Discard Piles. Cards guarding Kingdom Cards and cards in Councils stay where they are.`,
+    text: `Winter effects happen. Then cleanup: Heralds go home, Supporters on the Map go to the Lost Pile, and Active cards go to their owners' Discard Piles — except cards with Influence on them (from Deploy), which stay and lose 1 Influence. Cards guarding Kingdom Cards and cards in Councils stay where they are.`,
   },
 };

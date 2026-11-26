@@ -1,16 +1,22 @@
 # CLAUDE.md
 
-King's Crown is a learn-to-play app for The Old King's Crown. It's plain HTML with ES modules and has no build
-step or dependencies. It's a sibling of Argaia, Holodeck and Afterlife, but deliberately has no build step.
+King's Crown is a learn-to-play app for The Old King's Crown (base game) using the real cards. It's plain HTML with ES
+modules and has no build step or dependencies. It's a sibling of Argaia, Holodeck and Afterlife, but deliberately has no build step.
 
-- `js/data.js` holds the factions, Regions/Locations, starter deck, Site of Power, Kingdom Cards and Councils. Card
-  values marked `standIn: true` are placeholders until the real card list arrives.
+- `data/tokc-cards.json` is the full decoded Eerie Card Library export. `tools/build-cards.py` turns it into `js/cards.js`
+  (`CARDS.factions/kingdom/tactics/favour/map/councils`). Ability text that's only on the card art goes in `IMAGE_TEXT`.
+- `js/data.js` holds factions, Regions/Locations (with their reward `fx`), Councils, archetype names and GAME constants.
 - `js/engine.js` is the `Game` class. The whole game is one async script (`run()` → `startOfYear/spring/summer/autumn/winter`).
-  Every decision goes through `io.ask(pi, prompt)`: a prompt has a `key`, a `text` and either `options` [{id,label,sub}]
-  or `cards` [uid] (optional → may answer null). `io.coach(key)` shows a tip (only for human players when `pi` is passed),
-  and `io.beat(text)` pauses on a reveal.
-- `js/ai.js` holds `aiAnswer(pi, prompt, s, game)`, which handles every prompt key. It must only use public info plus its own hand.
-- `js/ui.js` is the phone-first UI (render from state, event delegation via `data-act`). `js/coach.js` and
-  `js/rules.js` are the teaching text, in our own words.
-- `npm test` (`test/sim.mjs`) runs bot-vs-bot games for 2–4 players and checks that all 19 cards and 5 Supporters
-  per player are accounted for. Every new prompt key needs an `aiAnswer` case.
+  - Decisions go through `this.choose(pi, text, options)` (options `{id,label,sub,score}`), `this.pick(pi, text, cards, {ai, optional})`
+    and `this.yes(...)`. These all go through `io.ask`. `score` and `ai` are hints for the computer player.
+  - Optional things in Spring, Day and Autumn are all listed in one action menu, `actions(p, step, rid)`, which is fed by
+    `springKingdom`, `dayActions`, `autumnActions`, `tacticRun` and `kfOptions`. Kingdom Card actions are once per Round (`p.used`).
+  - Card abilities are looked up through `traits(c, rid)`, `cmds(c, rid)`, `arch`, `votesOf`, `loreOf` and `textIs(c, id, rid)`.
+    Those helpers handle gained abilities (Kingdom Cards, HQs, Tactics) and blanking (Poisoner's Ball, Guerrilla Fighters).
+    `c.tmp` lasts the Round and `c.ctmp` lasts the Clash.
+  - Regions: `cards` [{card, up, used}], `sup`/`fresh` Supporters, `ks` (Kingdom Cards placed there), `bonus`, `martial`.
+- `js/ai.js` holds `aiAnswer`, a generic chooser (highest option score + noise, card `ai` hints, plus Region planning for card placement).
+- `js/ui.js` is the phone-first UI (render from state, event delegation via `data-act`). `js/coach.js` and `js/rules.js`
+  are the teaching text, in our own words.
+- `npm test` (`test/sim.mjs`) runs bot-vs-bot games for 2–4 players and checks that all 19 cards per player, 5 Supporters
+  per player and 51 Kingdom Cards are accounted for.

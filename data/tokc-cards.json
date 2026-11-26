@@ -1,0 +1,6242 @@
+[
+ {
+  "id": "CLANS-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(1).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Ruse!",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 0\nArchetype: [RUSE] Ruse\nTraits: [INVULNERABLE] Invulnerable\nCommands: [DAY] Ambush {{b}}OR{{/b}} [DAY] Retreat",
+  "flavour": "In mist & waves we leave no trace.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Invulnerable",
+   "Summer",
+   "Retreat",
+   "Ambush",
+   "Ruse"
+  ],
+  "meta": {
+   "archetype": "[RUSE] Ruse",
+   "strength": 0
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(2).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Purser",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 0\nArchetype: [TRADER] Trader\nCommands: [AUTUMN] Rally (any two)\nVotes: [VOTES][VOTES]\nLore: [LORE][LORE]",
+  "flavour": "“Well, look what the sea dragged in!”",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Autumn",
+   "Rally",
+   "Trader"
+  ],
+  "meta": {
+   "archetype": "[TRADER] Trader",
+   "strength": 0
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(3).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Snowdrop Scouts",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 1\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "Gathered on the shore, eyes fixed on the future.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 1
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(4).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Creel Haulers",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 2\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "To catch the bright, scattering scales.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-05",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(5).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Priestesses of the Peaks",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 3\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "Little separates mountains from the sky, or the divine.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-06",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(6).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Sea Breakers",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 4\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "Mother to daughter, the shields pass on.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 4
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-07",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(7).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Nixing Knife",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nCommands: [NIGHT] Deadly\nVotes: [VOTES][VOTES]\nLore: [LORE]\n<br>",
+  "seasonrules": {
+   "season": "night",
+   "rules": "If there are any Active opponent [FOLLOWER] in the Clash, Eliminate this card."
+  },
+  "flavour": "Dread work done, they slipped into the sea.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Deadly",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-08",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(8).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Shore Runner Sleds",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 5\nArchetype: [CAVALRY] Cavalry\nTraits: [PATHFINDER] Pathfinder\nCommands: [DAY] Flank\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "Bright sleighs that neither snow nor arrow seem to slow.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Summer",
+   "Pathfinder",
+   "Flank",
+   "Cavalry"
+  ],
+  "meta": {
+   "archetype": "[CAVALRY] Cavalry",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-09",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(9).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Hall Upon the Waves",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 5\nArchetype: [WAR_MACHINE] War Machine\nTraits: [INVULNERABLE] Invulnerable\nCommands: [AUTUMN] Deploy (1)",
+  "flavour": "A people marching on the shoulders of the sea.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Invulnerable",
+   "Autumn",
+   "Deploy",
+   "War Machine"
+  ],
+  "meta": {
+   "archetype": "[WAR_MACHINE] War Machine",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(10).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Shrike of the Steppes",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 6\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "Found in an eyrie, gowned in wings.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 6
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(11).webp",
+  "backSide": "Clans_Reverse",
+  "name": "The Branded Seer",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 7\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "“I see all futures in that stone. My burden is I know their ends.”",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 7
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(12).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Lethe",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 8\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "“Oh to forget & rest, like time under the waves.”",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 8
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(13).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Gall",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 9\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "A loud knocking at the door. Then the door was no more.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 9
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-14",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(14).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Saga the Unifier",
+  "nameicon": "[CLANS],[STARTING_ICON]",
+  "text": "Strength: 10\nArchetype: [HEIR] Heir\nTraits: [PATHFINDER] Pathfinder, [RESILIENT] Resilient\nCommands: [AUTUMN] Rally (self)\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "A wild eye, all sea, all sky. Prow, ring, kith, and kin. \nThe brightest unbowed thing.",
+  "tags": [
+   "Faction Card",
+   "Clans",
+   "Base Game",
+   "Pathfinder",
+   "Resilient",
+   "Autumn",
+   "Rally",
+   "Heir"
+  ],
+  "meta": {
+   "archetype": "[HEIR] Heir",
+   "strength": 10
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-15",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(15).webp",
+  "backSide": "Clans_Reverse",
+  "name": "The Storyteller",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 11\nArchetype: [CHAMPION] Champion\nTraits: [PATHFINDER] Pathfinder, [RESILIENT] Resilient\nLore: [LORE][LORE]\nLore Cost: [LORE_COST] {{b}}2{{/b}}\n\nWhen this card is used to steal a Kingdom Card, treat the Occupying card as if its Strength is {{b}}0{{/b}}.",
+  "flavour": "The hero long ago, of tale & song, was actually him all along.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Clans",
+   "Base Game",
+   "Resilient",
+   "Pathfinder",
+   "Champion"
+  ],
+  "meta": {
+   "archetype": "[CHAMPION] Champion",
+   "strength": 11,
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-16",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(16).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Raid & Raze",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 3\nArchetype: [CAVALRY] Cavalry\nCommands: [DAY] Flank, [NIGHT] Deadly\nLore Cost: [LORE_COST] {{b}}3{{/b}}\n\nWhen this card {{b}}Flanks{{/b}}, you may move any number of your Supporters from this card's current Region to the new Region.",
+  "flavour": "The sight of a flame, snatched by the wind.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Clans",
+   "Base Game",
+   "Summer",
+   "Deadly",
+   "Flank",
+   "Cavalry"
+  ],
+  "meta": {
+   "archetype": "[CAVALRY] Cavalry",
+   "strength": 3,
+   "lorecost": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-17",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(17).webp",
+  "backSide": "Clans_Reverse",
+  "name": "Riders of the North Sky",
+  "nameicon": "[CLANS]",
+  "text": "Strength: 11\nArchetype: [CAVALRY] Cavalry\nTraits: [INVULNERABLE] Invulnerable, [PATHFINDER] Pathfinder\nCommands: [DAY] Flank\nLore: [LORE][LORE]\nLore Cost: [LORE_COST] {{b}}5{{/b}}\n\nWhen you win a Clash in a Region where this card is Active, before claiming any rewards, gain {{b}}1{{/b}}[INFLUENCE].",
+  "flavour": "They turn the world as they ride.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Clans",
+   "Base Game",
+   "Invulnerable",
+   "Summer",
+   "Pathfinder",
+   "Flank",
+   "Cavalry"
+  ],
+  "meta": {
+   "archetype": "[CAVALRY] Cavalry",
+   "strength": 11,
+   "lorecost": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-18",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(18).webp",
+  "backSide": "Clans_ReverseHorizontal",
+  "name": "Wandering Embassy",
+  "nameicon": "[CLANS],[HQ]",
+  "text": "Lore Cost: [LORE_COST] {{b}}2{{/b}}\n\nYour [TRADER] gain [DAY] {{b}}Flank{{/b}}. Whenever any of your cards are removed from a Council, you may move them to your Hand.",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Move any number of your Active cards with {{b}}Flank{{/b}} into a Council."
+  },
+  "flavour": "All gold & light, like the sun over winter waves.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Clans",
+   "Base Game",
+   "Summer",
+   "Flank",
+   "HQ"
+  ],
+  "meta": {
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-19",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_(19).webp",
+  "backSide": "Clans_ReverseHorizontal",
+  "name": "New Havens Harbour",
+  "nameicon": "[CLANS],[HQ]",
+  "text": "Lore Cost: [LORE_COST] {{b}}2{{/b}}\n\nAll your cards without [RESILIENT] gain [RESILIENT].",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Move up to two of your Supporters from the Lost Pile to a Region."
+  },
+  "flavour": "A place for all those who dream of the sea.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Clans",
+   "Base Game",
+   "Resilient",
+   "Spring",
+   "HQ"
+  ],
+  "meta": {
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "CLANS-SITE-OF-POWER",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_SiteOfPower.webp",
+  "backSide": "Clans_SiteOfPowerReverse",
+  "name": "Old Sentry",
+  "nameicon": "[CLANS]",
+  "text": "At the end of the game, before [INFLUENCE] is tallied, if there are no cards here, gain {{b}}1{{/b}}[INFLUENCE] for every {{b}}2{{/b}}[LORE] you have in your Supply.",
+  "tags": [
+   "Base Game",
+   "Site of Power",
+   "Clans"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(1).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Ruse!",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 0\nArchetype: [RUSE] Ruse\nTraits: [INVULNERABLE] Invulnerable\nCommands: [DAY] Ambush {{b}}OR{{/b}} [DAY] Retreat",
+  "flavour": "“A good runaround should slow them down.”",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Invulnerable",
+   "Summer",
+   "Retreat",
+   "Ambush",
+   "Ruse"
+  ],
+  "meta": {
+   "archetype": "[RUSE] Ruse",
+   "strength": 0
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(2).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "The Fence",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 0\nArchetype: [TRADER] Trader\nCommands: [AUTUMN] Rally (any two)\nVotes: [VOTES][VOTES]\nLore: [LORE][LORE]",
+  "flavour": "“It’s all for a good cause.”",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Autumn",
+   "Rally",
+   "Trader"
+  ],
+  "meta": {
+   "archetype": "[TRADER] Trader",
+   "strength": 0
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(3).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Secret Postal Service",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 1\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "The pigeon is reliable & true. Ubiquitous too.",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 1
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(4).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "The Irregulars",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 2\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "“You’ll never want for stories.”",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-05",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(5).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Hawkers",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 3\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "Spread the message, spread the cause.",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-06",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(6).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "The Pickets",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 4\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "“Let’s demonstrate where we stand.”",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 4
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-07",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(7).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Night Carnival",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nCommands: [NIGHT] Deadly\nVotes: [VOTES][VOTES]\nLore: [LORE]\n<br>",
+  "seasonrules": {
+   "season": "night",
+   "rules": "If there are any Active opponent [FOLLOWER] in the Clash, Eliminate this card."
+  },
+  "flavour": "“They’ve grown accustomed to not wearing chains.”",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Deadly",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-08",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(8).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Ornithopter Club",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 5\nArchetype: [CAVALRY] Cavalry\nTraits: [PATHFINDER] Pathfinder\nCommands: [DAY] Flank\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "“That’s the strangest bird I’ve ever seen.”",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Summer",
+   "Pathfinder",
+   "Flank",
+   "Cavalry"
+  ],
+  "meta": {
+   "archetype": "[CAVALRY] Cavalry",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-09",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(9).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Experimental Academies",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 5\nArchetype: [WAR_MACHINE] War Machine\nTraits: [INVULNERABLE] Invulnerable\nCommands: [AUTUMN] Deploy (1)",
+  "flavour": "“May they never have to be deployed.”",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Invulnerable",
+   "Autumn",
+   "Deploy",
+   "War Machine"
+  ],
+  "meta": {
+   "archetype": "[WAR_MACHINE] War Machine",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(10).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "The Librarian",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 6\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "“If all battles required swords, who’d be left to reap rewards?”",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 6
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(11).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "The Deadlifter",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 7\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "A strong supporter of the cause.",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 7
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(12).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Baron Cuttlefish",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 8\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "He revels in unpicking those old strings of power.",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 8
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(13).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Captain Mooncurser",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 9\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "Secreted away over fugitive creeks & wild leagues.",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 9
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-14",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(14).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "The Secret Society",
+  "nameicon": "[UPRISING],[STARTING_ICON]",
+  "text": "Strength: 10\nArchetype: [HEIR] Heir\nTraits: [PATHFINDER] Pathfinder, [RESILIENT] Resilient\nCommands: [AUTUMN] Rally (self)\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "For every one uncovered, another takes their place.",
+  "tags": [
+   "Faction Card",
+   "Uprising",
+   "Base Game",
+   "Autumn",
+   "Pathfinder",
+   "Resilient",
+   "Heir",
+   "Rally"
+  ],
+  "meta": {
+   "archetype": "[HEIR] Heir",
+   "strength": 10
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-15",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(15).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Arch Agitant",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 11\nArchetype: [CHAMPION] Champion\nVotes: [VOTES][VOTES]\nLore: [LORE][LORE]\nLore Cost: [LORE_COST] {{b}}2{{/b}}\n\nWhen this card is used to steal a Kingdom Card, treat the Occupying card as if its Strength is {{b}}0{{/b}}.",
+  "flavour": "Such a fine display of defiance.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Uprising",
+   "Base Game",
+   "Champion"
+  ],
+  "meta": {
+   "archetype": "[CHAMPION] Champion",
+   "strength": 11,
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-16",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(16).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Black Powder Ploy",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nTraits: [RESILIENT] Resilient\nLore Cost: [LORE_COST] {{b}}3{{/b}}\n<br>",
+  "seasonrules": {
+   "season": "night",
+   "rules": "Eliminate all opponent [HEIR]/[CAPTAIN] in the current Clash. If at least one card was Eliminated this way, choose one: Gain {{b}}1{{/b}}[INFLUENCE] {{b}}or{{/b}} Gain {{b}}1{{/b}}[LORE]."
+  },
+  "flavour": "The hour to act has arrived.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Uprising",
+   "Base Game",
+   "Resilient",
+   "Heir",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5,
+   "lorecost": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-17",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(17).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "Guerrilla Fighters",
+  "nameicon": "[UPRISING]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nTraits: [RESILIENT] Resilient\nCommands: [DAY] Ambush\nLore Cost: [LORE_COST] {{b}}5{{/b}}\n\nIf this card is Active in a Clash, treat all printed information, except for Strength, on opponents’ non-[HEIR] Faction Cards in the Region as blank.",
+  "seasonrules": {
+   "season": "night",
+   "rules": "If there are any Active opponent [HEIR] in the Clash, Eliminate this card."
+  },
+  "flavour": "Size means nothing with an arrow in your eye.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Uprising",
+   "Base Game",
+   "Summer",
+   "Resilient",
+   "Heir",
+   "Ambush",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5,
+   "lorecost": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-18",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(18).webp",
+  "backSide": "Uprising_ReverseHorizontal",
+  "name": "Moonshine Cove",
+  "nameicon": "[UPRISING],[HQ]",
+  "text": "Lore Cost: [LORE_COST] {{b}}2{{/b}}\n\nThis card acts as an additional space on which to Occupy a Kingdom Card.",
+  "seasonrules": {
+   "season": "autumn,1.7",
+   "rules": "Choose a face-up Kingdom Card on the Great Road. Acquire it with a [CAPTAIN] / [CHAMPION] from your Hand. Any card acquired this way may only be Occupied on this space."
+  },
+  "flavour": "Even the sun can’t find the place.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Uprising",
+   "Base Game",
+   "Autumn",
+   "HQ"
+  ],
+  "meta": {
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-19",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_(19).webp",
+  "name": "The Syndicate",
+  "nameicon": "[UPRISING],[HQ]",
+  "text": "Lore Cost: [LORE_COST] {{b}}2{{/b}}\n\nWhenever you acquire a Kingdom Card, place a Faction Marker on a Council that matches that card's Suit (max of 2 per Council). Each marker gives you {{b}}+1{{/b}}[VOTES] in its Council.\n\nAbilities that remove cards from a Council can also remove your markers from Councils.",
+  "flavour": "Like roots, we make the underground home. Like roots, we sunder stone.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Uprising",
+   "Base Game",
+   "HQ"
+  ],
+  "meta": {
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "UPRISING-SITE-OF-POWER",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_SiteOfPower.webp",
+  "backSide": "Uprising_SiteOfPowerReverse",
+  "name": "Printing Press",
+  "nameicon": "[UPRISING]",
+  "text": "At the end of the game, before [INFLUENCE] is tallied, if there are no cards here, gain {{b}}1{{/b}}[INFLUENCE] for every {{b}}2{{/b}}[LORE] you have in your Supply.",
+  "tags": [
+   "Base Game",
+   "Site of Power",
+   "Uprising"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(1).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Ruse!",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 0\nArchetype: [RUSE] Ruse\nTraits: [INVULNERABLE] Invulnerable\nCommands: [DAY] Ambush {{b}}OR{{/b}} [DAY] Retreat",
+  "flavour": "The slow passage of time is one great sleight of hand.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Invulnerable",
+   "Summer",
+   "Retreat",
+   "Ambush",
+   "Ruse"
+  ],
+  "meta": {
+   "archetype": "[RUSE] Ruse",
+   "strength": 0
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(2).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Guild of Dawn Traders",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 0\nArchetype: [TRADER] Trader\nCommands: [AUTUMN] Rally (any two)\nVotes: [VOTES][VOTES]\nLore: [LORE][LORE]",
+  "flavour": "Gold & silver never sleep.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Autumn",
+   "Rally",
+   "Trader"
+  ],
+  "meta": {
+   "archetype": "[TRADER] Trader",
+   "strength": 0
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(3).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Watchers at the Walls",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 1\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "Those sentries remain still.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 1
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(4).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Hunting Parties",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 2\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "A horn that harries the hunted.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-05",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(5).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "The Tithe",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 3\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "Dust settles silently over all that wealth.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-06",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(6).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Keepers of the Gates",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 4\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "We all end as ruins claimed by the country.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 4
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-07",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(7).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Vial Sect",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nCommands: [NIGHT] Deadly\nVotes: [VOTES][VOTES]\nLore: [LORE]\n<br>",
+  "seasonrules": {
+   "season": "night",
+   "rules": "If there are any Active opponent [FOLLOWER] in the Clash, Eliminate this card."
+  },
+  "flavour": "“Something to soothe the nerves?”",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Deadly",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-08",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(8).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Knights of the Pasture",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 5\nArchetype: [CAVALRY] Cavalry\nTraits: [PATHFINDER] Pathfinder\nCommands: [DAY] Flank\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "“Let us ride out together, one last time.”",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Summer",
+   "Pathfinder",
+   "Flank",
+   "Cavalry"
+  ],
+  "meta": {
+   "archetype": "[CAVALRY] Cavalry",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-09",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(9).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Woe",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 5\nArchetype: [WAR_MACHINE] War Machine\nTraits: [INVULNERABLE] Invulnerable\nCommands: [AUTUMN] Deploy (1)",
+  "flavour": "“Whoever named it, named it well.”",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Invulnerable",
+   "Autumn",
+   "Deploy",
+   "War Machine"
+  ],
+  "meta": {
+   "archetype": "[WAR_MACHINE] War Machine",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(10).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Master of Records",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 6\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "The binding of history.\nThe fastening of ancient obligations.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 6
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(11).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "The Count",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 7\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "No one now lives who knows his true age.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 7
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(12).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "The Magistrate",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 8\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "She stalks those serpentine corridors of power.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 8
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(13).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Master of Arms",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 9\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "“Death & I have met before.\nWe no longer dance but stroll as old friends.”",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 9
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-14",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(14).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Titus of Dawns & Dusks",
+  "nameicon": "[NOBILITY],[STARTING_ICON]",
+  "text": "Strength: 10\nArchetype: [HEIR] Heir\nTraits: [PATHFINDER] Pathfinder, [RESILIENT] Resilient\nCommands: [AUTUMN] Rally (self)\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "Reared to inherit & to ensure\nthat the Oldest of Orders endures.",
+  "tags": [
+   "Faction Card",
+   "Nobility",
+   "Base Game",
+   "Resilient",
+   "Autumn",
+   "Pathfinder",
+   "Heir",
+   "Rally"
+  ],
+  "meta": {
+   "archetype": "[HEIR] Heir",
+   "strength": 10
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-15",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(15).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "The Viceroy",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 11\nArchetype: [CHAMPION] Champion\nTraits: [RESILIENT] Resilient\nVotes: [VOTES][VOTES]\nLore Cost: [LORE_COST] {{b}}2{{/b}}\n\nWhen this card is used to steal a Kingdom Card, treat the Occupying card as if its Strength is {{b}}0{{/b}}.",
+  "flavour": "He watches the throne, waiting.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Nobility",
+   "Base Game",
+   "Resilient",
+   "Champion"
+  ],
+  "meta": {
+   "archetype": "[CHAMPION] Champion",
+   "strength": 11,
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-16",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(16).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "The High Court",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 5\nArchetype: [TRADER] Trader\nTraits: [INVULNERABLE] Invulnerable\nVotes: [VOTES][VOTES]\nLore Cost: [LORE_COST] {{b}}3{{/b}}\n<br>",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "If this card is in a Council, move it to another Council."
+  },
+  "flavour": "Wrought in stone & weighted scales.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Nobility",
+   "Base Game",
+   "Invulnerable",
+   "Autumn",
+   "Trader"
+  ],
+  "meta": {
+   "archetype": "[TRADER] Trader",
+   "strength": 5,
+   "lorecost": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-17",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(17).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "The Queen, Long Ago",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 10\nArchetype: [HEIR] Heir\nTraits: [PATHFINDER] Pathfinder, [RESILIENT] Resilient\nCommands: [AUTUMN] Rally (self)\nVotes: [VOTES]\nLore: [LORE]\nLore Cost: [LORE_COST] {{b}}4{{/b}}\n\nWhen you acquire this card, Govern with up to three of your cards from the Lost Pile and/or Discard Pile. Each card must be Governed into a different Council.",
+  "flavour": "A queen from stone, a pact wreathed in reeds.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Nobility",
+   "Base Game",
+   "Pathfinder",
+   "Resilient",
+   "Heir"
+  ],
+  "meta": {
+   "archetype": "[HEIR] Heir",
+   "strength": 10,
+   "lorecost": 4
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-18",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(18).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "Gilded Wall",
+  "nameicon": "[NOBILITY]",
+  "text": "Strength: 3\nArchetype: [WAR_MACHINE] War Machine\nTraits: [INVULNERABLE] Invulnerable\nCommands: [AUTUMN] Deploy (1)\nLore Cost: [LORE_COST] {{b}}2{{/b}}\n<br>",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "If you have two or more Supporters in this card’s Region, place {{b}}1{{/b}}[INFLUENCE] on this card"
+  },
+  "flavour": "Ranging solemn & stone-slow westward with the sun.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Nobility",
+   "Base Game",
+   "Invulnerable",
+   "Autumn",
+   "War Machine"
+  ],
+  "meta": {
+   "archetype": "[WAR_MACHINE] War Machine",
+   "strength": 3,
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-19",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_(19).webp",
+  "backSide": "Nobility_ReverseHorizontal",
+  "name": "Royal Bank",
+  "nameicon": "[NOBILITY],[HQ]",
+  "text": "Lore Cost: [LORE_COST] {{b}}3{{/b}}\n\nYour Faction Cards with no printed [VOTES] gain {{b}}+1{{/b}}[VOTES].",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Choose one: Move one [CAPTAIN] from your Discard Pile to your Hand {{b}}or{{/b}} Gain {{b}}1{{/b}}[INFLUENCE]. If you are {{b}}not{{/b}} first on the Order Track, you may do both."
+  },
+  "flavour": "That domain of gold, so imperious and cold.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Nobility",
+   "Base Game",
+   "Autumn",
+   "HQ"
+  ],
+  "meta": {
+   "lorecost": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "NOBILITY-SITE-OF-POWER",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_SiteOfPower.webp",
+  "backSide": "Nobility_SiteOfPowerReverse",
+  "name": "The Mantle",
+  "nameicon": "[NOBILITY]",
+  "text": "At the end of the game, before [INFLUENCE] is tallied, if there are no cards here, gain {{b}}1{{/b}}[INFLUENCE] for every {{b}}2{{/b}}[LORE] you have in your Supply.",
+  "tags": [
+   "Base Game",
+   "Site of Power",
+   "Nobility"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(1).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "Ruse!",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 0\nArchetype: [RUSE] Ruse\nTraits: [INVULNERABLE] Invulnerable\nCommands: [DAY] Ambush {{b}}OR{{/b}} [DAY] Retreat",
+  "flavour": "As it burnt it cracked & the moon shone through.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Invulnerable",
+   "Summer",
+   "Retreat",
+   "Ambush",
+   "Ruse"
+  ],
+  "meta": {
+   "archetype": "[RUSE] Ruse",
+   "strength": 0
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(2).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Nightjar",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 0\nArchetype: [TRADER] Trader\nCommands: [AUTUMN] Rally (any two)\nVotes: [VOTES][VOTES]\nLore: [LORE][LORE]",
+  "flavour": "“We sell everything under the moon.”",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Autumn",
+   "Rally",
+   "Trader"
+  ],
+  "meta": {
+   "archetype": "[TRADER] Trader",
+   "strength": 0
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(3).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "Effigies",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 1\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "Each morning there are more shapes, burning on the hills.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 1
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(4).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "Speakers of the Wood",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 2\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "They converse with the drifting motes & inching moss.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-05",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(5).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Wandering Lost",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 3\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "“We found the ones that went missing…they have no wish to return.”",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-06",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(6).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Moon-Stung",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 4\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nLore: [LORE]",
+  "flavour": "See them stand, deep in the dusk.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Invulnerable",
+   "Follower"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 4
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-07",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(7).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "Cult of Dreams",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nCommands: [NIGHT] Deadly\nVotes: [VOTES][VOTES]\nLore: [LORE]\n<br>",
+  "seasonrules": {
+   "season": "night",
+   "rules": "If there are any Active opponent [FOLLOWER] in the Clash, Eliminate this card."
+  },
+  "flavour": "“Three…two…one. Sleep.”",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Deadly",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-08",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(8).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Loping",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 5\nArchetype: [CAVALRY] Cavalry\nTraits: [PATHFINDER] Pathfinder\nCommands: [DAY] Flank\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "When all are sleeping, they bound the walls & wander the lanes.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Pathfinder",
+   "Summer",
+   "Flank",
+   "Cavalry"
+  ],
+  "meta": {
+   "archetype": "[CAVALRY] Cavalry",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-09",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(9).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Burning Wood",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 5\nArchetype: [WAR_MACHINE] War Machine\nTraits: [INVULNERABLE] Invulnerable\nCommands: [AUTUMN] Deploy (1)",
+  "flavour": "The wood walks. It has come to our very walls, alight & alive.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Autumn",
+   "Invulnerable",
+   "Deploy",
+   "War Machine"
+  ],
+  "meta": {
+   "archetype": "[WAR_MACHINE] War Machine",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(10).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Owl",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 6\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "It made its home high in a tower of flint.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 6
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(11).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Goat",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 7\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "See her out beyond the lights, talking with something just out of sight.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 7
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(12).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Fox",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 8\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "Only their rings & shiny things remain.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 8
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(13).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Stag",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 9\nArchetype: [CAPTAIN] Captain\nTraits: [PATHFINDER] Pathfinder\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "A cloven hoof, bent against airs & arts. A glaive gone blood-searching.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Pathfinder",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 9
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-14",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(14).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "Petrichor the Unmasked",
+  "nameicon": "[GATHERING],[STARTING_ICON]",
+  "text": "Strength: 10\nArchetype: [HEIR] Heir\nTraits: [PATHFINDER] Pathfinder, [RESILIENT] Resilient\nCommands: [AUTUMN] Rally (self)\nVotes: [VOTES]\nLore: [LORE]",
+  "flavour": "She speaks in the music of the spheres,\nsounding the true names of the stars.",
+  "tags": [
+   "Faction Card",
+   "Gathering",
+   "Base Game",
+   "Resilient",
+   "Autumn",
+   "Pathfinder",
+   "Heir",
+   "Rally"
+  ],
+  "meta": {
+   "archetype": "[HEIR] Heir",
+   "strength": 10
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-15",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(15).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Mask Maker",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 11\nArchetype: [CHAMPION] Champion\nTraits: [RESILIENT] Resilient\nVotes: [VOTES]\nLore: [LORE][LORE]\nLore Cost: [LORE_COST] {{b}}2{{/b}}\n\nWhen this card is used to steal a Kingdom Card, treat the Occupying card as if its Strength is {{b}}0{{/b}}.",
+  "flavour": "Another face finished, rigid & unflinching.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Gathering",
+   "Base Game",
+   "Resilient",
+   "Champion"
+  ],
+  "meta": {
+   "archetype": "[CHAMPION] Champion",
+   "strength": 11,
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-16",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(16).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "Bringer of the Word",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 5\nArchetype: [CAPTAIN] Captain\nTraits: [INVULNERABLE] Invulnerable\nVotes: [VOTES]\nLore Cost: [LORE_COST] {{b}}2{{/b}}\n<br>",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "If this card is in a Council, place a Faction Marker on any Council. When this card is in a Council, each marker on a Council contributes {{b}}1{{/b}}[VOTES] to you."
+  },
+  "text2": "When this card is removed from a Council, you may move it to the Lost Pile.",
+  "flavour": "Come closer, and I shall whisper their true name.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Gathering",
+   "Base Game",
+   "Invulnerable",
+   "Autumn",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 5,
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-17",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(17).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "Ritual of the Tooth",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 5\nArchetype: [CAVALRY] Cavalry\nTraits: [RESILIENT] Resilient\nLore Cost: [LORE_COST] {{b}}3{{/b}}\n<br>",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Burn one of your cards in the Lost Pile. This card adds the Burned card's printed Strength, Traits, Commands, and rules text to its own until the end of the Round."
+  },
+  "flavour": "A fanged rite, performed in the dead of night.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Gathering",
+   "Base Game",
+   "Summer",
+   "Resilient",
+   "Cavalry"
+  ],
+  "meta": {
+   "archetype": "[CAVALRY] Cavalry",
+   "strength": 5,
+   "lorecost": 3
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-18",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(18).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "Ritual of the Eye",
+  "nameicon": "[GATHERING]",
+  "text": "Strength: 3\nArchetype: [AGENT] Agent\nTraits: [RESILIENT] Resilient\nLore Cost: [LORE_COST] {{b}}4{{/b}}\n\nIf this card is Active in the current Clash, the player with the lowest total Strength above {{b}}0{{/b}} wins the current Clash instead of the player with the highest total Strength.",
+  "flavour": "All the kingdom’s sleepers will see what must be seen.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Gathering",
+   "Base Game",
+   "Resilient",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 3,
+   "lorecost": 4
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-19",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_(19).webp",
+  "backSide": "Gathering_ReverseHorizontal",
+  "name": "The Door in the Night",
+  "nameicon": "[GATHERING],[HQ]",
+  "text": "Lore Cost: [LORE_COST] {{b}}2{{/b}}\n\nWhen you acquire this card, place three Faction Markers here.",
+  "seasonrules": {
+   "season": "day,1.8",
+   "rules": "Remove a marker from here to give one of your Active cards in the current Clash [DAY] {{b}}Ambush{{/b}} until the end of the Round. Then you may remove an additional marker to allow that card to {{b}}Ambush{{/b}} with a card from your Discard Pile instead of your Hand."
+  },
+  "flavour": "It has no lock, it rejects all keys, it opens on impossible geometries.",
+  "tags": [
+   "Faction Card",
+   "Advanced Faction Card",
+   "Gathering",
+   "Base Game",
+   "Summer",
+   "Ambush",
+   "HQ"
+  ],
+  "meta": {
+   "strength": 0,
+   "lorecost": 2
+  },
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "GATHERING-SITE-OF-POWER",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_SiteOfPower.webp",
+  "backSide": "Gathering_SiteOfPowerReverse",
+  "name": "Vault Tree",
+  "nameicon": "[GATHERING]",
+  "text": "At the end of the game, before [INFLUENCE] is tallied, if there are no cards here, gain {{b}}1{{/b}}[INFLUENCE] for every {{b}}2{{/b}}[LORE] you have in your Supply.",
+  "tags": [
+   "Base Game",
+   "Site of Power",
+   "Gathering"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC1",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(1).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Adventuring Party",
+  "nameicon": "[COINS]",
+  "text": "All your cards gain {{lg}}[PATHFINDER]{{/lg}}.\nYour Active cards are also considered to be in your Hand for the purposes of Journeying.",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Pathfinder"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC2",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(2).webp",
+  "name": "Monument Builders",
+  "nameicon": "[COINS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Gain {{b}}1{{/b}}[INFLUENCE] if you have a card in any Council. If you have a card in each Council, you may discard this card to gain an additional {{b}}2{{/b}}[INFLUENCE]."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "backSide": "KingdomCards_Reverse",
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC3",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(3).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Tin Crowns",
+  "nameicon": "[COINS]",
+  "text": "If you are first on the Order Track, your [FOLLOWER] gain {{b}}+1{{/b}} [VOTES].\nIf you are not first on the Order Track, your [FOLLOWER] gain {{b}}+2{{/b}} [VOTES].",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC4",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(4).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Mysterious Benefactor",
+  "nameicon": "[COINS]",
+  "text": "{{b}}Discard your Bidding card. Place this card in your Supply.{{/b}}\nWhen resolving Attrition, instead of reducing your Hand Size, discard this card.",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC5",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(5).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "White Watchtowers",
+  "nameicon": "[COINS]",
+  "text": "{{b}}+5{{/b}} Strength to your Bidding and Occupying cards. When you are the first to resolve your Bid, gain {{b}}1{{/b}}[INFLUENCE].\n{{b}}You may not steal Kingdom Cards.{{/b}}",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC6",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(6).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Forgotten Palace",
+  "nameicon": "[COINS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Burn one of your Tactics to gain {{b}}1{{/b}}[LORE]. If the Tactic was Unexhausted, gain an additional {{b}}2{{/b}}[LORE]."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC7",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(7).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Beacon",
+  "nameicon": "[COINS]",
+  "text": "{{b}}Discard your Bidding card.{{/b}}\nAcquire the card with lowest, or tied for lowest [LORE_COST] on your Site of Power. Discard this card.",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC8",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(8).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Endless Library",
+  "nameicon": "[COINS]",
+  "text": "Your Faction Cards with exactly {{b}}1{{/b}} printed [LORE] gain {{b}}+1{{/b}}[LORE].",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC9",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(9).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Emboldened Brigands",
+  "nameicon": "[COINS]",
+  "text": "When you attempt to steal a Kingdom Card, add {{b}}+3{{/b}} Strength to your stealing card. Whenever a Kingdom Card is stolen, gain {{b}}1{{/b}}[INFLUENCE]. \nIf an opponent steals this card, they gain the {{b}}1{{/b}}[INFLUENCE] instead.",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(10).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Midnight Court",
+  "nameicon": "[COINS]",
+  "text": "{{b}}Discard your Bidding card. Place this card on a Region.{{/b}}",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Govern with one of your Active cards in this Region."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(11).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Merchants’ Guild",
+  "nameicon": "[COINS]",
+  "text": "{{b}}Discard your Bidding card. Place this card on a Location.{{/b}}\nWhenever any player claims this Location Reward, this card’s owner gains {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(12).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Glittering Caves",
+  "nameicon": "[COINS]",
+  "text": "Whenever you Journey with a card that has [PATHFINDER], gain {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}} additional [LORE].",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Pathfinder"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(13).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Remote Bothies",
+  "nameicon": "[COINS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "If you have no [LORE] in your Supply, gain {{b}}1{{/b}}[INFLUENCE]. Otherwise, gain {{b}}1{{/b}}[LORE]."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC14",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(14).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Forged Royal Pardons",
+  "nameicon": "[COINS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Move any card from your Discard Pile to your Hand."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC15",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(15).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Splendid Guard",
+  "nameicon": "[COINS]",
+  "text": "You may activate your Kingdom's Favour even if you do not have the [KINGDOMS_FAVOUR]. If you do have the [KINGDOMS_FAVOUR], you may activate it twice. Each activation counts as a separate Action.",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Kingdoms Favour"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC16",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(16).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Abandoned Estate",
+  "nameicon": "[COINS]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Discard one of your cards from a Council to increase your Hand Size by one. Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC17",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(17).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Old King’s Signet",
+  "nameicon": "[COINS]",
+  "text": "When you acquire this card, increase your Hand Size by one. When you no longer Occupy this card, decrease your Hand Size by one.\nWhenever you win a Clash in a Region where you have an Active [HEIR], gain {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Base Game",
+   "Heir"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC18",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(18).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Airship Docks",
+  "nameicon": "[BOOKS]",
+  "text": "Whenever any of your cards are removed from a Council, you may move them to your Hand. Whenever you Journey with any of your cards, you may move them to the bottom of your Deck.",
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC19",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(19).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Rumours in the Dark",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Choose any number of players. They move all cards in their Hand to the bottom of their Deck, in any order. They then draw cards equal to the number they moved."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC20",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(20).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Clockwork Messengers",
+  "nameicon": "[BOOKS]",
+  "seasonrules": [
+   {
+    "season": "spring",
+    "rules": "Swap a card in your Hand with one of your cards that is either: In a Council {{b}}or{{/b}} Occupying a Kingdom Card."
+   },
+   {
+    "season": "autumn",
+    "rules": "Repeat the [SPRING] Action on this card."
+   }
+  ],
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Spring",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC21",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(21).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Book of True Names",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Reveal your Hand. Return all opponents’ cards in the current Clash that have the same printed Strength and/or Archetype as cards you revealed to their owners’ Hands. Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC22",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(22).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Old King’s Lantern",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Move any number of your Supporters in the current Region to either: Another unresolved Region {{b}}or{{/b}} Your Supply."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC23",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(23).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Innkeeper",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Choose a Region. Look at all face-down cards in that Region. You may choose two of your face-down cards next to any Regions and swap their positions."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC24",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(24).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Courtier’s Diary",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move one of your Active cards into a Council. Discard any number of cards in that Council. Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC25",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(25).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Boatman",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Swap a card in your Hand with one of your cards in the Lost Pile."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC26",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(26).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Old Enchantress",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Burn this card. Then acquire up to two cards from the Great Road and Occupy them with cards from your Hand."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC27",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(27).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Propaganda Advisor",
+  "nameicon": "[BOOKS]",
+  "text": "When adjusting the Order Track at the Start of the Year, you choose the position of each marker on the track.",
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC28",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(28).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Prototype Simulacrum",
+  "nameicon": "[BOOKS]",
+  "text": "Once per Round, you may activate an opponent's Kingdom's Favour during its associated Step. If the chosen opponent currently has the [KINGDOMS_FAVOUR], do not rotate it.",
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Kingdoms Favour"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC29",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(29).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Shapeshifter’s Mirror",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Choose one of your Active cards in the current Clash. It becomes a copy of any card in the Lost Pile, for the rest of the Round, except its Strength which remains unchanged."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC30",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(30).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Siren’s Pool",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Choose a Location. Move any number of Heralds to that Location. Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC31",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(31).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Blue Hour Bell",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move all your cards from the Lost Pile to either the top or bottom of your Deck, in any order. Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC32",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(32).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Unearthed Iron Gear",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move one of your Active cards to your Hand."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC33",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(33).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Old King’s Helm",
+  "nameicon": "[BOOKS]",
+  "text": "Whenever one of your cards is Eliminated, you may move it to your Hand.",
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC34",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(34).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Old King’s Eye",
+  "nameicon": "[BOOKS]",
+  "text": "{{b}}Discard your Bidding card. Place this card in your Supply.{{/b}}\nWhen acquiring a card from the Great Road, you may look at the top two face-down cards of the Kingdom Deck and treat them as if they were face-up.",
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC35",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(35).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Assassins’ Guild",
+  "nameicon": "[SWORDS]",
+  "text": "Your [HEIR] gain: [NIGHT] {{b}}Deadly{{/b}}, [DAY] {{b}}Retreat{{/b}}. When your [HEIR] Eliminates one or more cards, gain {{b}}1{{/b}}[INFLUENCE].",
+  "seasonrules": {
+   "season": "night",
+   "rules": "If there are any Active opponent [FOLLOWER] in a Clash with your [HEIR], Eliminate your [HEIR]."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Heir",
+   "Retreat",
+   "Deadly",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC36",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(36).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Countryside Reservists",
+  "nameicon": "[SWORDS]",
+  "text": "Your [FOLLOWER]/[CAVALRY] gain [AUTUMN] {{b}}Deploy (1){{/b}}.",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move a [FOLLOWER] from your Discard Pile to your Hand."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Deploy",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC37",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(37).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Engineers’ Workshop",
+  "nameicon": "[SWORDS]",
+  "text": "Your cards with [AUTUMN] {{b}}Deploy (1){{/b}} gain [SPRING] {{b}}Deploy (1){{/b}}.",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Place {{b}}1{{/b}}[INFLUENCE] on one of your Active cards with {{b}}Deploy{{/b}}."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Deploy",
+   "Autumn",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC38",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(38).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Grand Tourney",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "All players choose and place a card from their Hand, face-down. Reveal the cards."
+  },
+  "text": "1&#8288;) All cards with the {{b}}same Strength{{/b}} are discarded.\n2&#8288;) The remaining card with the {{b}}highest Strength{{/b}} wins.\n3&#8288;) Return any cards that weren't discarded to their owners’ Hands.\nThe winner claims any Location Reward. Discard this card.",
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC39",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(39).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Great Wing",
+  "nameicon": "[SWORDS]",
+  "text": "Your [HEIR] gain [DAY] {{b}}Flank{{/b}}.",
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Heir",
+   "Flank",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC40",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(40).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Hidden Lanes",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Swap one of your Active cards in the current Clash with one of your cards that is either: In a Council {{b}}or{{/b}} Occupying a Kingdom Card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC41",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(41).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Siege Commander",
+  "nameicon": "[SWORDS]",
+  "text": "Your [HEIR] gain [AUTUMN] {{b}}Deploy (1){{/b}}. If your [HEIR] is Eliminated, move it to your Hand and discard this card.",
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Autumn",
+   "Heir",
+   "Deploy"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC42",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(42).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Mustering Banner",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move up to two of your Supporters from the Map and/or the Lost Pile to your Player Board."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC43",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(43).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Ruined Citadel",
+  "nameicon": "[SWORDS]",
+  "text": "{{b}}Discard your Bidding card. Place this card on a Region.{{/b}}\nAll opponent’s total Strength in this Region is halved (rounded up).",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Winter"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC44",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(44).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Smuggler’s Pass",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Choose one of your Active cards in the current Clash. It gains [DAY] {{b}}Retreat{{/b}} until the end of the Clash. When that card {{b}}Retreats{{/b}}, you may Journey with it."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Retreat",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC45",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(45).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Swansong Horn",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Choose one of your Active cards in the current Clash. It gains [DAY] {{b}}Ambush{{/b}} until the end of the Clash."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Ambush",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC46",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(46).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Sword That Slept",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Gain {{b}}+5{{/b}} Strength in the current Clash. Discard this card and its Occupying card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC47",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(47).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Cracked Sundial",
+  "nameicon": "[SWORDS]",
+  "seasonrules": [
+   {
+    "season": "spring",
+    "rules": "Place this card on a Region and discard your Occupying card. Skip the [DAY] and [NIGHT] Steps of all Clashes in this card’s Region."
+   },
+   {
+    "season": "winter",
+    "rules": "Discard this card."
+   }
+  ],
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Day",
+   "Night",
+   "Winter",
+   "Spring"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC48",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(48).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Curious Ring",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Unexhaust one of your Tactics. Follow any {{b}}SETUP{{/b}} instructions on it. Discard this card and its Occupying card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Autumn"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC49",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(49).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Poisoner’s Ball",
+  "nameicon": "[SWORDS]",
+  "text": "{{b}}Discard your Bidding card. Place this card on a Region.{{/b}}\nTreat any printed information on opponents’ cards in this Region as blank, except for their Strength and Archetype.",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Winter"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC50",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(50).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Old King’s Spear",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Choose one of your Active cards in the current Clash. It gains [NIGHT] {{b}}Deadly{{/b}} until the end of the Clash. Discard this card and its Occupying card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Summer",
+   "Deadly"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "KC51",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_BaseGame_(51).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Old King’s Shield",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Choose one of your Active cards in the current Clash. It gains [INVULNERABLE] until the end of the Clash. Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Base Game",
+   "Invulnerable",
+   "Summer"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-base-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(1).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "If you win, gain {{b}}1{{/b}}[INFLUENCE] & {{b}}1{{/b}}[LORE].",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(2).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{b}}+5{{/b}} Strength",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(3).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Swap this card with one of your cards in the Lost Pile."
+  },
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(4).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "During this Clash, opponents cannot activate or trigger Commands.",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-05",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(5).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Discard all cards in the Clash with {{b}}3{{/b}} Strength or less"
+  },
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-06",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(6).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Journey / Govern with this card."
+  },
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-07",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(7).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{b}}+10{{/b}} Strength. \nAfter Clash: Burn this card",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-08",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(8).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "{{b}}Flank{{/b}}"
+  },
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-09",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(9).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "If you win, you may visit the Whispering Tower.",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(10).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "If you win, activate Councils of Secrets and Oaths.",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(11).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "night",
+   "rules": "{{b}}Deadly{{/b}}"
+  },
+  "text": "After Clash: Burn this card",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(12).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "{{b}}Ambush{{/b}}"
+  },
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(13).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "[INVULNERABLE]",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-14",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(14).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "If you win, gain {{b}}2{{/b}}[INFLUENCE] & {{b}}2{{/b}}[LORE], then Burn this card.",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-15",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(15).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "{{b}}Rally (any two){{/b}}"
+  },
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-16",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(16).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "If you win, claim a Location Reward in the Region.",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-17",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(17).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "If you win, {{b}}+1{{/b}} Hand Size.",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-18",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(18).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Place {{b}}1{{/b}}[INFLUENCE] on this card."
+  },
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-19",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(19).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "When revealed, move all Supporters in the Region to the Lost Pile",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-BOON-20",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_BoonToken_(20).webp",
+  "backSide": "Other_BoonReverse",
+  "name": "Boon Token",
+  "nameicon": "[][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Swap this card with a card in your Hand"
+  },
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Boon"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "WHISPERING-TOWER-TILE",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_WhisperingTowerTile.webp",
+  "name": "Whispering Tower Tile",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{b}}THE PINNACLE{{/b}}\nPay {{b}}1{{/b}}[INFLUENCE] to the Reserve. Move all three Boons here to your Supply. You {{b}}must{{/b}} discard two Boons from your Supply.\n\n{{b}}THE LABYRINTH{{/b}}\nLook at both Boons here. Move one Boon to your Supply and give one to an opponent.\n\n{{b}}THE ENTRANCE{{/b}}\nMove the Boon here to your Supply.",
+  "tags": [
+   "Wild Kingdom",
+   "Whispering Tower",
+   "Tile"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "COUNCIL-OF-OATHS",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_CouncilOfOaths.webp",
+  "name": "Council of Oaths",
+  "nameicon": "[SWORDS]",
+  "seasonrules": {
+   "season": "autumn,2",
+   "rules": "For each [VOTES] you have here, move one Supporter from the Map and / or Lost Pile to your Player Board.\n\nIf you have the most [VOTES] here, you may move an additional Supporter."
+  },
+  "tags": [
+   "Base Game",
+   "Martial Suit",
+   "Council"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "COUNCIL-OF-RELICS",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_CouncilOfRelics.webp",
+  "name": "Council of Relics",
+  "nameicon": "[COINS]",
+  "text": "When resolving your Herald Reward, for each of your [VOTES] you discard from here, gain {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Base Game",
+   "Trade Suit",
+   "Council"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "COUNCIL-OF-SECRETS",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_CouncilOfSecrets.webp",
+  "name": "Council of Secrets",
+  "nameicon": "[BOOKS]",
+  "seasonrules": {
+   "season": "autumn,2",
+   "rules": "Place Faction Markers on one or more Locations equal to the number of [VOTES] you have here.\n\nThen, if a Location has {{b}}4 or more{{/b}} of your markers, remove them & claim the Location Reward, ignoring all [INFLUENCE] on the reward."
+  },
+  "tags": [
+   "Base Game",
+   "Intrigue Suit",
+   "Council"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-BASE-BATTLEFIELD",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_MapBattlefield.webp",
+  "name": "Battlefield",
+  "text": "{{center}}{{b}}Gain 2{{/b}}[INFLUENCE]{{/center}}",
+  "tags": [
+   "Base Game",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-BASE-CASTLE",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_MapCastle.webp",
+  "name": "Castle",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nGovern with one card, that is Active or in your Hand. If you do, discard all other cards at the chosen Council.{{/center}}",
+  "tags": [
+   "Base Game",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-BASE-HARVESTFIELD",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_MapHarvestField.webp",
+  "name": "Harvest Field",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nGain the Kingdom's Favour [KINGDOMS_FAVOUR]{{/center}}",
+  "tags": [
+   "Base Game",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-BASE-NECROPOLIS",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_MapNecropolis.webp",
+  "name": "Necropolis",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nShuffle your Discard Pile and draw up to three cards. You may discard any number of cards from your Hand.{{/center}}",
+  "tags": [
+   "Base Game",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-BASE-SHRINE",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_MapShrine.webp",
+  "name": "Shrine",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nMove up to three cards that are Active and/or in your Hand, to the bottom of your Deck, in any order.{{/center}}",
+  "tags": [
+   "Base Game",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-BASE-WILDERNESS",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_MapWilderness.webp",
+  "name": "Wilderness",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nJourney with one card, that is Active or in your Hand.{{/center}}",
+  "tags": [
+   "Base Game",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-NIGHT-BATTLEFIELD",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_NightMapBattlefield.webp",
+  "name": "Battlefield",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{center}}{{b}}Gain 2{{/b}}[INFLUENCE]{{/center}}",
+  "tags": [
+   "Wild Kingdom",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-NIGHT-CASTLE",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_NightMapCastle.webp",
+  "name": "Castle",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nGovern with one card, that is Active or in your Hand. If you do, discard all other cards at the chosen Council.{{/center}}",
+  "tags": [
+   "Wild Kingdom",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-NIGHT-HARVESTFIELD",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_NightMapHarvestField.webp",
+  "name": "Harvest Field",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nGain the Kingdom's Favour [KINGDOMS_FAVOUR]{{/center}}",
+  "tags": [
+   "Wild Kingdom",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-NIGHT-NECROPOLIS",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_NightMapNecropolis.webp",
+  "name": "Necropolis",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nShuffle your Discard Pile and draw up to three cards. You may discard any number of cards from your Hand.{{/center}}",
+  "tags": [
+   "Wild Kingdom",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-NIGHT-SHRINE",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_NightMapShrine.webp",
+  "name": "Shrine",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nMove up to three cards that are Active and/or in your Hand, to the bottom of your Deck, in any order.{{/center}}",
+  "tags": [
+   "Wild Kingdom",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "MAP-NIGHT-WILDERNESS",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Other_NightMapWilderness.webp",
+  "name": "Wilderness",
+  "nameicon": "[][WILD_KINGDOM]",
+  "text": "{{center}}{{b}}Gain 1{{/b}}[INFLUENCE]\n&\nJourney with one card, that is Active or in your Hand.{{/center}}",
+  "tags": [
+   "Wild Kingdom",
+   "Map"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-other",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards.webp",
+  "backSide": "TOKC_SimFactionCardsBronze",
+  "name": "Carvings",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 3\nArchetype: [FOLLOWER] Follower\nTraits: [INVULNERABLE] Invulnerable\nTier: [BRONZE] Bronze",
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Bronze",
+   "Follower",
+   "Invulnerable"
+  ],
+  "meta": {
+   "archetype": "[FOLLOWER] Follower",
+   "strength": 3
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards7.webp",
+  "backSide": "TOKC_SimFactionCardsBronze",
+  "name": "Armatures",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 5\nArchetype: [WAR_MACHINE] War Machine\nTraits: [INVULNERABLE] Invulnerable\nTier: [BRONZE] Bronze",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "If this card is the only Active [SIMULACRUM] card in the Region, move it to the Region matching the [SIMULACRUM] current Ambition and place {{b}}1{{/b}}[INFLUENCE] on it."
+  },
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Bronze",
+   "War Machine",
+   "Invulnerable",
+   "Autumn"
+  ],
+  "meta": {
+   "archetype": "[WAR_MACHINE] War Machine",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards9.webp",
+  "backSide": "TOKC_SimFactionCardsBronze",
+  "name": "Ruse!",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 1\nArchetype: [RUSE] Ruse\nTraits: [INVULNERABLE] Invulnerable\nTier: [BRONZE] Bronze",
+  "seasonrules": {
+   "season": "day,1.8",
+   "rules": "If this card is Active in the current Clash, the [SIMULACRUM] draws the top two cards of its Deck, face-down. It then plays the highest Tier card face-down next to the Region. The other card is discarded. If they are tied in Tier, it will choose the first card drawn."
+  },
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Bronze",
+   "Ruse",
+   "Summer",
+   "Invulnerable"
+  ],
+  "meta": {
+   "archetype": "[RUSE] Ruse",
+   "strength": 1
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards11.webp",
+  "backSide": "TOKC_SimFactionCardsSilver",
+  "name": "Sculptures",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 8\nArchetype: [CAPTAIN] Captain\nTier: [SILVER] Silver",
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Silver",
+   "Captain"
+  ],
+  "meta": {
+   "archetype": "[CAPTAIN] Captain",
+   "strength": 8
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-05",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards7.webp",
+  "backSide": "TOKC_SimFactionCardsSilver",
+  "name": "Armatures",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 5\nArchetype: [WAR_MACHINE] War Machine\nTraits: [INVULNERABLE] Invulnerable\nTier: [SILVER] Silver",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "If this card is the only Active [SIMULACRUM] card in the Region, move it to the Region matching the [SIMULACRUM] current Ambition and place {{b}}1{{/b}}[INFLUENCE] on it."
+  },
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Silver",
+   "War Machine",
+   "Invulnerable",
+   "Autumn"
+  ],
+  "meta": {
+   "archetype": "[WAR_MACHINE] War Machine",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-06",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards17.webp",
+  "backSide": "TOKC_SimFactionCardsSilver",
+  "name": "Poppet",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nCommands: [NIGHT] Deadly\nTier: [SILVER] Silver",
+  "seasonrules": {
+   "season": "night",
+   "rules": "If there are any Active opponent [FOLLOWER] in the Clash, Eliminate this card."
+  },
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Silver",
+   "Agent",
+   "Deadly"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-07",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards19.webp",
+  "backSide": "TOKC_SimFactionCardsGold",
+  "name": "Muse",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 10\nArchetype: [HEIR] Heir\nTraits: [RESILIENT] Resilient\nTier: [GOLD] Gold",
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Gold",
+   "Heir",
+   "Resilient"
+  ],
+  "meta": {
+   "archetype": "[HEIR] Heir",
+   "strength": 10
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-08",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards21.webp",
+  "backSide": "TOKC_SimFactionCardsGold",
+  "name": "Ruse!",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 3\nArchetype: [RUSE] Ruse\nTraits: [INVULNERABLE] Invulnerable\nTier: [GOLD] Gold",
+  "seasonrules": {
+   "season": "day,1.8",
+   "rules": "If this card is Active in the current Clash, the [SIMULACRUM] draws the top two cards of its Deck, face-down. It then plays the highest Tier card face-down next to the Region. The other card is discarded. If they are tied in Tier, it will choose the first card drawn."
+  },
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Gold",
+   "Ruse",
+   "Invulnerable",
+   "Summer"
+  ],
+  "meta": {
+   "archetype": "[RUSE] Ruse",
+   "strength": 3
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-09",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards17.webp",
+  "backSide": "TOKC_SimFactionCardsGold",
+  "name": "Poppet",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nCommands: [NIGHT] Deadly\nTier: [GOLD] Gold",
+  "seasonrules": {
+   "season": "night",
+   "rules": "If there are any Active opponent [FOLLOWER] in the Clash, Eliminate this card."
+  },
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Silver",
+   "Agent",
+   "Deadly"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards25.webp",
+  "backSide": "TOKC_SimFactionCardsGold",
+  "name": "Idol",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 11\nArchetype: [HEIR] Heir\nTraits: [INVULNERABLE] Invulnerable\nLore Cost: [LORE_COST] [SIMULACRUM]\nTier: [GOLD] Gold",
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Gold",
+   "Heir",
+   "Invulnerable"
+  ],
+  "meta": {
+   "archetype": "[HEIR] Heir",
+   "strength": 11,
+   "lorecost": 1
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards29.webp",
+  "backSide": "TOKC_SimFactionCardsGold",
+  "name": "Statue",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 13\nArchetype: [CHAMPION] Champion\nTraits: [RESILIENT] Resilient\nLore Cost: [LORE_COST] [SIMULACRUM]\nTier: [GOLD] Gold",
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Gold",
+   "Champion",
+   "Resilient",
+   "Champion"
+  ],
+  "meta": {
+   "archetype": "[CHAMPION] Champion",
+   "strength": 13,
+   "lorecost": 1
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards33.webp",
+  "backSide": "TOKC_SimFactionCardsGold",
+  "name": "Puppet",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 6\nArchetype: [AGENT] Agent\nTraits: [RESILIENT] Resilient\nCommands: [NIGHT] Deadly\nLore Cost: [LORE_COST] [SIMULACRUM]\nTier: [GOLD] Gold",
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Gold",
+   "Deadly",
+   "Resilient",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 6,
+   "lorecost": 1
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FC-13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimFactionCards39.webp",
+  "backSide": "TOKC_SimFactionCardsGold",
+  "name": "Monolith",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Strength: 6\nArchetype: [RUSE] Ruse\nTraits: [INVULNERABLE] Invulnerable\nLore Cost: [LORE_COST] [SIMULACRUM]\nTier: [GOLD] Gold\n\nIf this card is Active in the current Clash, before the [SIMULACRUM] performs any other [DAY] Actions, reveal a Threat. Then, if this Region has no Fog, place a Fog in it.",
+  "tags": [
+   "Simulacrum",
+   "Sim Faction Card",
+   "Gold",
+   "Ruse",
+   "Summer",
+   "Invulnerable"
+  ],
+  "meta": {
+   "archetype": "[RUSE] Ruse",
+   "strength": 6,
+   "lorecost": 1
+  },
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-SITE-OF-POWER",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_SimSiteOfPower.webp",
+  "name": "Where The Fog Dwells",
+  "nameicon": "[SIMULACRUM]",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "If there are no more cards here, the [SIMULACRUM] removes {{b}}2{{/b}}[LORE] from its Supply and gains {{b}}1{{/b}}[INFLUENCE]. It will repeat the process if able."
+  },
+  "tags": [
+   "Site of Power",
+   "Simulacrum"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-01A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS.webp",
+  "flipSide": "SIM-FORGE-01B",
+  "name": "Vanguard",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW][BLUEARROW]\n\n{{b}}SETUP{{/b}} - The [SIMULACRUM] begins with one Supporter Token on its [SIMULACRUM] Board.\n\nDuring cleanup in Winter, the [SIMULACRUM] returns one Supporter to its [SIMULACRUM] Board (instead of the normal three).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-01B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS2.webp",
+  "flipSide": "SIM-FORGE-01A",
+  "name": "Relentless",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\n{{b}}SETUP{{/b}} - The [SIMULACRUM] begins with five Supporter Tokens on its [SIMULACRUM] Board.\n\nDuring cleanup in Winter, the [SIMULACRUM] returns up to five Supporter Tokens to its [SIMULACRUM] Board (instead of the normal three).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-02A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS3.webp",
+  "flipSide": "SIM-FORGE-02B",
+  "name": "Clear Skies",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW][BLUEARROW]\n\nWhen the [SIMULACRUM] places Fog as part of its Principal Threat, it places one less Fog to a minimum of one.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-02B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS4.webp",
+  "flipSide": "SIM-FORGE-02A",
+  "name": "Grey Days",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW][REDARROW]\n\nWhen the [SIMULACRUM] places Fog as part of its Principal Threat, it places one more Fog to a maximum of three.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-03A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS5.webp",
+  "flipSide": "SIM-FORGE-03B",
+  "name": "Prosperity",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW]\n\nThe [PLAYER] starts the game with a Hand Size of {{b}}7{{/b}}.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-03B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS6.webp",
+  "flipSide": "SIM-FORGE-03A",
+  "name": "Famine",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW]\n\nThe [PLAYER] starts the game with a Hand Size of {{b}}5{{/b}}.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-04A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS7.webp",
+  "flipSide": "SIM-FORGE-04B",
+  "name": "Unified",
+  "nameicon": "[SIMULACRUM]",
+  "text": "{{b}}SETUP{{/b}} - The [PLAYER] places {{b}}1{{/b}}[INFLUENCE] in their Supply. This may be done multiple times. {{b}}X{{/b}} equals the number of times this is done.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-04B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS8.webp",
+  "flipSide": "SIM-FORGE-04A",
+  "name": "Divided",
+  "nameicon": "[SIMULACRUM]",
+  "text": "{{b}}SETUP{{/b}} - The [SIMULACRUM] places {{b}}2{{/b}}[INFLUENCE] in its Supply. This may be done multiple times. {{b}}X{{/b}} equals the number of times this is done.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-05A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS9.webp",
+  "flipSide": "SIM-FORGE-05B",
+  "name": "The Road is Clear",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nCards on the [PLAYER] Site of Power cost {{b}}1{{/b}}[LORE] less, to a minimum of {{b}}1{{/b}}.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-05B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS10.webp",
+  "flipSide": "SIM-FORGE-05A",
+  "name": "The Road is Watched",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW]\n\nCards on the [PLAYER] Site of Power cost {{b}}1{{/b}}[LORE] more.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-06A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS11.webp",
+  "flipSide": "SIM-FORGE-06B",
+  "name": "Late Reinforcements",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW]\n\nThe [SIMULACRUM] requires {{b}}4{{/b}}[LORE] to gain a card from its Site of Power (instead of the normal {{b}}3{{/b}}[LORE]).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-06B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS12.webp",
+  "flipSide": "SIM-FORGE-06A",
+  "name": "Early Reinforcements",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nThe [SIMULACRUM] requires {{b}}2{{/b}}[LORE] to gain a card from its Site of Power (instead of the normal {{b}}3{{/b}}[LORE]).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-07A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS13.webp",
+  "flipSide": "SIM-FORGE-07B",
+  "name": "The Kingdom Endures",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW][BLUEARROW]\n\nThe [SIMULACRUM] does not get the bonus for its Occupied Kingdom Cards.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-07B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS14.webp",
+  "flipSide": "SIM-FORGE-07A",
+  "name": "The Kingdom Falters",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW][REDARROW]\n\nThe [SIMULACRUM] triggers its bonuses for its Occupied Kingdom Cards twice.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-08A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS15.webp",
+  "flipSide": "SIM-FORGE-08B",
+  "name": "The People Resist",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW]\n\nIf the [SIMULACRUM] would gain the Kingdom’s Favour, it does not move the [KINGDOMS_FAVOUR] to its [SIMULACRUM] board and instead gains {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-08B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS16.webp",
+  "flipSide": "SIM-FORGE-08A",
+  "name": "Turncoats",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW][REDARROW]\n\nDuring {{b}}Setup{{/b}} and subsequent {{b}}Start of the Year{{/b}} Steps, the [SIMULACRUM] draws two Threat Cards (instead of the normal one).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-09A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS17.webp",
+  "flipSide": "SIM-FORGE-09A",
+  "name": "Erratic",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nThe [SIMULACRUM] is always first on the Order Track.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-09B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS18.webp",
+  "flipSide": "SIM-FORGE-09A",
+  "name": "Ruthless",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW]\n\nThe [SIMULACRUM] is always last on the Order Track.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-10A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS19.webp",
+  "flipSide": "SIM-FORGE-10B",
+  "name": "Exiled",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\n{{b}}SETUP{{/b}} - At the end of the [SIMULACRUM] Setup, move the top card on the [SIMULACRUM] Deck to the top of the [SIMULACRUM] Site of Power.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-10B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS20.webp",
+  "flipSide": "SIM-FORGE-10A",
+  "name": "Bolstered",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW]\n\n{{b}}SETUP{{/b}} - At the end of the [SIMULACRUM] Setup, move the top card on the [SIMULACRUM] Site of Power to the top of the [SIMULACRUM] Deck.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-11A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS21.webp",
+  "flipSide": "SIM-FORGE-11B",
+  "name": "Eat the strong",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW]\n\nWhen the [SIMULACRUM] Deck is empty and it reshuffles its Discard Pile to create a new Deck, remove one random [GOLD] card from it and place it in the Lost Pile.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-11B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS22.webp",
+  "flipSide": "SIM-FORGE-11A",
+  "name": "Eat the Weak",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW]\n\nWhen the [SIMULACRUM] Deck is empty and it reshuffles its Discard Pile to create a new Deck, remove one random [BRONZE] card from it and place it in the Lost Pile. If there are none, remove a [SILVER] card instead.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-12A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS23.webp",
+  "flipSide": "SIM-FORGE-12B",
+  "name": "Sentry Towers",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\n{{b}}SETUP{{/b}} - Place {{b}}1{{/b}}[LORE] on three different random Locations. When the [SIMULACRUM] would claim a Location Reward from a Location with [LORE] on it, instead remove the [LORE] to the Reserve.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-12B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS24.webp",
+  "flipSide": "SIM-FORGE-12A",
+  "name": "Strange Towers",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW]\n\n{{b}}SETUP{{/b}} - Place {{b}}1{{/b}}[LORE] on three different random Locations. When the [PLAYER] would claim a Location Reward from a Location with [LORE] on it, instead remove the [LORE] to the Reserve.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-13A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS25.webp",
+  "flipSide": "SIM-FORGE-13B",
+  "name": "Intentions Gleaned",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW]\n\nReveal the Ambition Card for the Round before placing Bids.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-13B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS26.webp",
+  "flipSide": "SIM-FORGE-13A",
+  "name": "Intentions Masked",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW]\n\nWhen drawing an Ambition Card, draw it from the bottom of the [SIMULACRUM] Ambition Deck. When an Ambition Card is discarded, place it on top of the Ambition Deck.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-14A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS27.webp",
+  "flipSide": "SIM-FORGE-14B",
+  "name": "It Moves in the Open",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nWhen revealing the Ambition Card for the Round, also reveal the [SIMULACRUM] Scheme Card for the Round.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-14B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS28.webp",
+  "flipSide": "SIM-FORGE-14A",
+  "name": "It Moves Unseen",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nWhen drawing a Scheme Card, draw it from the bottom of the [SIMULACRUM] Scheme Deck.\n\nWhen a Scheme Card is discarded, place it on top of the Scheme Deck.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-15A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS29.webp",
+  "flipSide": "SIM-FORGE-15B",
+  "name": "High Morale",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW]\n\nIf a Clash would result in a tie, resolve the Clash as a win for the [PLAYER]. If the game ends in a tie, before going to tiebreakers, the [PLAYER] wins the game.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-15B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS30.webp",
+  "flipSide": "SIM-FORGE-15A",
+  "name": "Low Morale",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW]\n\nIf a Clash would result in a tie, resolve the Clash as a win for the [SIMULACRUM]. If the game ends in a tie, before going to tiebreakers, the [SIMULACRUM] wins the game.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-16A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS31.webp",
+  "flipSide": "SIM-FORGE-16B",
+  "name": "Hidden Caches",
+  "nameicon": "[SIMULACRUM]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "The [PLAYER] may refresh one Exhausted Tactic and place {{b}}2{{/b}}[INFLUENCE] from the Reserve here."
+  },
+  "text": "At the end of the game, add [BLUEARROW] equal to the amount of [INFLUENCE] on this card.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-16B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS32.webp",
+  "flipSide": "SIM-FORGE-16A",
+  "name": "Sabotage!",
+  "nameicon": "[SIMULACRUM]",
+  "text": "{{b}}SETUP{{/b}} - Shuffle your Tactic Tiles face-down and draw any number of them. These drawn Tactics begin the game Exhausted. For each Tactic Exhausted this way, add 2 [REDARROW].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-17A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS33.webp",
+  "flipSide": "SIM-FORGE-17B",
+  "name": "Veterans",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nEach [PLAYER] Supporter adds {{b}}+2{{/b}} Strength to a Clash (instead of the normal {{b}}+1{{/b}}).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-17B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS34.webp",
+  "flipSide": "SIM-FORGE-17A",
+  "name": "Augmented",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW]\n\nEach [SIMULACRUM] Supporter adds {{b}}+2{{/b}} Strength to a Clash (instead of the normal {{b}}+1{{/b}}).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-18A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS35.webp",
+  "flipSide": "SIM-FORGE-18B",
+  "name": "Luck is on Our Side",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW]\n\nThe [PLAYER] [HEIR] gain [INVULNERABLE].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-18B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS36.webp",
+  "flipSide": "SIM-FORGE-18A",
+  "name": "Luck is on its Side",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nThe [SIMULACRUM] [HEIR] gain [INVULNERABLE] and [AUTUMN] {{b}}Rally (self){{/b}}.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-19A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS37.webp",
+  "flipSide": "SIM-FORGE-19B",
+  "name": "Simulacrum’s Bane",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nThe [PLAYER] [HEIR] gain {{xl}}[NIGHT]{{/xl}} {{b}}Deadly{{/b}}.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-19B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS38.webp",
+  "flipSide": "SIM-FORGE-19A",
+  "name": "Simulacrum’s Blade",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nThe [SIMULACRUM] [HEIR] gain {{xl}}[NIGHT]{{/xl}} {{b}}Deadly{{/b}} and [AUTUMN] {{b}}Rally (self){{/b}}.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-20A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS39.webp",
+  "flipSide": "SIM-FORGE-20B",
+  "name": "Has No Voice",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nThe [SIMULACRUM] does not Govern in Autumn.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-20B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS40.webp",
+  "flipSide": "SIM-FORGE-20A",
+  "name": "Speaks with Many Voices",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nThe [SIMULACRUM] Governs twice in Autumn (instead of the normal once).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-21A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS41.webp",
+  "flipSide": "SIM-FORGE-21B",
+  "name": "Fair Winds",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW]\n\nWhen the [SIMULACRUM] is placing its Herald, you may place it in a Location of your choice instead.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-21B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS42.webp",
+  "flipSide": "SIM-FORGE-21A",
+  "name": "The Deep Fog",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW]\n\nWhen the [SIMULACRUM] reveals its Scheme Card, move its Herald to the highest priority Region on its Scheme Card. Use the directional arrow on its current Ambition Card to determine which Location to place its Herald in, as normal.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-22A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS43.webp",
+  "flipSide": "SIM-FORGE-22B",
+  "name": "They Fade Like Mist",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW]\n\nAll [SIMULACRUM] cards lose [RESILIENT].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-22B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS44.webp",
+  "flipSide": "SIM-FORGE-22A",
+  "name": "They Move Like Mist",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW][REDARROW]\n\n[SIMULACRUM] cards with {{xl}}[NIGHT]{{/xl}} {{b}}Deadly{{/b}} gain [INVULNERABLE].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-23A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS45.webp",
+  "flipSide": "SIM-FORGE-23B",
+  "name": "Feeble Presence",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nThe [SIMULACRUM] does not gain any Herald Rewards.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-23B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS46.webp",
+  "flipSide": "SIM-FORGE-23A",
+  "name": "Intimidating Presence",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nThe [SIMULACRUM] gains double the amount of [INFLUENCE] from all Herald Rewards (including stealing [INFLUENCE] from [PLAYER] Heralds and the Council of Relics bonus [INFLUENCE]).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-24A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS47.webp",
+  "flipSide": "SIM-FORGE-24B",
+  "name": "Waning Resources",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW]\n\nIf the [SIMULACRUM] Site of Power is empty, the [SIMULACRUM] triggers its {{xl}}[WINTER]{{/xl}} Effect when it has {{b}}3{{/b}}[LORE] in its Supply (instead of the normal {{b}}2{{/b}}[LORE]).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-24B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS48.webp",
+  "flipSide": "SIM-FORGE-24A",
+  "name": "Overflowing Resources",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nIf the [SIMULACRUM] Site of Power is empty, the [SIMULACRUM] triggers its {{xl}}[WINTER]{{/xl}} Effect when it has {{b}}1{{/b}}[LORE] in its Supply (instead of the normal {{b}}2{{/b}}[LORE]).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-25A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS49.webp",
+  "flipSide": "SIM-FORGE-25B",
+  "name": "Reclusive",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nThe [SIMULACRUM] will never attempt to steal Kingdom Cards from the [PLAYER].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-25B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS50.webp",
+  "flipSide": "SIM-FORGE-25A",
+  "name": "Invasive",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nWhen it resolves its Bid, the [SIMULACRUM] will always attempt to steal from the [PLAYER].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-26A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS51.webp",
+  "flipSide": "SIM-FORGE-26B",
+  "name": "Always Lost",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW]\n\nThe [SIMULACRUM] does not Journey in Autumn.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-26B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS52.webp",
+  "flipSide": "SIM-FORGE-26A",
+  "name": "Always Searching",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nThe [SIMULACRUM] Journeys twice in Autumn (instead of the normal once).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-27A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS53.webp",
+  "flipSide": "SIM-FORGE-27B",
+  "name": "Hidden Trinkets",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW]\n\nIf the [PLAYER] resolves their Bid first, the [PLAYER] gains {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-27B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS54.webp",
+  "flipSide": "SIM-FORGE-27A",
+  "name": "Plundered Vaults",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW]\n\nIf the [SIMULACRUM] resolves its Bid first, the [SIMULACRUM] gains {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-28A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS55.webp",
+  "flipSide": "SIM-FORGE-28B",
+  "name": "Sympathy & Sacrifice",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW]\n\nWhenever one or more cards are Eliminated, the [PLAYER] chooses one of the following rewards:\n- Gain {{b}}1{{/b}}[INFLUENCE]\n- Gain {{b}}1{{/b}}[LORE]\n- Move one Supporter from the Map or the Lost Pile to your Player Board",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-28B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS56.webp",
+  "flipSide": "SIM-FORGE-28A",
+  "name": "Bloodthirsty",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\nWhenever one or more cards are Eliminated, the [SIMULACRUM] gains a reward based on its current Ambition Suit:\n- [COINS] - [SIMULACRUM] gains {{b}}1{{/b}}[INFLUENCE]\n- [BOOKS] - [SIMULACRUM] gains {{b}}1{{/b}}[LORE]\n- [SWORDS] - [SIMULACRUM] gains {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}}[LORE]",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-29A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS57.webp",
+  "flipSide": "SIM-FORGE-29B",
+  "name": "Unfortified",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW][BLUEARROW][BLUEARROW][BLUEARROW]\n\n{{b}}SETUP{{/b}} - The [SIMULACRUM] begins with only one Advanced Faction Card on its Site of Power (instead of the normal three).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-29B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS58.webp",
+  "flipSide": "SIM-FORGE-29A",
+  "name": "Fortified",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW][REDARROW]\n\n{{b}}SETUP{{/b}} - The [SIMULACRUM] begins with five Advanced Faction Cards on its Site of Power (instead of the normal three).",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-30A",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS59.webp",
+  "flipSide": "SIM-FORGE-30B",
+  "name": "Weary Traveller",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [BLUEARROW]\n\n{{b}}-3{{/b}} to the Strength of the [SIMULACRUM] Bidding Tokens (to a minimum of 1)",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-FORGE-30B",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/TOKC_FORGECARDS60.webp",
+  "flipSide": "SIM-FORGE-30A",
+  "name": "Forced March",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Heat: [REDARROW]\n\n{{b}}+3{{/b}} to the Strength of the [SIMULACRUM] Bidding Tokens.",
+  "tags": [
+   "Simulacrum",
+   "Forge"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-forge-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(1).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Knives Drawn",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nAll Active [SIMULACRUM] cards in Regions with Fog gain {{xl}}[NIGHT]{{/xl}} {{b}}Deadly{{/b}}.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(2).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Cloaked in Mist",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nAll Active [SIMULACRUM] cards in Regions with Fog gain [INVULNERABLE].",
+  "tags": [
+   "Simulacrum",
+   "Threat",
+   "T2"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(3).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Strongholds of Smoke",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n<br>",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Before the [SIMULACRUM] {{b}}Rallies{{/b}} any of its cards, the [SIMULACRUM] places {{b}}1{{/b}}[INFLUENCE] on the highest Strength [SIMULACRUM] card in each Region with Fog. \nIt will not {{b}}Rally{{/b}} any cards with [INFLUENCE] on them this Round."
+  },
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(4).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Siren Songs",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG] [FOG]{{/xl}}\n\nAfter resolving a Clash in a Region with Fog but before any rewards are claimed:\nIf the [SIMULACRUM] lost in this Region, it places {{b}}1{{/b}}[INFLUENCE] on the Council matching its current Ambition.\nIf the [SIMULACRUM] won in this Region, it gains [INFLUENCE] equal to the [INFLUENCE] on the Council that matches its current Ambition.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-05",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(5).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Larger than Life",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG] [FOG]{{/xl}}\n\nThe [SIMULACRUM] gains {{b}}+3{{/b}} Strength in each Region with Fog.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-06",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(6).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Out of the Pall",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG] [FOG]{{/xl}}\n<br>",
+  "seasonrules": {
+   "season": "day",
+   "rules": "If the [SIMULACRUM] only has [BRONZE] and/or [SILVER] Tier cards Active in the current Region, the [SIMULACRUM] draws the top card of its Deck and makes it Active."
+  },
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-07",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(7).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Lost in the Fog",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nThe [PLAYER] may not activate any {{b}}Rally{{/b}} or {{b}}Retreat{{/b}} Commands in Regions with Fog.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-08",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(8).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Plans Set in Motion",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG] [FOG]{{/xl}}\n\nIf the [SIMULACRUM] wins a Clash in Regions with Fog, it gains {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-09",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(9).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Fading Frontlines",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n<br>",
+  "seasonrules": {
+   "season": "day,1.8",
+   "rules": "If there is Fog in the Region, for each Active [PLAYER] card in the Region, the [PLAYER] must discard a card from their Hand. For each card they cannot discard from Hand, they must discard a card from the current Region."
+  },
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(10).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Towering Silhouette",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nThe [SIMULACRUM] gains {{b}}+5{{/b}} Strength in each Region with Fog.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(11).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Whispers at Court",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n<br>",
+  "seasonrules": {
+   "season": "autumn,1.8",
+   "rules": "In each Region with Fog, the [PLAYER] chooses either:\nTo move one Active [PLAYER] card in the Region to the Lost Pile or discard a [PLAYER] card from a Council.\nIf the [PLAYER] cannot do either, the [SIMULACRUM] gains {{b}}2{{/b}}[INFLUENCE]."
+  },
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(12).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Hearts & Minds Falter",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG] [FOG]{{/xl}}\n\nThe [SIMULACRUM] gains twice as much [INFLUENCE] when resolving its Herald Reward in Regions with Fog, including any bonuses from the Council of Relics.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(13).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Sightings of Pyres",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nAfter resolving a Clash in a Region with Fog, but before any rewards are claimed:\nIf the [SIMULACRUM] lost in this Region, the [PLAYER] must Burn a random card on their Site of Power.\nIf the [PLAYER] has no cards left on their Site of Power, they must move all [LORE] in their Supply to the Reserve.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-14",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(14).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Signal Fires",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG]{{/xl}}\n<br>",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Before the [SIMULACRUM] {{b}}Rallies{{/b}} any of its cards, if there are one or more Active [SIMULACRUM] cards in a Region with Fog, the [SIMULACRUM] immediately gains {{b}}3{{/b}}[LORE]."
+  },
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-15",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(15).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Pitch Black Night",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG]{{/xl}}\n<br>",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "If there are one or more Active [PLAYER] cards in Regions with Fog, the [PLAYER] must move one of their cards from each Region with Fog to the Lost Pile."
+  },
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-16",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(16).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Overrun",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\n[PLAYER] cards in Regions with Fog treat their printed [INVULNERABLE] & [RESILIENT] as blank.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-17",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(17).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Their Great Work",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG]{{/xl}}\n\nEach time the [SIMULACRUM] wins a Clash in a Region with Fog, it gains {{b}}3{{/b}}[INFLUENCE] and {{b}}3{{/b}}[LORE].",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-18",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(18).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Time Moves Strangely",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nFor each Region with Fog, if the first Clash is declared as a win for the [PLAYER], treat it as a Tied Clash and begin a new Clash.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-19",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(19).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Fog Walls",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nThe [PLAYER] may not activate any {{b}}Ambush{{/b}} or {{b}}Flank{{/b}} Commands in Regions with Fog.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-20",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(20).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Picked Off",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n<br>",
+  "seasonrules": {
+   "season": "day",
+   "rules": "In Regions with Fog, Active [PLAYER] cards in the current Clash with Strength {{b}}4{{/b}} or less are moved to the Lost Pile."
+  },
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-21",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(21).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Vanishing Landmarks",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG] [FOG]{{/xl}}\n\nIn Regions with Fog, the [PLAYER] may not claim Location Rewards from either the left or right side of the Map, determined by the arrow on the [SIMULACRUM] current Ambition Card.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-22",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(22).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Rolling Harr",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG] [FOG]{{/xl}}\n\nImmediately after revealing this Threat, reveal another Threat.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-23",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(23).webp",
+  "backSide": "Threat_Reverse",
+  "name": "Show of Strength",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nAfter all {{xl}}[NIGHT]{{/xl}} Effects have been resolved, in Regions with Fog, the [SIMULACRUM] steals {{b}}1{{/b}}[INFLUENCE] for each Active card it has in the current Clash whose Strength is higher than the highest-Strength [PLAYER] card in the Clash.",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "SIM-THREAT-24",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Threat_Cards_(24).webp",
+  "backSide": "Threat_Reverse",
+  "name": "We Are Many",
+  "nameicon": "[SIMULACRUM]",
+  "text": "Fog Placed: {{xl}}[FOG] [FOG]{{/xl}}\n\nAll [SIMULACRUM] cards in Regions with Fog gain the [FOLLOWER] Archetype. If the [SIMULACRUM] wins a Clash in a Region with Fog, it gains {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Simulacrum",
+   "Threat"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-sim-threat-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-CLANS-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_SchooloftheStorms.webp",
+  "backSide": "ClansBack",
+  "name": "School of the Storms",
+  "nameicon": "[CLANS]",
+  "seasonrules": {
+   "season": "spring,2.5",
+   "rules": "You place the Clash Markers this Round. \nFor the rest of the Round, when a Region is resolved, before resolving rewards, gain {{b}}1{{/b}}[INFLUENCE] if you have the most Supporters in that Region, and {{b}}1{{/b}}[LORE] if you have the most Active cards in that Region."
+  },
+  "tags": [
+   "Tactics",
+   "Clans",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-CLANS-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_SeaLanes.webp",
+  "backSide": "ClansBack",
+  "name": "Sea Lanes",
+  "nameicon": "[CLANS]",
+  "text": "{{b}}SETUP{{/b}} - Place three Faction Markers here.\n[DIVIDER]",
+  "seasonrules": {
+   "season": "day,2",
+   "rules": "Remove a marker from here. Choose one of your Active [HEIR] / [CAPTAIN] / [WAR_MACHINE] in the current Region. It gains [DAY] {{b}}Flank{{/b}} for the rest of the Round.\nWhen all markers here are removed, Exhaust this Tactic."
+  },
+  "tags": [
+   "Tactics",
+   "Clans",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-CLANS-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_SaltToughness.webp",
+  "backSide": "ClansBack",
+  "name": "Salt Toughness",
+  "nameicon": "[CLANS]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Choose any number of your Faction Cards that are Active and/or in your Discard Pile. Move them to your Hand, up to your Hand Size."
+  },
+  "tags": [
+   "Tactics",
+   "Clans",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-CLANS-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Clans_RiverRunners.webp",
+  "backSide": "ClansBack",
+  "name": "River Runners",
+  "nameicon": "[CLANS]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move an opponent’s Occupied Kingdom Card to your Player Board and Occupy it with a card from your Hand."
+  },
+  "tags": [
+   "Tactics",
+   "Clans",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "KINGDOMS-FAVOUR-CLANS",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/ClansKF.webp",
+  "name": "Prophet of the Waves",
+  "nameicon": "[CLANS],[KINGDOMS_FAVOUR]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Move your Herald to a Location in the current Region. Move up to two Supporters from other Regions to the current Region."
+  },
+  "tags": [
+   "Kingdom's Favour",
+   "Clans",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-UPRISING-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_SchooloftheStreets.webp",
+  "backSide": "UprisingBack",
+  "name": "School of the Streets",
+  "nameicon": "[UPRISING]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Your [HEIR] gain [NIGHT] {{b}}Deadly{{/b}} this Round.\nFor the rest of the Round, when any of your cards Eliminate one or more cards, gain {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}}[LORE]."
+  },
+  "tags": [
+   "Tactics",
+   "Uprising",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-UPRISING-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_FalseOrders.webp",
+  "backSide": "UprisingBack",
+  "name": "False Orders",
+  "nameicon": "[UPRISING]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Choose an opponent. Swap the position of two of their face-down Faction Cards next to Regions.\nYou may repeat this with any number of other opponents."
+  },
+  "tags": [
+   "Tactics",
+   "Uprising",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-UPRISING-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_Safehouses.webp",
+  "backSide": "UprisingBack",
+  "name": "Safehouses",
+  "nameicon": "[UPRISING]",
+  "text": "{{b}}SETUP{{/b}} - Place three Faction Markers here. \n[DIVIDER]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Remove a marker from here. Choose one of your Active cards in the current Clash. It gains [DAY] {{b}}Retreat{{/b}} until the end of the Clash.\nWhen all markers here are removed, Exhaust this Tactic."
+  },
+  "tags": [
+   "Tactics",
+   "Uprising",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-UPRISING-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Uprising_NightRaids.webp",
+  "backSide": "UprisingBack",
+  "name": "Night Raids",
+  "nameicon": "[UPRISING]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Each opponent discards a card from their Hand for each Kingdom Card you Occupy."
+  },
+  "tags": [
+   "Tactics",
+   "Uprising",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "KINGDOMS-FAVOUR-UPRISING",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/UprisingKF.webp",
+  "name": "Spy Network",
+  "nameicon": "[UPRISING],[KINGDOMS_FAVOUR]",
+  "seasonrules": {
+   "season": "spring,2",
+   "rules": "Look at all face-down cards in a Region. You may swap one of your face-down cards in {{b}}any{{/b}} Region, with either:\n- One of your Occupying cards.\n- A Card from your Hand."
+  },
+  "tags": [
+   "Kingdom's Favour",
+   "Uprising",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-NOBILITY-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_SchooloftheStones.webp",
+  "backSide": "NobilityBack",
+  "name": "School of the Stones",
+  "nameicon": "[NOBILITY]",
+  "seasonrules": [
+   {
+    "season": "spring",
+    "rules": "For the rest of the Round, each of your Supporters contributes an additional {{b}}+1{{/b}} Strength."
+   },
+   {
+    "season": "winter",
+    "rules": "This Round, all of your Supporters on the Map remain on their current Regions and are not moved to the Lost Pile."
+   }
+  ],
+  "tags": [
+   "Tactics",
+   "Nobility",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-NOBILITY-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_RoyalSeal.webp",
+  "backSide": "NobilityBack",
+  "name": "Royal Seal",
+  "nameicon": "[NOBILITY]",
+  "text": "When resolving Bids, after all Bidding cards have been revealed, immediately set each opponent’s total Bidding Strength this Round to {{b}}0{{/b}}.",
+  "tags": [
+   "Tactics",
+   "Nobility",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-NOBILITY-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_WitchTrial.webp",
+  "backSide": "NobilityBack",
+  "name": "Witch Trial",
+  "nameicon": "[NOBILITY]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Choose a Council. Discard all opponents’ cards in that Council. \nMove any number of your cards in Councils to the top of your Deck, in any order. For each card moved this way, gain {{b}}1{{/b}}[LORE]."
+  },
+  "tags": [
+   "Tactics",
+   "Nobility",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-NOBILITY-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Nobility_MartialLaw.webp",
+  "backSide": "NobilityBack",
+  "name": "Martial Law",
+  "nameicon": "[NOBILITY]",
+  "text": "{{b}}SETUP{{/b}} - Place two Faction Markers here.\n[DIVIDER]",
+  "seasonrules": {
+   "season": "spring,2",
+   "rules": "Remove a marker from here. Choose a Region where you have an Active [WAR_MACHINE]. Opponents may not swap, add, or move Faction Cards into the chosen Region during the first Clash there this Round. \nWhen all markers here are removed, Exhaust this Tactic."
+  },
+  "tags": [
+   "Tactics",
+   "Nobility",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "KINGDOMS-FAVOUR-NOBILITY",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/NobilityKF.webp",
+  "name": "Regal Guard",
+  "nameicon": "[NOBILITY],[KINGDOMS_FAVOUR]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Choose one:\n- Gain {{b}}1{{/b}}[INFLUENCE].\n- For the rest of the Round, your [HEIR] gain [INVULNERABLE]."
+  },
+  "tags": [
+   "Kingdom's Favour",
+   "Nobility",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-GATHERING-01",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_SchooloftheStars.webp",
+  "backSide": "GatheringBack",
+  "name": "School of the Stars",
+  "nameicon": "[GATHERING]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Move two of your Supporters from the current Region to the Lost Pile. If you do, move one of your cards in the Lost Pile to the current Region."
+  },
+  "tags": [
+   "Tactics",
+   "Gathering",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-GATHERING-02",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_OutBeyondTheLights.webp",
+  "backSide": "GatheringBack",
+  "name": "Out Beyond the Lights",
+  "nameicon": "[GATHERING]",
+  "seasonrules": {
+   "season": "day",
+   "rules": "Swap the position of two of your Active cards."
+  },
+  "tags": [
+   "Tactics",
+   "Gathering",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-GATHERING-03",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_MoonlitForagers.webp",
+  "backSide": "GatheringBack",
+  "name": "Moonlit Foragers",
+  "nameicon": "[GATHERING]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Shuffle the Kingdom Discard face-down, then look at five random cards from it. Acquire one of them with a card from your Hand. Return the rest to the Kingdom Discard."
+  },
+  "tags": [
+   "Tactics",
+   "Gathering",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "TACTICS-GATHERING-04",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Gathering_RitualSacrifice.webp",
+  "backSide": "GatheringBack",
+  "name": "Ritual Sacrifice",
+  "nameicon": "[GATHERING]",
+  "seasonrules": {
+   "season": "autumn,2",
+   "rules": "Move up to three of your cards that are Active and/or in your Discard Pile to the Lost Pile. For each card moved this way, gain {{b}}1{{/b}}[LORE].\nThen, you may move a card from your Discard Pile to your Hand."
+  },
+  "tags": [
+   "Tactics",
+   "Gathering",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "KINGDOMS-FAVOUR-GATHERING",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/GatheringKF.webp",
+  "name": "He  rald of the Moon",
+  "nameicon": "[GATHERING],[KINGDOMS_FAVOUR]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move one of your Active cards in the Region where your Herald is to your Hand."
+  },
+  "tags": [
+   "Kingdom's Favour",
+   "Gathering",
+   "Base Game"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-tactics-kingdoms-favour",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-FC1",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/LegendaryCreatures_(1).webp",
+  "backSide": "Clans_Reverse",
+  "name": "The Bear",
+  "nameicon": "[CLANS],[WILD_KINGDOM]",
+  "text": "Strength: 13\nArchetype: [CREATURE] Creature\n\nWhen you win a Clash in a Region where this card and its matching piece are, before claiming any rewards, gain {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}}[LORE].",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "If this card is not in your Hand, Supply or Burned, move it to your Supply."
+  },
+  "flavour": "It arrived like an avalanche.",
+  "tags": [
+   "Faction Card",
+   "Wild Kingdom",
+   "Legendary Creatures",
+   "Clans",
+   "Winter"
+  ],
+  "meta": {
+   "archetype": "[CREATURE] Creature",
+   "strength": 13
+  },
+  "game": "tokc",
+  "product": "tokc-wk-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-FC2",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/LegendaryCreatures_(2).webp",
+  "backSide": "Uprising_Reverse",
+  "name": "The Engine",
+  "nameicon": "[UPRISING],[WILD_KINGDOM]",
+  "text": "Strength: 13\nArchetype: [CREATURE] Creature\n\nWhen you win a Clash in a Region where this card and its matching piece are, before claiming any rewards, gain {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}}[LORE].",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "If this card is not in your Hand, Supply or Burned, move it to your Supply."
+  },
+  "flavour": "It heralds a new age of change.",
+  "tags": [
+   "Faction Card",
+   "Wild Kingdom",
+   "Legendary Creatures",
+   "Uprising",
+   "Winter"
+  ],
+  "meta": {
+   "archetype": "[CREATURE] Creature",
+   "strength": 13
+  },
+  "game": "tokc",
+  "product": "tokc-wk-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-FC3",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/LegendaryCreatures_(3).webp",
+  "backSide": "Nobility_Reverse",
+  "name": "The Raven",
+  "nameicon": "[NOBILITY],[WILD_KINGDOM]",
+  "text": "Strength: 13\nArchetype: [CREATURE] Creature\n\nWhen you win a Clash in a Region where this card and its matching piece are, before claiming any rewards, gain {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}}[LORE].",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "If this card is not in your Hand, Supply or Burned, move it to your Supply."
+  },
+  "flavour": "Wings like the black sails on ships.",
+  "tags": [
+   "Faction Card",
+   "Wild Kingdom",
+   "Legendary Creatures",
+   "Nobility",
+   "Winter"
+  ],
+  "meta": {
+   "archetype": "[CREATURE] Creature",
+   "strength": 13
+  },
+  "game": "tokc",
+  "product": "tokc-wk-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-FC4",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/LegendaryCreatures_(4).webp",
+  "backSide": "Gathering_Reverse",
+  "name": "The Moth",
+  "nameicon": "[GATHERING],[WILD_KINGDOM]",
+  "text": "Strength: 13\nArchetype: [CREATURE] Creature\n\nWhen you win a Clash in a Region where this card and its matching piece are, before claiming any rewards, gain {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}}[LORE].",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "If this card is not in your Hand, Supply or Burned, move it to your Supply."
+  },
+  "flavour": "It dreams of burning upon the stars.",
+  "tags": [
+   "Faction Card",
+   "Wild Kingdom",
+   "Legendary Creatures",
+   "Gathering",
+   "Winter"
+  ],
+  "meta": {
+   "archetype": "[CREATURE] Creature",
+   "strength": 13
+  },
+  "game": "tokc",
+  "product": "tokc-wk-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-FC5",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Aeronauts_(1).webp",
+  "backSide": "Aeronauts_Reverse",
+  "name": "Peregrine the Captain",
+  "nameicon": "[AERONAUTS],[WILD_KINGDOM]",
+  "text": "Strength: 11\nArchetype: [CHAMPION] Champion\nTraits: [RESILIENT] Resilient\nVotes: [VOTES][VOTES]\n\nWhile this card is in a Council or is Active, whenever one or more of your cards would be Eliminated, you may discard this card instead.",
+  "flavour": "He has seen them true, through every tempest & time.",
+  "tags": [
+   "Faction Card",
+   "Wild Kingdom",
+   "Aeronauts",
+   "Resilient",
+   "Champion"
+  ],
+  "meta": {
+   "archetype": "[CHAMPION] Champion",
+   "strength": 11
+  },
+  "game": "tokc",
+  "product": "tokc-wk-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-FC6",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Aeronauts_(2).webp",
+  "backSide": "Aeronauts_Reverse",
+  "name": "Waxwing the Sniper",
+  "nameicon": "[AERONAUTS],[WILD_KINGDOM]",
+  "text": "Strength: 5\nArchetype: [AGENT] Agent\nCommands: [DAY] Retreat\nLore: [LORE][LORE]\n<br>",
+  "seasonrules": {
+   "season": "day,2",
+   "rules": "If this card is Active in the current Clash, choose one:\n- This card gains [NIGHT] {{b}}Deadly{{/b}} until the end of the Round.\n- Move one Active card in another Region to its owner’s Discard Pile.\nIf you do either, you may not {{b}}Retreat{{/b}} this card for the rest of the Round."
+  },
+  "flavour": "He missed only once & it cost him all he loved.",
+  "tags": [
+   "Faction Card",
+   "Wild Kingdom",
+   "Aeronauts",
+   "Retreat",
+   "Deadly",
+   "Summer",
+   "Agent"
+  ],
+  "meta": {
+   "archetype": "[AGENT] Agent",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-wk-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-FC7",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Aeronauts_(3).webp",
+  "backSide": "Aeronauts_Reverse",
+  "name": "Lark the Medic",
+  "nameicon": "[AERONAUTS],[WILD_KINGDOM]",
+  "text": "Strength: 1\nArchetype: [TRADER] Trader\nTraits: [INVULNERABLE] Invulnerable\nCommands: [AUTUMN] Rally (any two)\nVotes: [VOTES][VOTES]\n<br>",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move up to three cards from your Discard Pile to the bottom of your Deck. If you do this, you may not {{b}}Rally{{/b}} this card back to your Hand, this Round."
+  },
+  "flavour": "There is little in life she has not tended to.",
+  "tags": [
+   "Faction Card",
+   "Wild Kingdom",
+   "Aeronauts",
+   "Rally",
+   "Invulnerable",
+   "Autumn",
+   "Trader"
+  ],
+  "meta": {
+   "archetype": "[TRADER] Trader",
+   "strength": 1
+  },
+  "game": "tokc",
+  "product": "tokc-wk-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-FC8",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/Aeronauts_(4).webp",
+  "backSide": "Aeronauts_Reverse",
+  "name": "Rook the Engineer",
+  "nameicon": "[AERONAUTS],[WILD_KINGDOM]",
+  "text": "Strength: 5\nArchetype: [CAVALRY] Cavalry\nTraits: [INVULNERABLE] Invulnerable\nCommands: [DAY] Flank, [AUTUMN] Deploy (1)\nLore: [LORE][LORE]\n\nWhen this card {{b}}Flanks{{/b}}, you may move any number of your Supporters and/or Active cards in the Region it {{b}}Flanks{{/b}} from to the Region it {{b}}Flanks{{/b}} to.",
+  "flavour": "If only she could recall the equation to get them home.",
+  "tags": [
+   "Faction Card",
+   "Wild Kingdom",
+   "Aeronauts",
+   "Deploy",
+   "Flank",
+   "Autumn",
+   "Summer",
+   "Invulnerable",
+   "Cavalry"
+  ],
+  "meta": {
+   "archetype": "[CAVALRY] Cavalry",
+   "strength": 5
+  },
+  "game": "tokc",
+  "product": "tokc-wk-faction-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC1",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(1).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Once Crown, Found",
+  "nameicon": "[COINS][WILD_KINGDOM]",
+  "text": "At the end of the game, before final scores are tallied, gain {{b}}3{{/b}}[INFLUENCE].\nIf you are tied for the highest [INFLUENCE], instead of using a tiebreaker, you win the game.",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC2",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(2).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "A Last Gift",
+  "nameicon": "[COINS][WILD_KINGDOM]",
+  "text": "{{b}}Burn your Bidding card.{{/b}}\nIncrease your Hand Size by two. Discard this card.",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC3",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(3).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Golden Caravan",
+  "nameicon": "[COINS][WILD_KINGDOM]",
+  "text": "{{b}}Discard your Bidding card. Place this card on a Location.{{/b}}\nWhenever you claim the Location Reward for the Location this card is on, gain {{b}}2{{/b}}[INFLUENCE]. Then this card Travels.\nWhenever an opponent claims the Location Reward this card is on, they gain {{b}}1{{/b}}[INFLUENCE].",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC4",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(4).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "A Dread Deal",
+  "nameicon": "[COINS][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "Burn all your cards in the Lost Pile. Gain {{b}}2{{/b}}[LORE]. If you do not Burn at least one card, discard this card instead."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC5",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(5).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Sun Vault",
+  "nameicon": "[COINS][WILD_KINGDOM]",
+  "text": "{{b}}Burn your Bidding card.{{/b}}\nGain {{b}}7{{/b}}[INFLUENCE] minus the current Round number. Discard this card.",
+  "tags": [
+   "Kingdom Card",
+   "Trade Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC6",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(6).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Islands in the Sky",
+  "nameicon": "[BOOKS][WILD_KINGDOM]",
+  "text": "{{b}}Discard your Bidding card. Place this card in your Supply.{{/b}}\nTreat your Supply as holding any number of Kingdom Card slots. Anytime you would Occupy a card in one of these slots, discard the Bidding/Occupying card instead. These Kingdom Cards in your Supply are Occupied by Strength {{b}}10{{/b}}.",
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC7",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(7).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Unnatural Abundance",
+  "nameicon": "[BOOKS][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "For the rest of the Round, no Herald Rewards may be claimed. All other [INFLUENCE] gain is doubled. Discard this card."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC8",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(8).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Odd Arrivals at Court",
+  "nameicon": "[BOOKS][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "Rearrange any number of cards, markers or tokens at any Councils to any other Councils."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC9",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(9).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Binding Stone",
+  "nameicon": "[BOOKS][WILD_KINGDOM]",
+  "text": "You may spend [LORE] to acquire opponents’ cards on their Site of Power. Any cards acquired this way become your Allies for the rest of the game.",
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC10",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(10).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Laboratory",
+  "nameicon": "[BOOKS][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "autumn",
+   "rules": "Move any card in the Lost Pile to your Hand. For the rest of the game, treat this card as yours."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Intrigue Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC11",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(11).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "The Wyrm",
+  "nameicon": "[SWORDS][WILD_KINGDOM]",
+  "text": "Each Round your Herald adds {{b}}+5{{/b}} Strength to the first Clash in a Region it is in.",
+  "seasonrules": {
+   "season": "winter",
+   "rules": "Burn all your Supporters on the Map."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC12",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(12).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Blood Seeking Box",
+  "nameicon": "[SWORDS][WILD_KINGDOM]",
+  "text": "Whenever one or more cards are Eliminated in a Clash, gain {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}}[LORE].",
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC13",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(13).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Arrows, Bright & True",
+  "nameicon": "[SWORDS][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "spring",
+   "rules": "For the rest of the Round, treat all printed and gained [INVULNERABLE] as blank."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC14",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(14).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Sudden Eclipse",
+  "nameicon": "[SWORDS][WILD_KINGDOM]",
+  "text": "{{b}}Discard your Bidding card. Place this card on a Region.{{/b}}\nUntil the end of the Summer Phase, treat all Location Rewards in this Region as blank.",
+  "seasonrules": [
+   {
+    "season": "autumn",
+    "rules": "Claim a Location Reward in this Region."
+   },
+   {
+    "season": "winter",
+    "rules": "Discard this card."
+   }
+  ],
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ },
+ {
+  "id": "WK-KC15",
+  "image": "https://cards.eerieidolgames.com/cards/tokc/en-US/KingdomCards_WildKingdom_(15).webp",
+  "backSide": "KingdomCards_Reverse",
+  "name": "Velvet Auction Room",
+  "nameicon": "[SWORDS][WILD_KINGDOM]",
+  "seasonrules": {
+   "season": "autumn,1.8",
+   "rules": "Choose an opponent. Give them {{b}}1{{/b}}[INFLUENCE] and {{b}}1{{/b}}[LORE] from your Supply. Then, choose one of their Exhausted Tactics, move it to your Supply, Unexhaust it and follow any {{b}}SETUP{{/b}} instructions on it. You now control this Tactic."
+  },
+  "tags": [
+   "Kingdom Card",
+   "Martial Suit",
+   "Wild Kingdom"
+  ],
+  "meta": {},
+  "game": "tokc",
+  "product": "tokc-wk-kingdom-cards",
+  "locale": "en-US"
+ }
+]

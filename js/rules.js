@@ -41,15 +41,23 @@ export const RULES_HTML = `
 <ul><li><b>Relics</b> — when you claim a Herald Reward, cash in your cards here for Influence (1 per Vote).</li>
 <li><b>Secrets</b> — place Faction Markers on Locations (1 per Vote). With 4+ on one Location you get its effect.</li>
 <li><b>Oaths</b> — get Supporters back from the Lost Pile (1 per Vote, +1 if you have the most Votes).</li>
-<li>The <b>Castle</b> lets its winner Govern too — and that clears out everyone else's cards from that Council.</li></ul>
+<li>The <b>Castle</b> lets its winner Govern too — and that discards every other card in that Council.</li></ul>
+
+<h3>The Map's Locations</h3>
+<ul><li><b>Highlands:</b> Castle (1 Influence + Govern, wiping that Council) · Wilderness (1 + Journey)</li>
+<li><b>Plateau:</b> Harvest Field (1 + the Kingdom's Favour) · Battlefield (2)</li>
+<li><b>Lowlands:</b> Shrine (1 + up to 3 cards to the bottom of your Deck) · Necropolis (1 + draw up to 3 from your Discard Pile, then discard any)</li></ul>
+
+<h3>Tactics & the Kingdom's Favour</h3>
+<p>Each faction has four <b>Tactics</b>, each used once in the game (some have markers and can be used once per marker). Each faction also has its own <b>Kingdom's Favour</b> action: claim the Harvest Field to get the Favour (set to III); each use turns it down one, and after I it goes back to the Harvest Field.</p>
 
 <h3>Commands</h3>
 <dl class="glos">
 <dt>Ambush (Day)</dt><dd>Add a face-down card from your hand to the Clash.</dd>
 <dt>Retreat (Day)</dt><dd>Return your Active cards in the Region to your hand and/or your Herald and Supporters there to your board.</dd>
-<dt>Flank (Day)</dt><dd>Move the card to a Region that hasn't fought yet, where it's Active. <i>(Not used by the stand-in cards yet.)</i></dd>
-<dt>Rally (Autumn)</dt><dd>Return Active cards to your hand. <i>(Not used yet.)</i></dd>
-<dt>Deploy (X)</dt><dd>Place a card from hand face-up next to a Region with X Influence on it. <i>(Not used yet.)</i></dd>
+<dt>Flank (Day)</dt><dd>Move the card to a Region that hasn't fought yet, where it's Active.</dd>
+<dt>Rally (Autumn)</dt><dd>Return Active cards to your hand: <i>Rally (self)</i> just that card, <i>Rally (any two)</i> any two of yours.</dd>
+<dt>Deploy (X) (Autumn)</dt><dd>Place the card from your hand face up next to a Region with X Influence on it. In Winter, Active cards with Influence lose 1 instead of being discarded — so it fights next Summer.</dd>
 <dt>Deadly (Night)</dt><dd>Eliminate all opposing Active cards in the Clash.</dd>
 </dl>
 <h3>Traits</h3>
@@ -64,8 +72,9 @@ export const RULES_HTML = `
 <dt>Lost Pile</dt><dd>Cards removed from play, shared and public. Cards here don't come back.</dd>
 <dt>Discard Pile</dt><dd>Your used cards. They become your Deck again when it runs out.</dd>
 <dt>Supply</dt><dd>Your Influence, Lore and HQ cards.</dd>
-<dt>Kingdom's Favour</dt><dd>Won at the Harvest Field. Wins tied games (in the full game it also gives your faction a special Action).</dd>
+<dt>Kingdom's Favour</dt><dd>Won at the Harvest Field. Gives your faction's special Action and wins tied games.</dd>
+<dt>Archetypes</dt><dd>Heir, Captain, Follower, Cavalry, War Machine, Agent, Trader, Ruse, Champion — other cards refer to them (e.g. Agents Eliminate themselves if an opponent has an Active Follower in the Clash).</dd>
 <dt>Site of Power</dt><dd>Your five Advanced/HQ cards, bought with Lore. If it's empty at the end, every 2 leftover Lore is 1 Influence.</dd>
 </dl>
-<p style="color:#b5a68c;font-size:13px;margin-top:18px">Unofficial fan-made learning aid. The Old King's Crown is by Pablo Clark / Eerie Idol Games. Card values in this app are stand-ins.</p>
+<p style="color:#b5a68c;font-size:13px;margin-top:18px">Unofficial fan-made learning aid. The Old King's Crown is by Pablo Clark / Eerie Idol Games. Card text and art © Eerie Idol Games, from the Eerie Card Library.</p>
 `;

@@ -1,129 +1,81 @@
-// A simple computer opponent. It only looks at public information plus its own hand.
-import { LOCATIONS, REGIONS, regionOfLoc } from './data.js';
+// A simple computer opponent. The engine gives every option a rough `score`;
+// the computer takes the best one with a little randomness. Card prompts carry an
+// `ai` hint (strong / weak / votes / lore ...). It only looks at public information
+// plus its own hand.
+import { REGIONS, regionOfLoc } from './data.js';
 
-const val = (c) => c.str + c.votes * 0.8 + c.lore * 0.6 + (c.cmd === 'deadly' ? 3 : 0);
+const R = Math.random;
 
 export function aiAnswer(pi, prompt, s, game) {
   const p = s.players[pi];
-  const R = Math.random;
-  const card = (uid) => [...p.hand, ...p.site, ...p.deck].find((c) => c.uid === uid);
-  const cards = (prompt.cards || []).map(card).filter(Boolean);
-  const opt = (id) => prompt.options && prompt.options.find((o) => o.id === id);
-  const byStr = (a, b) => b.str - a.str;
-
+  if (prompt.options) return bestOption(prompt.options);
+  const cards = prompt.cards.map((uid) => findCard(s, uid)).filter(Boolean);
+  if (!cards.length) return null;
+  const str = (c) => game.str(c);
+  const by = (f) => cards.slice().sort((a, b) => f(b) - f(a))[0].uid;
   switch (prompt.key) {
     case 'bid': {
-      // Bid a middling card: strong enough to pick early, but keep the best for the Clashes.
-      const sorted = cards.slice().sort(byStr);
-      const pick = sorted.length >= 5 ? sorted[2] : sorted[sorted.length - 1];
-      return pick.uid;
+      // A middling card: good enough to pick early, but keep the best for the Clashes.
+      const sorted = cards.slice().sort((a, b) => str(b) - str(a));
+      return (sorted.length >= 5 ? sorted[2] : sorted[sorted.length - 1]).uid;
     }
-    case 'bidUse': {
-      const steals = prompt.options.filter((o) => o.id.startsWith('steal'));
-      if (steals.length && R() < 0.7) return steals[0].id;
-      const takes = prompt.options.filter((o) => o.id.startsWith('take'));
-      const have = new Set(p.kingdom.filter(Boolean).map((k) => k.card.k));
-      const good = takes.filter((o) => { const kc = s.road[+o.id.split(':')[1]]; return kc && !have.has(kc.k); });
-      if (good.length) return good[Math.floor(R() * good.length)].id;
-      if (takes.length && p.kingdom.some((k) => !k)) return takes[0].id;
-      return 'return';
-    }
-    case 'slot': {
-      // replace the Kingdom Card guarded by the weakest card
-      return String(p.kingdom[0].occ.str <= p.kingdom[1].occ.str ? 0 : 1);
-    }
-    case 'herald': {
-      const w = prompt.options.map((o) => LOCATIONS[o.id].inf + R() * 2.5);
-      return prompt.options[w.indexOf(Math.max(...w))].id;
-    }
-    case 'place': {
-      const plan = planRegions(p, s);
-      const want = plan[prompt.region];
-      if (want && cards.some((c) => c.uid === want)) return want;
-      return cards.slice().sort(byStr)[cards.length - 1].uid;
-    }
-    case 'placeRegion': {
-      const herald = p.herald ? regionOfLoc(p.herald) : null;
-      return (opt(herald) || prompt.options[0]).id;
-    }
-    case 'supporter': {
-      const herald = p.herald ? regionOfLoc(p.herald) : 'plat';
-      const placed = Object.values(s.regions).reduce((a, r) => a + (r.sup[pi] || 0), 0);
-      const budget = s.round === s.rounds ? 5 : p.supporters >= 4 ? 2 : 1;
-      if (placed < budget) return R() < 0.75 ? herald : REGIONS[Math.floor(R() * 3)].id;
-      return 'done';
-    }
-    case 'clashOrder': return prompt.options[Math.floor(R() * prompt.options.length)].id;
-    case 'day': {
-      if (opt('ambush') && p.hand.some((c) => c.str >= 3)) return 'ambush';
-      return 'done';
-    }
-    case 'ambushCard': case 'tieCard': return cards.slice().sort(byStr)[0].uid;
-    case 'tie': return p.hand.some((c) => c.str >= 2) ? 'play' : 'pass';
-    case 'loc': {
-      const score = (l) => LOCATIONS[l].inf + (p.herald === l ? 1.5 : 0) + (l === 'harvest' ? 0.5 : 0) + (l === 'castle' && p.hand.some((c) => c.votes > 0) ? 0.7 : 0);
-      return prompt.options.slice().sort((a, b) => score(b.id) - score(a.id))[0].id;
-    }
-    case 'relics': return prompt.votes >= 3 || s.round >= s.rounds - 1 ? 'yes' : 'no';
-    case 'castleGovern': return cards.length ? cards.sort((a, b) => b.votes - a.votes)[0].uid : null;
-    case 'council': {
-      const c = card(prompt.card) || {};
-      const counts = { relics: game.votes(pi, 'relics'), secrets: game.votes(pi, 'secrets'), oaths: game.votes(pi, 'oaths') };
-      if (p.lostSup >= 2 && counts.oaths < 2) return 'oaths';
-      return s.round >= s.rounds - 1 || (c.votes || 0) >= 2 ? 'relics' : ['relics', 'secrets', 'oaths'][Math.floor(R() * 3)];
-    }
-    case 'autumn': {
-      // Keep at least 4 cards for next year's Bid + three Regions when we can.
-      const ids = prompt.options.map((o) => o.id);
-      if (ids.includes('oaths')) return 'oaths';
-      if (ids.includes('secrets')) return 'secrets';
-      if (ids.includes('journey') && (p.site.some((c) => c.cost <= p.lore + 2) || p.hand.length > 3)) return 'journey';
-      if (ids.includes('govern') && p.hand.length > 2) return 'govern';
-      return 'done';
-    }
-    case 'governCard': return cards.sort((a, b) => b.votes - a.votes || a.str - b.str)[0].uid;
-    case 'journeyCard': return cards.sort((a, b) => b.lore - a.lore || a.str - b.str)[0].uid;
-    case 'buy': {
-      const opts = prompt.options.filter((o) => o.id !== 'done');
-      return opts.length ? opts[opts.length - 1].id : 'done';
-    }
-    case 'secretsLoc': {
-      const best = prompt.options.slice().sort((a, b) => ((s.marks[b.id] || {})[pi] || 0) - ((s.marks[a.id] || {})[pi] || 0));
-      return (best[0] && ((s.marks[best[0].id] || {})[pi] || 0) > 0 ? best[0] : opt('harvest') || prompt.options[0]).id;
-    }
-    default:
-      if (prompt.options) return prompt.options[0].id;
-      return cards[0] ? cards[0].uid : null;
+    case 'place': return planRegions(p, s, game)[prompt.region] || by((c) => -str(c));
+    case 'forcedDiscard': return by((c) => -str(c) - game.votesOf(c));
+  }
+  if (prompt.optional && (prompt.ai === 'none' || R() < 0.15)) return null;
+  switch (prompt.ai) {
+    case 'weak': return by((c) => -str(c) - (c.arch === 'heir' ? 10 : 0));
+    case 'votes': return by((c) => game.votesOf(c) * 3 - str(c) / 3);
+    case 'lore': return by((c) => game.loreOf(c) * 3 + (game.hasTrait(c, 'pathfinder') ? 2 : 0) - str(c) / 3);
+    case 'deadly': return by((c) => ((c.cmds || []).some((x) => x.cmd === 'deadly') ? 10 : str(c)));
+    case 'shrine': return prompt.optional && R() < 0.5 ? null : by((c) => str(c));
+    case 'strong': default: return by((c) => str(c) + R());
   }
 }
 
-// Decide which card goes to each Region: strongest where our Herald is,
-// the Assassin somewhere random, weakest cards spread over the rest.
+function bestOption(options) {
+  let best = options[0], bs = -Infinity;
+  for (const o of options) {
+    const sc = (o.score == null ? 0.5 : o.score) + R() * 0.35;
+    if (sc > bs) { bs = sc; best = o; }
+  }
+  return best.id;
+}
+
+function findCard(s, uid) {
+  for (const p of s.players) {
+    for (const z of [p.hand, p.discard, p.deck, p.site, p.hq]) { const c = z.find((x) => x.uid === uid); if (c) return c; }
+    for (const sl of p.slots) if (sl && sl.occ && sl.occ.uid === uid) return sl.occ;
+  }
+  for (const r of Object.values(s.regions)) for (const x of r.cards) if (x.card.uid === uid) return x.card;
+  for (const e of Object.values(s.councils).flat()) if (e.card.uid === uid) return e.card;
+  return s.lost.find((c) => c.uid === uid);
+}
+
+// Which card goes to each Region: the strongest where our Herald is, the Agent (Deadly)
+// sometimes in another Region, and weak cards / the Ruse elsewhere.
 const allPlans = new WeakMap();
-function planRegions(p, s) {
+function planRegions(p, s, game) {
   if (!allPlans.has(s)) allPlans.set(s, new Map());
   const plans = allPlans.get(s);
   const key = `${s.round}:${p.i}`;
-  if (plans.has(key)) {
-    const pl = plans.get(key);
-    if (Object.values(pl).every((uid) => p.hand.some((c) => c.uid === uid) || placedAlready(s, uid))) return pl;
-  }
+  const ok = (pl) => Object.values(pl).every((uid) => uid == null || p.hand.some((c) => c.uid === uid) || Object.values(s.regions).some((r) => r.cards.some((x) => x.card.uid === uid)));
+  if (plans.has(key) && ok(plans.get(key))) return plans.get(key);
   const herald = p.herald ? regionOfLoc(p.herald) : 'plat';
-  const hand = p.hand.slice().sort((a, b) => val(b) - val(a));
-  const fight = p.hand.slice().sort((a, b) => b.str - a.str);
+  const fight = p.hand.slice().sort((a, b) => game.str(b) - game.str(a));
   const plan = {};
   const used = new Set();
-  const pick = (c) => { used.add(c.uid); return c.uid; };
-  plan[herald] = pick(fight[0]);
+  const take = (c) => { if (!c) return null; used.add(c.uid); return c.uid; };
+  plan[herald] = take(fight[0]);
   const rest = REGIONS.map((r) => r.id).filter((r) => r !== herald);
-  const second = rest[Math.floor(Math.random() * 2)];
+  const second = rest[Math.floor(R() * 2)];
   const remaining = fight.filter((c) => !used.has(c.uid));
-  const assassin = remaining.find((c) => c.cmd === 'deadly');
-  plan[second] = pick(assassin && Math.random() < 0.5 ? assassin : remaining[0]);
+  const agent = remaining.find((c) => c.arch === 'agent');
+  plan[second] = take(agent && R() < 0.5 ? agent : remaining[Math.min(1, remaining.length - 1)]);
   const third = rest.find((r) => r !== second);
-  const low = hand.filter((c) => !used.has(c.uid)).sort((a, b) => val(a) - val(b));
-  plan[third] = low[0] ? pick(low[0]) : null;
+  const low = fight.filter((c) => !used.has(c.uid)).sort((a, b) => (game.str(a) + game.votesOf(a)) - (game.str(b) + game.votesOf(b)));
+  const ruse = low.find((c) => c.arch === 'ruse');
+  plan[third] = take(ruse || low[0]);
   plans.set(key, plan);
   return plan;
 }
-function placedAlready(s, uid) { return Object.values(s.regions).some((r) => r.cards.some((c) => c.card.uid === uid)); }

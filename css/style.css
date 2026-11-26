@@ -37,7 +37,7 @@ b { color: #fff3dc; }
 .seasons span.on { background: var(--gold); color: #24190b; font-weight: 700; }
 .stepname { font-size: 12px; color: var(--dim); margin-top: 4px; text-align: center; }
 .players { display: flex; gap: 6px; margin-top: 6px; }
-.pchip { flex: 1; background: var(--panel); border-radius: 10px; padding: 5px 8px; border-left: 4px solid; font-size: 12px; }
+.pchip { text-align: left; border-top: 0; border-right: 0; border-bottom: 0; flex: 1; background: var(--panel); border-radius: 10px; padding: 5px 8px; border-left: 4px solid; font-size: 12px; }
 .pchip .nm { font-weight: 700; font-size: 13px; }
 .pchip .inf { float: right; font-size: 18px; font-weight: 800; font-family: var(--serif); color: var(--gold); }
 .pchip .stats { color: var(--dim); font-size: 11px; }
@@ -46,7 +46,7 @@ b { color: #fff3dc; }
 .section { margin-bottom: 10px; }
 .section > .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--dim); margin: 0 2px 4px; display: flex; justify-content: space-between; }
 .road { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
-.kcard { background: #3b3326; border: 1px solid #6a5a40; border-radius: 8px; padding: 5px 6px; font-size: 11px; line-height: 1.25; min-height: 58px; }
+.kcard { text-align: left; background: #3b3326; border: 1px solid #6a5a40; border-radius: 8px; padding: 5px 6px; font-size: 11px; line-height: 1.25; min-height: 58px; }
 .kcard .kn { font-weight: 700; font-size: 12px; font-family: var(--serif); color: #f5dfae; }
 .kcard.empty { opacity: .35; border-style: dashed; }
 
@@ -67,24 +67,36 @@ b { color: #fff3dc; }
 .side .who { font-size: 10px; color: var(--dim); display: flex; justify-content: space-between; }
 .cards { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
 
-/* faction card */
-.card { position: relative; width: 66px; min-height: 86px; border-radius: 8px; background: linear-gradient(#f3e7cd, #e2d1ad); color: #2b2014; padding: 4px 5px; font-size: 10px; line-height: 1.15; border: 2px solid #9c8459; text-align: left; flex: none; }
-.card .st { font-family: var(--serif); font-size: 21px; font-weight: 800; line-height: 1; }
-.card .cn { font-weight: 700; font-size: 10.5px; margin-top: 2px; }
-.card .ic { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 3px; }
-.ic span { border-radius: 4px; padding: 0 3px; font-size: 9px; font-weight: 700; color: #fff; }
-.ic .v { background: #4b6aa8; } .ic .l { background: #2f8a7b; } .ic .t { background: #7a5a2e; } .ic .c { background: #a33a2a; }
-.card.back { background: repeating-linear-gradient(45deg, #3b2f22, #3b2f22 6px, #44362a 6px, #44362a 12px); border-color: #6a5a40; }
-.card.back::after { content: "♛"; position: absolute; inset: 0; display: grid; place-items: center; font-size: 24px; color: #8a7552; }
-.card.down { opacity: .72; border-style: dashed; }
-.card.down::before { content: "hidden"; position: absolute; top: 4px; right: 4px; font-size: 8px; color: #6a5636; }
-.card.used { filter: grayscale(.6) brightness(.85); }
-.card.ok { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(217,164,65,.55); }
-.card.no { opacity: .45; }
-.card.sm { width: 54px; min-height: 64px; }
-.card.sm .st { font-size: 17px; }
+/* faction card: real card art with a readable strength badge and name strip */
+.card { position: relative; width: 66px; height: 113px; border-radius: 7px; background: #241d16; padding: 0; border: 2px solid #6a5a40; overflow: hidden; flex: none; }
+.card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card .cst { position: absolute; top: 2px; left: 2px; background: rgba(20,15,10,.85); color: #fff; font: 800 14px/1 var(--serif); padding: 2px 4px; border-radius: 5px; }
+.card .cinf { position: absolute; top: 2px; right: 2px; background: var(--gold); color: #24190b; font: 800 11px/1 var(--sans); padding: 2px 4px; border-radius: 5px; }
+.card .cnm { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(20,15,10,.86); color: #f5e9d0; font-size: 9.5px; line-height: 1.15; padding: 2px 3px; text-align: center; }
+.card.back { border-color: #4a3e30; }
+.card.down { opacity: .75; border-style: dashed; }
+.card.down::after { content: "hidden"; position: absolute; top: 2px; right: 2px; font-size: 8px; background: #000a; color: #ddd; padding: 1px 3px; border-radius: 3px; }
+.card.used { filter: grayscale(.6) brightness(.8); }
+.card.ok { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(217,164,65,.6); }
+.card.no { opacity: .4; }
+.card.sm { width: 50px; height: 86px; }
+.card.sm .cst { font-size: 12px; }
+.card.sm .cnm { font-size: 8px; }
 .sup { font-size: 10px; background: #5a4a33; border-radius: 5px; padding: 1px 5px; margin-left: 4px; color: #f5dfae; }
-
+.ktags { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 5px; }
+.ktag { font-size: 11px; background: #3b3326; border: 1px solid #6a5a40; border-radius: 6px; padding: 2px 6px; color: #f5dfae; }
+.ktag.ex { opacity: .45; text-decoration: line-through; }
+.ktag.fav { border-color: var(--gold); }
+.kcard .suit { font-size: 9px; text-transform: uppercase; letter-spacing: .5px; color: var(--gold); }
+.link.sm { font-size: 11px; padding: 0; }
+.lbl.dl { font-size: 11px; color: var(--dim); margin-top: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.dim { color: var(--dim) !important; font-size: 13px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
+.gallery.wide { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+.gallery img { width: 100%; border-radius: 6px; display: block; }
+.tabs { grid-template-columns: repeat(5, 1fr) !important; margin-bottom: 8px; }
+.tabs button { padding: 8px 4px !important; text-align: center !important; font-size: 12px; }
+.note a { color: var(--gold); }
 .councils { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
 .council { background: var(--panel); border-radius: 8px; padding: 5px 6px; font-size: 11px; }
 .council .cn { font-family: var(--serif); font-weight: 700; font-size: 12px; }
@@ -106,7 +118,7 @@ b { color: #fff3dc; }
 .opt small { display: block; color: var(--dim); font-size: 12px; }
 .opt.main { background: var(--gold); color: #24190b; border: 0; font-weight: 700; text-align: center; }
 .hand { display: flex; gap: 6px; overflow-x: auto; padding: 6px 2px 2px; }
-.hand .card { width: 64px; min-height: 84px; }
+.hand .card { width: 64px; height: 110px; }
 .coach { background: #2f2a3d; border: 1px solid #5d5280; border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; max-height: 50vh; overflow-y: auto; font-size: 14px; }
 .coach h3 { color: #cdbfff; font-size: 16px; margin-bottom: 4px; }
 .beat { background: #3a2f1c; border: 1px solid #7a6233; border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; font-size: 14px; }
@@ -121,8 +133,10 @@ b { color: #fff3dc; }
 .sheet p, .sheet li { color: #e6dac2; }
 .sheet ol, .sheet ul { padding-left: 20px; margin: 4px 0; }
 .detail { display: flex; gap: 14px; align-items: flex-start; }
-.detail .card { width: 96px; min-height: 130px; font-size: 12px; }
-.detail .card .st { font-size: 30px; }
+.detail img.cimg { width: 46%; max-width: 260px; border-radius: 10px; flex: none; }
+.detail.kd { flex-direction: column; }
+.detail img.cimg.wide { width: 100%; max-width: 420px; }
+.detail ul { padding-left: 18px; }
 .log div { padding: 4px 0; border-bottom: 1px solid #3a3127; font-size: 13px; color: #dccfb6; }
 .log .head { color: var(--gold); font-weight: 700; }
 .log .inf { color: #f3d48a; }
@@ -135,5 +149,5 @@ b { color: #fff3dc; }
   .dock { position: sticky; top: 0; height: 100vh; overflow-y: auto; margin: 0; border-top: 0; border-left: 2px solid var(--gold); }
   .opts { max-height: none; }
   .hand { flex-wrap: wrap; }
-  .card { width: 76px; min-height: 98px; }
+  .hand .card { width: 78px; height: 134px; }
 }
