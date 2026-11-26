@@ -1,12 +1,12 @@
 // Board view: the Map window built from the real Location tiles, card spaces beside each
 // Region, the Great Road and Councils above, your Kingdom spaces below, and a fanned hand
 // you drag cards from.
-import { Game, regionName, councilName, kText } from './engine.js';
-import { aiAnswer } from './ai.js';
-import { COACH } from './coach.js';
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js';
-import { RULES_HTML } from './rules.js';
-import { morph } from './morph.js';
+import { Game, regionName, councilName, kText } from './engine.js?v=8';
+import { aiAnswer } from './ai.js?v=8';
+import { COACH } from './coach.js?v=8';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=8';
+import { RULES_HTML } from './rules.js?v=8';
+import { morph } from './morph.js?v=8';
 
 const $app = document.getElementById('app');
 const $sheet = document.getElementById('sheet');

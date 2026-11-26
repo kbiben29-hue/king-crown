@@ -24,5 +24,7 @@ modules and has no build step or dependencies. It's a sibling of Argaia, Holodec
   (tiles, rows, road, Councils, opponent slots). Hand cards drag onto `[data-drop]` targets (`row:rid`, `bid`, `council:id`, `any`)
   using pointer events; tapping a card opens a detail sheet with the action buttons. For people, `place` answers `{uid, rid}`. `js/coach.js` and `js/rules.js`
   are the teaching text, in our own words.
+- Every file is loaded with a `?v=N` cache-buster (index.html and all js imports). Run `python3 tools/bump-version.py` before each push,
+  or phones keep the old files (GitHub Pages caches for ~10 minutes and Safari can mix old and new modules).
 - `npm test` (`test/sim.mjs`) runs bot-vs-bot games for 2–4 players and checks that all 19 cards per player, 5 Supporters
   per player and 51 Kingdom Cards are accounted for.
