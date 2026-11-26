@@ -1,12 +1,12 @@
 // Board view: the Map window built from the real Location tiles, card spaces beside each
 // Region, the Great Road and Councils above, your Kingdom spaces below, and a fanned hand
 // you drag cards from.
-import { Game, regionName, councilName, kText } from './engine.js?v=8';
-import { aiAnswer } from './ai.js?v=8';
-import { COACH } from './coach.js?v=8';
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=8';
-import { RULES_HTML } from './rules.js?v=8';
-import { morph } from './morph.js?v=8';
+import { Game, regionName, councilName, kText } from './engine.js?v=9';
+import { aiAnswer } from './ai.js?v=9';
+import { COACH } from './coach.js?v=9';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=9';
+import { RULES_HTML } from './rules.js?v=9';
+import { morph } from './morph.js?v=9';
 
 const $app = document.getElementById('app');
 const $sheet = document.getElementById('sheet');
@@ -169,10 +169,10 @@ function render() {
   const top = `<div class="toprow">${track}${oppHTML}</div>`;
 
   // Councils as text panels along the top of the window
-  const CSHORT = { relics: `Herald Reward: discard your cards here for 1${ic('influence')} per ${ic('votes')}.`, secrets: `${ic('autumn')} Place a marker per ${ic('votes')} on Locations. 4 on one = claim its reward.`, oaths: `${ic('autumn')} Get a ${ic('supporter')} back per ${ic('votes')} (+1 if you have the most).` };
-  const councils = `<div class="cpanels">${COUNCILS.map((c) => `<button class="cpanel ${T.councils[c.id] || (T.drop && T.drop.councils) ? 'pickable' : ''}" data-act="council" data-c="${c.id}" ${T.drop && T.drop.councils ? `data-drop="council:${c.id}"` : ''}>
-      <span class="ctext">${CSHORT[c.id]}</span><span class="cname">${ic(c.id, 'suit ' + c.id)}${c.name.replace('Council of ', '')}</span>
-      <span class="votes">${s.players.map((p) => `<span style="color:${p.color}">${p.i === ME ? 'You' : 'CPU'} ${game.votes(p.i, c.id)}</span>`).join('')}</span></button>`).join('')}</div>`;
+  // Councils: the real Council cards, with everyone's Votes and how many cards sit in each
+  const councils = `<div class="cpanels">${COUNCILS.map((c) => `<button class="ccard ${T.councils[c.id] || (T.drop && T.drop.councils) ? 'pickable' : ''}" data-act="council" data-c="${c.id}" data-k="council-${c.id}" ${T.drop && T.drop.councils ? `data-drop="council:${c.id}"` : ''}>
+      <img src="${c.image}" alt="${c.name}">${s.councils[c.id].length ? `<span class="ccount">${s.councils[c.id].length} card${s.councils[c.id].length > 1 ? 's' : ''}</span>` : ''}
+      <span class="votes">${s.players.map((p) => `<span style="color:${p.color}">${ic('votes')} ${p.i === ME ? 'You' : 'CPU'} ${game.votes(p.i, c.id)}</span>`).join('')}</span></button>`).join('')}</div>`;
 
   // the Great Road (under the window) and bids
   const bids = s.bids ? `<div class="bidrow">Bids: ${Object.entries(s.bids).map(([pi, c]) => `${who(+pi)} <b>${esc(c.name)} (${s.bstr ? s.bstr[pi] : c.str})</b>`).join(' · ')}</div>` : '';

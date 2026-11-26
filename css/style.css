@@ -243,3 +243,11 @@ i.ic { background: currentColor; -webkit-mask-position: center; mask-position: c
 .sup .ic { width: 11px; height: 11px; vertical-align: -1px; }
 .cinf .ic { width: 10px; height: 10px; vertical-align: -1px; }
 .chip .ic { color: var(--gold2); }
+
+.ccard { flex: 1 1 0; min-width: 0; position: relative; display: block; border-radius: 6px; overflow: hidden; border: 1px solid var(--frame); background: #000; box-shadow: 0 3px 8px #000a; }
+.ccard img { width: 100%; aspect-ratio: 1104/663; object-fit: cover; display: block; }
+.ccard .votes { display: flex; justify-content: space-around; font: 700 11px var(--sans); background: #050a0d; padding: 3px 0; border-top: 1px solid var(--frame); }
+.ccard .votes .ic { width: 10px; height: 10px; vertical-align: -1px; }
+.ccard .ccount { position: absolute; top: 3px; right: 3px; font: 700 9px var(--display); background: #000c; color: var(--gold2); padding: 1px 5px; border-radius: 4px; }
+.ccard.pickable { border-color: var(--gold2); box-shadow: 0 0 0 2px var(--gold2), 0 0 14px rgba(241,213,139,.6); }
+.ccard.over { box-shadow: 0 0 0 3px #fff; }
