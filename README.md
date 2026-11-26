@@ -32,6 +32,9 @@ python3 tools/decode-library.py /tmp/raw.json data/tokc-cards.json   # every TOK
 python3 tools/build-cards.py                                         # → js/cards.js (what the game uses)
 ```
 
+The symbols in `img/icons/` (Influence, Lore, Votes, seasons, suits, archetypes, traits and faction crowns) are
+the official ones, taken from the library's icon font with `tools/extract-icons.py`.
+
 Some abilities are only printed on the card art, such as the Agents' Night text and a few Site of Power cards.
 Those are filled in by hand in `IMAGE_TEXT` in `tools/build-cards.py`.
 

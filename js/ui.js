@@ -25,6 +25,10 @@ let seen = new Set();
 const esc = (t) => String(t ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const cap = (t) => (t ? t[0].toUpperCase() + t.slice(1) : '');
 const who = (pi) => (pi === ME ? 'You' : 'Computer');
+// Official Old King's Crown symbols, taken from the Eerie Card Library's icon font (img/icons).
+const COLOUR_IC = new Set(['spring', 'day', 'night', 'autumn', 'winter']);
+const ic = (n, cls = '') => (COLOUR_IC.has(n) ? `<img class="ic ${cls}" src="img/icons/${n}.svg" alt="">` : `<i class="ic ${cls}" style="-webkit-mask-image:url(img/icons/${n}.svg);mask-image:url(img/icons/${n}.svg)"></i>`);
+const ARCH_IC = { heir: 'heir', captain: 'captain', follower: 'follower', cavalry: 'cavalry', warmachine: 'war-machine', agent: 'agent', trader: 'trader', ruse: 'ruse', champion: 'champion' };
 const SEASON = { year: 'Start of the Year', spring: 'Spring', summer: 'Summer', autumn: 'Autumn', winter: 'Winter', end: 'Game over', setup: '' };
 
 // ---------------- setup screen ----------------
@@ -116,7 +120,7 @@ function targets() {
 
 // ---------------- rendering ----------------
 function cardHTML(c, { cls = '', mini = false, style = '' } = {}) {
-  const inf = c.inf ? `<span class="cinf">${c.inf}◉</span>` : '';
+  const inf = c.inf ? `<span class="cinf">${c.inf}${ic('influence')}</span>` : '';
   return `<button class="card ${mini ? 'mini' : ''} ${cls}" data-act="card" data-uid="${c.uid}" style="${style}"><img src="${c.image}" alt="${esc(c.name)}" draggable="false">${inf}<span class="cnm">${esc(c.name)}</span></button>`;
 }
 const backHTML = (f, mini = true) => `<div class="card back ${mini ? 'mini' : ''}"><img src="${BACK(f)}" alt="" draggable="false"></div>`;
@@ -151,23 +155,23 @@ function render() {
       ${toast ? `<div class="more"><span class="chip">${esc(toast)}</span></div>` : ''}</div>`;
 
   // season track (left) and the opponent's box (right), like the real table
-  const SEAS = [['year', '♛', 'Start of the Year'], ['spring', '✿', 'Spring'], ['summer', '☀', 'Summer'], ['autumn', '❦', 'Autumn'], ['winter', '❄', 'Winter']];
+  const SEAS = [['year', ic('heir'), 'Start of the Year'], ['spring', ic('spring'), 'Spring'], ['summer', ic('day') , 'Summer'], ['autumn', ic('autumn'), 'Autumn'], ['winter', ic('winter'), 'Winter']];
   const track = `<div class="track"><div class="seas">${SEAS.map(([id, ic, n]) => `<span class="sea ${s.season === id ? 'on' : ''}" title="${n}">${ic}</span>`).join('')}</div>
     <div class="rounds">${Array.from({ length: s.rounds }, (_, i) => `<span class="rd ${i + 1 === s.round ? 'on' : i + 1 < s.round ? 'past' : ''}">${['I', 'II', 'III', 'IV', 'V', 'VI'][i]}</span>`).join('')}</div>
     <div class="order">Turn order: ${s.order.map((i) => `<b style="color:${s.players[i].color}">${i === ME ? 'You' : 'CPU'}</b>`).join(' → ')}</div></div>`;
   const oppHTML = opp ? `<div class="obox" style="--fc:${opp.color}">
       <button class="otop" data-act="player" data-pi="${opp.i}"><span class="emb" style="background-image:url('${BACK(opp.faction)}')"></span>
         <span class="onum">${opp.inf}</span>
-        <span class="ores"><span>◉ ${opp.inf}</span><span>✒ ${opp.lore}</span><span>⚑ ${opp.supporters}</span></span>
+        <span class="ores"><span>${ic('influence')} ${opp.inf}</span><span>${ic('lore')} ${opp.lore}</span><span>${ic('supporter')} ${opp.supporters}</span></span>
         <span class="backs">${opp.hand.map(() => `<img src="${BACK(opp.faction)}" alt="">`).join('')}</span></button>
-      ${[...opp.slots.map((sl, si) => sl && { k: sl.card, g: sl.occ, opt: T.oppSlots[`${opp.i}:${si}`] }).filter(Boolean), ...opp.ksupply.map((k) => ({ k }))].map((x) => `<button class="okc ${x.opt ? 'pickable' : ''}" data-act="kinfo" data-uid="${x.k.uid}" ${x.opt ? `data-opt="${x.opt}"` : ''}><span class="suit ${x.k.suit}"></span><span class="nm">${esc(x.k.name)}</span>${x.g ? `<span class="g">${x.g.str}</span>` : ''}</button>`).join('') || '<div class="okc none">No Kingdom Cards</div>'}
-      <div class="ofoot">${esc(opp.short)}${s.favour && s.favour.pi === opp.i ? ` · ♛${'I'.repeat(s.favour.val)}` : ''} · Deck ${opp.deck.length}</div></div>` : '';
+      ${[...opp.slots.map((sl, si) => sl && { k: sl.card, g: sl.occ, opt: T.oppSlots[`${opp.i}:${si}`] }).filter(Boolean), ...opp.ksupply.map((k) => ({ k }))].map((x) => `<button class="okc ${x.opt ? 'pickable' : ''}" data-act="kinfo" data-uid="${x.k.uid}" ${x.opt ? `data-opt="${x.opt}"` : ''}>${ic(x.k.suit, 'suit ' + x.k.suit)}<span class="nm">${esc(x.k.name)}</span>${x.g ? `<span class="g">${x.g.str}</span>` : ''}</button>`).join('') || '<div class="okc none">No Kingdom Cards</div>'}
+      <div class="ofoot">${esc(opp.short)}${s.favour && s.favour.pi === opp.i ? ` · ${ic('kingdoms-favour')}${'I'.repeat(s.favour.val)}` : ''} · Deck ${opp.deck.length}</div></div>` : '';
   const top = `<div class="toprow">${track}${oppHTML}</div>`;
 
   // Councils as text panels along the top of the window
-  const CSHORT = { relics: 'Herald Reward: discard your cards here for 1◉ per Vote.', secrets: 'Autumn: place a marker per Vote on Locations. 4 on one = claim its reward.', oaths: 'Autumn: get a Supporter back per Vote (+1 if you have the most).' };
+  const CSHORT = { relics: `Herald Reward: discard your cards here for 1${ic('influence')} per ${ic('votes')}.`, secrets: `${ic('autumn')} Place a marker per ${ic('votes')} on Locations. 4 on one = claim its reward.`, oaths: `${ic('autumn')} Get a ${ic('supporter')} back per ${ic('votes')} (+1 if you have the most).` };
   const councils = `<div class="cpanels">${COUNCILS.map((c) => `<button class="cpanel ${T.councils[c.id] || (T.drop && T.drop.councils) ? 'pickable' : ''}" data-act="council" data-c="${c.id}" ${T.drop && T.drop.councils ? `data-drop="council:${c.id}"` : ''}>
-      <span class="ctext">${CSHORT[c.id]}</span><span class="cname"><span class="suit ${c.id}"></span>${c.name.replace('Council of ', '')}</span>
+      <span class="ctext">${CSHORT[c.id]}</span><span class="cname">${ic(c.id, 'suit ' + c.id)}${c.name.replace('Council of ', '')}</span>
       <span class="votes">${s.players.map((p) => `<span style="color:${p.color}">${p.i === ME ? 'You' : 'CPU'} ${game.votes(p.i, c.id)}</span>`).join('')}</span></button>`).join('')}</div>`;
 
   // the Great Road (under the window) and bids
@@ -191,11 +195,11 @@ function render() {
         if (!c.up && p.i !== ME) return backHTML(p.faction);
         return cardHTML(c.card, { mini: true, cls: `${!c.up ? 'down' : ''} ${c.used && !cur ? 'used' : ''} ${choosable.has(c.card.uid) ? 'ok' : ''}` });
       }).join('');
-      const sup = R.sup[p.i] ? `<span class="sup">⚑${R.sup[p.i]}</span>` : '';
+      const sup = R.sup[p.i] ? `<span class="sup">${ic('supporter')}${R.sup[p.i]}</span>` : '';
       return `<div class="sidecol" style="background:linear-gradient(${p.color}22, transparent)">${sup}<div class="stack">${cs}</div></div>`;
     };
     const tiles = r.locs.map((l) => {
-      const hs = s.players.filter((p) => p.herald === l).map((p) => `<span class="herald" style="background:${p.color}">♛</span>`).join('');
+      const hs = s.players.filter((p) => p.herald === l).map((p) => `<span class="herald" style="background:${p.color}">${ic(p.faction)}</span>`).join('');
       const mks = s.marks[l] ? s.players.filter((p) => s.marks[l][p.i]).map((p) => `<span class="mk" style="background:${p.color}">${s.marks[l][p.i]}</span>`).join('') : '';
       const lk = (s.locKs[l] || []).map((k) => `<span class="ktile">${esc(k.card.name)}</span>`).join('');
       return `<button class="tile ${T.tiles[l] ? 'pickable' : ''} ${R.claimed === l ? 'claimed' : ''}" data-act="tile" data-l="${l}" data-rid="${r.id}"><img src="${LOCATIONS[l].image}" alt="${LOCATIONS[l].name}"><span class="tokens">${hs}${mks}</span>${lk}</button>`;
@@ -208,8 +212,8 @@ function render() {
   // your board
   const mine = `<div class="mine" style="border-color:${me.color}"><div class="hdr"><span>Your Tactics</span><button class="chip" data-act="discard">Discard · Site of Power</button></div>
     <div class="chips">${me.ksupply.map((k) => `<button class="chip" data-act="kinfo" data-uid="${k.uid}">${esc(k.name)}</button>`).join('')}${me.hq.map((c) => `<button class="chip" data-act="card" data-uid="${c.uid}">HQ: ${esc(c.name)}</button>`).join('')}
-      ${me.tactics.map((t) => `<button class="chip ${t.exhausted ? 'ex' : ''}" data-act="tactic" data-pi="${me.i}" data-k="${t.k}">${esc(t.name)}${t.markers ? ` (${t.markers})` : ''}</button>`).join('')}
-      <button class="chip fav" data-act="favour" data-f="${me.faction}">♛ ${esc(CARDS.favour[me.faction].name)}${s.favour && s.favour.pi === ME ? ' ' + 'I'.repeat(s.favour.val) : ''}</button></div></div>`;
+      ${me.tactics.map((t) => `<button class="chip ${t.exhausted ? 'ex' : ''}" data-act="tactic" data-pi="${me.i}" data-k="${t.k}">${ic('lore-cost')} ${esc(t.name)}${t.markers ? ` (${t.markers})` : ''}</button>`).join('')}
+      <button class="chip fav" data-act="favour" data-f="${me.faction}">${ic('kingdoms-favour')} ${esc(CARDS.favour[me.faction].name)}${s.favour && s.favour.pi === ME ? ' ' + 'I'.repeat(s.favour.val) : ''}</button></div></div>`;
 
   morph($app, `<div class="table">${banner}${top}${councils}${map}${road}${mine}</div>`);
   renderDock(me, T, choosable);
@@ -254,7 +258,7 @@ function renderDock(me, T, choosable) {
     const step = n > 1 ? Math.min(0.11, (0.48 - 0.17) / (n - 1)) : 0;
     return cardHTML(c, { cls, style: `margin:0 0 0 ${i ? `calc(var(--W) * ${-(0.17 - step).toFixed(4)})` : '0'};transform: rotate(${off * 3}deg) translateY(${Math.abs(off) * 4}px); z-index:${i + 1}` });
   }).join('');
-  const fav = s.favour && s.favour.pi === ME ? `<div class="stat"><i>♛</i>${'I'.repeat(s.favour.val)}<small>Favour</small></div>` : '';
+  const fav = s.favour && s.favour.pi === ME ? `<div class="stat">${ic('kingdoms-favour', 'big')}${'I'.repeat(s.favour.val)}<small>Favour</small></div>` : '';
   const slots = `<div class="slots">${me.slots.map((sl) => (sl ? `<div class="slot full">${kcHTML(sl.card)}${sl.occ ? cardHTML(sl.occ, { cls: choosable.has(sl.occ.uid) ? 'ok' : '' }) : ''}</div>` : '<div class="slot"><span class="empty">Kingdom slot</span></div>')).join('')}</div>`;
   // the coach is a pop-up whose button is always on screen; only its text scrolls
   let modal = document.querySelector('.cmodal');
@@ -264,10 +268,10 @@ function renderDock(me, T, choosable) {
     if (modal.dataset.key !== coachP.key) { modal.dataset.key = coachP.key; modal.innerHTML = `<div class="cbox"><h3>${c.title}</h3><div class="cbody">${c.text}</div><button class="opt main" data-act="coachok">Got it</button></div>`; }
   } else if (modal) modal.remove();
   morph(dock, `<div class="dockin">${panel}<div class="handrow"><div class="hand">${hand || '<span class="empty">No cards in hand</span>'}</div>${slots}</div>
-    <div class="stats"><div class="stat fac"><span class="emb" style="background-image:url('${BACK(me.faction)}')"></span><span class="rdb">${['I', 'II', 'III', 'IV', 'V', 'VI'][Math.min(s.round, s.rounds) - 1]}</span></div><div class="stat"><i>◉</i>${me.inf}<small>Influence</small></div><div class="stat"><i>✒</i>${me.lore}<small>Lore</small></div>
-      <div class="stat"><i>⚑</i>${me.supporters}<small>Supporters</small></div><div class="stat"><i>✋</i>${me.hand.length}/${game.maxHand(me)}<small>Hand</small></div>
-      <button class="stat" data-act="discard"><i>▤</i>${me.deck.length}<small>Deck</small></button><button class="stat" data-act="discard"><i>♻</i>${me.discard.length}<small>Discard</small></button>
-      <button class="stat" data-act="lost"><i>✝</i>${s.lost.filter((c) => c.owner === ME).length}<small>Lost</small></button><div class="stat"><i>▽</i>${me.tactics.filter((x) => !x.exhausted).length}<small>Tactics</small></div>${fav}</div></div>`);
+    <div class="stats"><div class="stat fac"><span class="emb" style="background-image:url('${BACK(me.faction)}')"></span><span class="rdb">${['I', 'II', 'III', 'IV', 'V', 'VI'][Math.min(s.round, s.rounds) - 1]}</span></div><div class="stat">${ic('influence', 'big')}${me.inf}<small>Influence</small></div><div class="stat">${ic('lore', 'big')}${me.lore}<small>Lore</small></div>
+      <div class="stat">${ic('supporter', 'big')}${me.supporters}<small>Supporters</small></div><div class="stat"><span class="cic hand"></span>${me.hand.length}/${game.maxHand(me)}<small>Hand</small></div>
+      <button class="stat" data-act="discard"><span class="cic deck"></span>${me.deck.length}<small>Deck</small></button><button class="stat" data-act="discard"><span class="cic discard"></span>${me.discard.length}<small>Discard</small></button>
+      <button class="stat" data-act="lost"><span class="cic lost"></span>${s.lost.filter((c) => c.owner === ME).length}<small>Lost</small></button><div class="stat">${ic('lore-cost', 'big')}${me.tactics.filter((x) => !x.exhausted).length}<small>Tactics</small></div>${fav}</div></div>`);
 }
 
 function findCard(uid) {
@@ -306,12 +310,12 @@ function cardSheet(uid) {
   const can = p && p.cards && p.cards.includes(uid);
   const rid = game.regionOf(c);
   const facts = [];
-  if (!c.hq) facts.push(`<li><b>Strength ${game.str(c)}</b>${c.arch ? ` · ${ARCH[c.arch]}` : ''} — counts in Bids and Clashes.</li>`);
-  if (game.votesOf(c)) facts.push(`<li><b>${game.votesOf(c)} Vote${game.votesOf(c) > 1 ? 's' : ''}</b> — it can Govern (go into a Council).</li>`);
-  if (game.loreOf(c)) facts.push(`<li><b>${game.loreOf(c)} Lore</b> — it can Journey for Lore.</li>`);
-  for (const t of game.traits(c, rid)) facts.push(`<li><b>${cap(t)}</b> — ${TRAIT[t]}</li>`);
-  for (const x of game.cmds(c, rid)) facts.push(`<li><b>${cap(x.cmd)}${x.arg ? ` (${x.arg})` : ''}</b> — ${CMD[x.cmd] || ''}${x.cmd === 'rally' ? (x.arg === 'self' ? ' (Just this card.)' : ' (Any two of your Active cards.)') : ''}</li>`);
-  if (c.cost) facts.push(`<li>Costs <b>${c.cost} Lore</b> at your Site of Power.</li>`);
+  if (!c.hq) facts.push(`<li><b>Strength ${game.str(c)}</b>${c.arch ? ` · ${ic(ARCH_IC[c.arch])} ${ARCH[c.arch]}` : ''} — counts in Bids and Clashes.</li>`);
+  if (game.votesOf(c)) facts.push(`<li>${ic('votes')} <b>${game.votesOf(c)} Vote${game.votesOf(c) > 1 ? 's' : ''}</b> — it can Govern (go into a Council).</li>`);
+  if (game.loreOf(c)) facts.push(`<li>${ic('lore')} <b>${game.loreOf(c)} Lore</b> — it can Journey for Lore.</li>`);
+  for (const t of game.traits(c, rid)) facts.push(`<li>${ic(t)} <b>${cap(t)}</b> — ${TRAIT[t]}</li>`);
+  for (const x of game.cmds(c, rid)) facts.push(`<li>${ic(x.season === 'summer' ? 'day' : x.season)} <b>${cap(x.cmd)}${x.arg ? ` (${x.arg})` : ''}</b> — ${CMD[x.cmd] || ''}${x.cmd === 'rally' ? (x.arg === 'self' ? ' (Just this card.)' : ' (Any two of your Active cards.)') : ''}</li>`);
+  if (c.cost) facts.push(`<li>${ic('lore-cost')} Costs <b>${c.cost} Lore</b> at your Site of Power.</li>`);
   if (c.inf) facts.push(`<li>Has <b>${c.inf} Influence</b> on it, so it stays through Winter.</li>`);
   let btns = '';
   if (can && p.key === 'place') btns = `<div class="btnrow">${(p.regions || RIDS).map((r) => `<button class="big" data-act="placeIn" data-uid="${uid}" data-rid="${r}">${regionName(r)}</button>`).join('')}</div>`;
@@ -319,14 +323,14 @@ function cardSheet(uid) {
   sheet(`<div class="detail"><img class="cimg" src="${c.image}" alt="${esc(c.name)}"><div><h2>${esc(c.name)}</h2>${c.text ? `<p>${esc(c.text)}</p>` : ''}<ul>${facts.join('')}</ul></div></div>${can && p.key === 'place' ? '<p class="dim">Place it face down by:</p>' : ''}${btns}`);
 }
 function kSheet(k, optId) {
-  sheet(`<div class="detail kd"><img class="cimg wide" src="${k.image}" alt="${esc(k.name)}"><div><h2>${esc(k.name)}</h2><p><b>${councilName(k.suit).replace('Council of ', '')} suit</b> Kingdom Card.</p><p>${esc(kText(k))}</p>
+  sheet(`<div class="detail kd"><img class="cimg wide" src="${k.image}" alt="${esc(k.name)}"><div><h2>${esc(k.name)}</h2><p>${ic(k.suit)} <b>${councilName(k.suit).replace('Council of ', '')} suit</b> Kingdom Card.</p><p>${esc(kText(k))}</p>
     <p class="dim">Win it by Bidding in Spring. While it's on your board, the card you Bid guards it: a rival Bid higher than the guard's Strength can steal it. Actions on Kingdom Cards can be used once per Round in the season shown.</p></div></div>
     ${optId ? `<button class="big" data-act="opt" data-id="${esc(optId)}">${optId.startsWith('steal') ? 'Steal this card' : 'Take this card'}</button>` : ''}`);
 }
 function logSheet() { sheet(`<h2>Game log</h2><div class="log">${S.log.slice().reverse().map((l) => `<div class="${l.cls}">${esc(l.msg)}</div>`).join('')}</div>`); }
 function tacticSheet(t, p) {
   sheet(`<div class="detail kd"><img class="cimg wide" src="${t.image}" alt="${esc(t.name)}"><div><h2>${esc(t.name)}</h2><p>${esc(p.name)} Tactic${t.exhausted ? ' — <b>exhausted</b>' : t.markers ? ` — ${t.markers} marker(s) left` : ' — ready'}.</p>
-    ${t.text ? `<p>${esc(t.text)}</p>` : ''}${t.rules.map((r) => `<p><b>${cap(r.season)}:</b> ${esc(r.text)}</p>`).join('')}
+    ${t.text ? `<p>${esc(t.text)}</p>` : ''}${t.rules.map((r) => `<p>${ic(r.season === 'summer' ? 'day' : r.season)} <b>${cap(r.season)}:</b> ${esc(r.text)}</p>`).join('')}
     <p class="dim">Each Tactic can be used once (it then flips to Exhausted). Tactics with markers can be used once per marker. When one is usable, it shows up in that step's options.</p></div></div>`);
 }
 function browse(f = 'nobility') {
