@@ -30,6 +30,7 @@ const SEASON = { year: 'Start of the Year', spring: 'Spring', summer: 'Summer', 
 function setup() {
   game = null;
   document.querySelector('.dock')?.remove();
+  document.querySelector('.cmodal')?.remove();
   const fac = (key) => `<div class="pick">${FACTIONS.map((f) => {
     const heir = CARDS.factions[f.id].find((c) => c.num === 14);
     return `<button data-act="fac" data-key="${key}" data-id="${f.id}" class="${cfg[key] === f.id ? 'on' : ''}"><span class="swatch" style="background:${f.color}"></span>${f.name}<small>Heir: ${esc(heir.name)}</small></button>`;
@@ -148,8 +149,12 @@ function render() {
       ${chips.length ? `<div class="more">${chips.join('')}</div>` : ''}
       ${toast ? `<div class="more"><span class="chip">${esc(toast)}</span></div>` : ''}</div>`;
 
+  // season track
+  const SEAS = [['year', '♛', 'Year'], ['spring', '✿', 'Spring'], ['summer', '☀', 'Summer'], ['autumn', '❦', 'Autumn'], ['winter', '❄', 'Winter']];
+  const track = `<div class="track">${SEAS.map(([id, ic, n]) => `<span class="sea ${s.season === id ? 'on' : ''}" title="${n}">${ic}</span>`).join('')}
+    <span class="rounds">${Array.from({ length: s.rounds }, (_, i) => `<span class="rd ${i + 1 === s.round ? 'on' : i + 1 < s.round ? 'past' : ''}">${['I', 'II', 'III', 'IV', 'V', 'VI'][i]}</span>`).join('')}</span></div>`;
   // opponent
-  const oppHTML = opp ? `<button class="opp" data-act="player" data-pi="${opp.i}" style="border-color:${opp.color}">
+  const oppHTML = opp ? `${track}<button class="opp" data-act="player" data-pi="${opp.i}" style="border-color:${opp.color}">
       <div class="score">${opp.inf}<small>INF</small></div>
       <div class="grow"><div class="nm">Computer · ${esc(opp.short)}${s.favour && s.favour.pi === opp.i ? ` · ♛${'I'.repeat(s.favour.val)}` : ''}${s.order[0] === opp.i ? ' · 1st' : ''}</div>
       <div class="st">Lore ${opp.lore} · Supporters ${opp.supporters} · Deck ${opp.deck.length} · Discard ${opp.discard.length}</div></div>
@@ -193,8 +198,7 @@ function render() {
   }).join('')}</div>`;
 
   // your board
-  const mine = `<div class="mine" style="border-color:${me.color}"><div class="hdr"><span>Your board — ${esc(me.name)}</span><button class="chip" data-act="discard">Discard & Site of Power</button></div>
-    <div class="slots">${me.slots.map((sl) => (sl ? `<div class="slot">${kcHTML(sl.card)}${sl.occ ? cardHTML(sl.occ, { cls: choosable.has(sl.occ.uid) ? 'ok' : '' }) : ''}</div>` : '<div class="slot"><span class="empty">Kingdom slot</span></div>')).join('')}</div>
+  const mine = `<div class="mine" style="border-color:${me.color}"><div class="hdr"><span>${esc(me.name)} — Tactics & Favour</span><button class="chip" data-act="discard">Discard & Site of Power</button></div>
     <div class="chips">${me.ksupply.map((k) => `<button class="chip" data-act="kinfo" data-uid="${k.uid}">${esc(k.name)}</button>`).join('')}${me.hq.map((c) => `<button class="chip" data-act="card" data-uid="${c.uid}">HQ: ${esc(c.name)}</button>`).join('')}
       ${me.tactics.map((t) => `<button class="chip ${t.exhausted ? 'ex' : ''}" data-act="tactic" data-pi="${me.i}" data-k="${t.k}">${esc(t.name)}${t.markers ? ` (${t.markers})` : ''}</button>`).join('')}
       <button class="chip fav" data-act="favour" data-f="${me.faction}">♛ ${esc(CARDS.favour[me.faction].name)}${s.favour && s.favour.pi === ME ? ' ' + 'I'.repeat(s.favour.val) : ''}</button></div></div>`;
@@ -219,9 +223,6 @@ function renderDock(me, T, choosable) {
   if (s.over) {
     panel = `<div class="panel"><h3>Final Influence</h3>${s.players.map((p) => `${who(p.i)} (${esc(p.short)}): <b>${p.inf}</b>`).join(' · ')}
       <div class="opts"><button class="opt main" data-act="again">Play again</button><button class="opt" data-act="newsetup">Change factions</button><button class="opt" data-act="log">Read the game log</button></div></div>`;
-  } else if (coachP) {
-    const c = COACH[coachP.key];
-    panel = `<div class="panel coach"><h3>${c.title}</h3>${c.text}<div class="opts"><button class="opt main" data-act="coachok">Got it</button></div></div>`;
   } else if (beatP) {
     panel = `<div class="panel"><div class="opts"><button class="opt main" data-act="beatok">Continue</button></div></div>`;
   } else if (pending) {
@@ -244,8 +245,16 @@ function renderDock(me, T, choosable) {
     return cardHTML(c, { cls, style: `transform: rotate(${off * 4}deg) translateY(${Math.abs(off) * 5}px); z-index:${i + 1}` });
   }).join('');
   const fav = s.favour && s.favour.pi === ME ? `<div class="stat"><i>♛</i>${'I'.repeat(s.favour.val)}<small>Favour</small></div>` : '';
-  dock.innerHTML = `<div class="dockin">${panel}<div class="hand">${hand || '<span class="empty">No cards in hand</span>'}</div>
-    <div class="stats"><div class="stat"><i>◉</i>${me.inf}<small>Influence</small></div><div class="stat"><i>✒</i>${me.lore}<small>Lore</small></div>
+  const slots = `<div class="slots">${me.slots.map((sl) => (sl ? `<div class="slot full">${kcHTML(sl.card)}${sl.occ ? cardHTML(sl.occ, { cls: choosable.has(sl.occ.uid) ? 'ok' : '' }) : ''}</div>` : '<div class="slot"><span class="empty">Kingdom slot</span></div>')).join('')}</div>`;
+  // the coach is a pop-up whose button is always on screen; only its text scrolls
+  let modal = document.querySelector('.cmodal');
+  if (coachP) {
+    if (!modal) { modal = document.createElement('div'); modal.className = 'cmodal'; document.body.appendChild(modal); }
+    const c = COACH[coachP.key];
+    if (modal.dataset.key !== coachP.key) { modal.dataset.key = coachP.key; modal.innerHTML = `<div class="cbox"><h3>${c.title}</h3><div class="cbody">${c.text}</div><button class="opt main" data-act="coachok">Got it</button></div>`; }
+  } else if (modal) modal.remove();
+  dock.innerHTML = `<div class="dockin">${panel}<div class="handrow"><div class="hand">${hand || '<span class="empty">No cards in hand</span>'}</div>${slots}</div>
+    <div class="stats"><div class="stat fac" style="color:${me.color}"><i>♛</i>${esc(me.short)}<small>${s.order[0] === ME ? '1st' : '2nd'}</small></div><div class="stat"><i>◉</i>${me.inf}<small>Influence</small></div><div class="stat"><i>✒</i>${me.lore}<small>Lore</small></div>
       <div class="stat"><i>⚑</i>${me.supporters}<small>Supporters</small></div><div class="stat"><i>✋</i>${me.hand.length}/${game.maxHand(me)}<small>Hand</small></div>
       <button class="stat" data-act="discard"><i>▤</i>${me.deck.length}<small>Deck</small></button><button class="stat" data-act="discard"><i>♻</i>${me.discard.length}<small>Discard</small></button>
       <button class="stat" data-act="lost"><i>✝</i>${s.lost.filter((c) => c.owner === ME).length}<small>Lost</small></button>${fav}</div></div>`;
