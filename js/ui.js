@@ -6,6 +6,7 @@ import { aiAnswer } from './ai.js';
 import { COACH } from './coach.js';
 import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js';
 import { RULES_HTML } from './rules.js';
+import { morph } from './morph.js';
 
 const $app = document.getElementById('app');
 const $sheet = document.getElementById('sheet');
@@ -116,10 +117,10 @@ function targets() {
 // ---------------- rendering ----------------
 function cardHTML(c, { cls = '', mini = false, style = '' } = {}) {
   const inf = c.inf ? `<span class="cinf">${c.inf}◉</span>` : '';
-  return `<button class="card ${mini ? 'mini' : ''} ${cls}" data-act="card" data-uid="${c.uid}" style="${style}"><img src="${c.image}" alt="${esc(c.name)}" loading="lazy" draggable="false">${inf}<span class="cnm">${esc(c.name)}</span></button>`;
+  return `<button class="card ${mini ? 'mini' : ''} ${cls}" data-act="card" data-uid="${c.uid}" style="${style}"><img src="${c.image}" alt="${esc(c.name)}" draggable="false">${inf}<span class="cnm">${esc(c.name)}</span></button>`;
 }
-const backHTML = (f, mini = true) => `<div class="card back ${mini ? 'mini' : ''}"><img src="${BACK(f)}" alt="" loading="lazy" draggable="false"></div>`;
-const kcHTML = (k, cls = '', extra = '') => `<button class="kc ${cls}" data-act="kinfo" data-uid="${k.uid}" ${extra}><img src="${k.image}" alt="${esc(k.name)}" loading="lazy"><span class="kn">${esc(k.name)}</span></button>`;
+const backHTML = (f, mini = true) => `<div class="card back ${mini ? 'mini' : ''}"><img src="${BACK(f)}" alt="" draggable="false"></div>`;
+const kcHTML = (k, cls = '', extra = '') => `<button class="kc ${cls}" data-act="kinfo" data-uid="${k.uid}" ${extra}><img src="${k.image}" alt="${esc(k.name)}"><span class="kn">${esc(k.name)}</span></button>`;
 
 function render() {
   if (!game) return;
@@ -149,26 +150,33 @@ function render() {
       ${chips.length ? `<div class="more">${chips.join('')}</div>` : ''}
       ${toast ? `<div class="more"><span class="chip">${esc(toast)}</span></div>` : ''}</div>`;
 
-  // season track
-  const SEAS = [['year', '♛', 'Year'], ['spring', '✿', 'Spring'], ['summer', '☀', 'Summer'], ['autumn', '❦', 'Autumn'], ['winter', '❄', 'Winter']];
-  const track = `<div class="track">${SEAS.map(([id, ic, n]) => `<span class="sea ${s.season === id ? 'on' : ''}" title="${n}">${ic}</span>`).join('')}
-    <span class="rounds">${Array.from({ length: s.rounds }, (_, i) => `<span class="rd ${i + 1 === s.round ? 'on' : i + 1 < s.round ? 'past' : ''}">${['I', 'II', 'III', 'IV', 'V', 'VI'][i]}</span>`).join('')}</span></div>`;
-  // opponent
-  const oppHTML = opp ? `${track}<button class="opp" data-act="player" data-pi="${opp.i}" style="border-color:${opp.color}">
-      <div class="score">${opp.inf}<small>INF</small></div>
-      <div class="grow"><div class="nm">Computer · ${esc(opp.short)}${s.favour && s.favour.pi === opp.i ? ` · ♛${'I'.repeat(s.favour.val)}` : ''}${s.order[0] === opp.i ? ' · 1st' : ''}</div>
-      <div class="st">Lore ${opp.lore} · Supporters ${opp.supporters} · Deck ${opp.deck.length} · Discard ${opp.discard.length}</div></div>
-      <div class="backs">${opp.hand.map(() => `<img src="${BACK(opp.faction)}" alt="">`).join('')}</div></button>
-    <div class="strip"><span class="lbl">Their Kingdom</span>${opp.slots.some(Boolean) || opp.ksupply.length ? opp.slots.map((sl, si) => sl ? kcHTML(sl.card, T.oppSlots[`${opp.i}:${si}`] ? 'pickable' : '', T.oppSlots[`${opp.i}:${si}`] ? `data-opt="${T.oppSlots[`${opp.i}:${si}`]}"` : '') : '').join('') + opp.ksupply.map((k) => kcHTML(k)).join('') + '<div style="flex:1 1 0"></div>'.repeat(Math.max(0, 3 - opp.slots.filter(Boolean).length - opp.ksupply.length)) : '<span class="dim" style="align-self:center">No Kingdom Cards yet</span>'}</div>` : '';
+  // season track (left) and the opponent's box (right), like the real table
+  const SEAS = [['year', '♛', 'Start of the Year'], ['spring', '✿', 'Spring'], ['summer', '☀', 'Summer'], ['autumn', '❦', 'Autumn'], ['winter', '❄', 'Winter']];
+  const track = `<div class="track"><div class="seas">${SEAS.map(([id, ic, n]) => `<span class="sea ${s.season === id ? 'on' : ''}" title="${n}">${ic}</span>`).join('')}</div>
+    <div class="rounds">${Array.from({ length: s.rounds }, (_, i) => `<span class="rd ${i + 1 === s.round ? 'on' : i + 1 < s.round ? 'past' : ''}">${['I', 'II', 'III', 'IV', 'V', 'VI'][i]}</span>`).join('')}</div>
+    <div class="order">Turn order: ${s.order.map((i) => `<b style="color:${s.players[i].color}">${i === ME ? 'You' : 'CPU'}</b>`).join(' → ')}</div></div>`;
+  const oppHTML = opp ? `<div class="obox" style="--fc:${opp.color}">
+      <button class="otop" data-act="player" data-pi="${opp.i}"><span class="emb" style="background-image:url('${BACK(opp.faction)}')"></span>
+        <span class="onum">${opp.inf}</span>
+        <span class="ores"><span>◉ ${opp.inf}</span><span>✒ ${opp.lore}</span><span>⚑ ${opp.supporters}</span></span>
+        <span class="backs">${opp.hand.map(() => `<img src="${BACK(opp.faction)}" alt="">`).join('')}</span></button>
+      ${[...opp.slots.map((sl, si) => sl && { k: sl.card, g: sl.occ, opt: T.oppSlots[`${opp.i}:${si}`] }).filter(Boolean), ...opp.ksupply.map((k) => ({ k }))].map((x) => `<button class="okc ${x.opt ? 'pickable' : ''}" data-act="kinfo" data-uid="${x.k.uid}" ${x.opt ? `data-opt="${x.opt}"` : ''}><span class="suit ${x.k.suit}"></span><span class="nm">${esc(x.k.name)}</span>${x.g ? `<span class="g">${x.g.str}</span>` : ''}</button>`).join('') || '<div class="okc none">No Kingdom Cards</div>'}
+      <div class="ofoot">${esc(opp.short)}${s.favour && s.favour.pi === opp.i ? ` · ♛${'I'.repeat(s.favour.val)}` : ''} · Deck ${opp.deck.length}</div></div>` : '';
+  const top = `<div class="toprow">${track}${oppHTML}</div>`;
 
-  // Great Road and Councils
+  // Councils as text panels along the top of the window
+  const CSHORT = { relics: 'Herald Reward: discard your cards here for 1◉ per Vote.', secrets: 'Autumn: place a marker per Vote on Locations. 4 on one = claim its reward.', oaths: 'Autumn: get a Supporter back per Vote (+1 if you have the most).' };
+  const councils = `<div class="cpanels">${COUNCILS.map((c) => `<button class="cpanel ${T.councils[c.id] || (T.drop && T.drop.councils) ? 'pickable' : ''}" data-act="council" data-c="${c.id}" ${T.drop && T.drop.councils ? `data-drop="council:${c.id}"` : ''}>
+      <span class="ctext">${CSHORT[c.id]}</span><span class="cname"><span class="suit ${c.id}"></span>${c.name.replace('Council of ', '')}</span>
+      <span class="votes">${s.players.map((p) => `<span style="color:${p.color}">${p.i === ME ? 'You' : 'CPU'} ${game.votes(p.i, c.id)}</span>`).join('')}</span></button>`).join('')}</div>`;
+
+  // the Great Road (under the window) and bids
   const bids = s.bids ? `<div class="bidrow">Bids: ${Object.entries(s.bids).map(([pi, c]) => `${who(+pi)} <b>${esc(c.name)} (${s.bstr ? s.bstr[pi] : c.str})</b>`).join(' · ')}</div>` : '';
-  const road = `<div class="strip"><span class="lbl">Great Road</span>${s.road.map((k, i) => (k ? kcHTML(k, T.road[i] ? 'pickable' : '', T.road[i] ? `data-opt="${T.road[i]}"` : '') : '<div class="kc deck" style="flex:1 1 0"></div>')).join('')}<div class="kc deck">${s.kdeck.length}</div></div>${bids}
+  const lastLost = s.lost[s.lost.length - 1];
+  const road = `<div class="road"><span class="lbl">Great Road</span>${s.road.map((k, i) => (k ? kcHTML(k, T.road[i] ? 'pickable' : '', T.road[i] ? `data-opt="${T.road[i]}"` : '') : '<div class="kc deck"></div>')).join('')}
+      <div class="kc deck">${s.kdeck.length}</div><button class="lostpile" data-act="lost">${lastLost ? `<img src="${lastLost.image}" alt="">` : ''}<span>Lost ${s.lost.length}</span></button></div>${bids}
     ${T.drop && T.drop.bid ? '<div class="bidzone" data-drop="bid">Drag a card here to Bid with it</div>' : ''}
     ${T.drop && T.drop.any ? '<div class="bidzone" data-drop="any">Drag a highlighted card here (or tap it)</div>' : ''}`;
-  const councils = `<div class="strip"><span class="lbl">Councils</span>${COUNCILS.map((c) => `<button class="council ${T.councils[c.id] || (T.drop && T.drop.councils) ? 'pickable' : ''}" data-act="council" data-c="${c.id}" ${T.drop && T.drop.councils ? `data-drop="council:${c.id}"` : ''}>
-      <img src="${c.image}" alt="${c.name}" loading="lazy"><span class="cnt">${c.name.replace('Council of ', '')} · ${s.councils[c.id].length}</span>
-      <div class="votes">${s.players.map((p) => `<span style="color:${p.color}">${p.i === ME ? 'You' : 'CPU'} ${game.votes(p.i, c.id)}</span>`).join('')}</div></button>`).join('')}</div>`;
 
   // the Map
   const map = `<div class="map">${REGIONS.map((r) => {
@@ -190,7 +198,7 @@ function render() {
       const hs = s.players.filter((p) => p.herald === l).map((p) => `<span class="herald" style="background:${p.color}">♛</span>`).join('');
       const mks = s.marks[l] ? s.players.filter((p) => s.marks[l][p.i]).map((p) => `<span class="mk" style="background:${p.color}">${s.marks[l][p.i]}</span>`).join('') : '';
       const lk = (s.locKs[l] || []).map((k) => `<span class="ktile">${esc(k.card.name)}</span>`).join('');
-      return `<button class="tile ${T.tiles[l] ? 'pickable' : ''} ${R.claimed === l ? 'claimed' : ''}" data-act="tile" data-l="${l}" data-rid="${r.id}"><img src="${LOCATIONS[l].image}" alt="${LOCATIONS[l].name}" loading="lazy"><span class="tokens">${hs}${mks}</span>${lk}</button>`;
+      return `<button class="tile ${T.tiles[l] ? 'pickable' : ''} ${R.claimed === l ? 'claimed' : ''}" data-act="tile" data-l="${l}" data-rid="${r.id}"><img src="${LOCATIONS[l].image}" alt="${LOCATIONS[l].name}"><span class="tokens">${hs}${mks}</span>${lk}</button>`;
     }).join('');
     const kOn = R.ks.map((k) => `<button data-act="kinfo" data-uid="${k.card.uid}" style="border-color:${s.players[k.owner].color}">${esc(k.card.name)}</button>`).join('') + (R.martial != null ? '<button>Martial Law</button>' : '');
     return `<div class="mrow ${pick ? 'pickable' : ''} ${cur ? 'cur' : ''}" data-act="row" data-rid="${r.id}" data-row="${r.id}" ${dropOK ? `data-drop="row:${r.id}"` : ''}>
@@ -198,12 +206,12 @@ function render() {
   }).join('')}</div>`;
 
   // your board
-  const mine = `<div class="mine" style="border-color:${me.color}"><div class="hdr"><span>${esc(me.name)} — Tactics & Favour</span><button class="chip" data-act="discard">Discard & Site of Power</button></div>
+  const mine = `<div class="mine" style="border-color:${me.color}"><div class="hdr"><span>Your Tactics</span><button class="chip" data-act="discard">Discard · Site of Power</button></div>
     <div class="chips">${me.ksupply.map((k) => `<button class="chip" data-act="kinfo" data-uid="${k.uid}">${esc(k.name)}</button>`).join('')}${me.hq.map((c) => `<button class="chip" data-act="card" data-uid="${c.uid}">HQ: ${esc(c.name)}</button>`).join('')}
       ${me.tactics.map((t) => `<button class="chip ${t.exhausted ? 'ex' : ''}" data-act="tactic" data-pi="${me.i}" data-k="${t.k}">${esc(t.name)}${t.markers ? ` (${t.markers})` : ''}</button>`).join('')}
       <button class="chip fav" data-act="favour" data-f="${me.faction}">♛ ${esc(CARDS.favour[me.faction].name)}${s.favour && s.favour.pi === ME ? ' ' + 'I'.repeat(s.favour.val) : ''}</button></div></div>`;
 
-  $app.innerHTML = `<div class="table">${banner}${oppHTML}${road}${councils}${map}${mine}</div>`;
+  morph($app, `<div class="table">${banner}${top}${councils}${map}${road}${mine}</div>`);
   renderDock(me, T, choosable);
   const focus = s.current || (prompt && prompt.region) || null;
   if (focus && focus !== lastFocus) {
@@ -242,7 +250,9 @@ function renderDock(me, T, choosable) {
   const hand = me.hand.map((c, i) => {
     const off = i - (n - 1) / 2;
     const cls = choosable.size ? (choosable.has(c.uid) ? 'ok' : 'no') : '';
-    return cardHTML(c, { cls, style: `transform: rotate(${off * 4}deg) translateY(${Math.abs(off) * 5}px); z-index:${i + 1}` });
+    // squeeze the fan so any number of cards fits beside the Kingdom slots
+    const step = n > 1 ? Math.min(0.11, (0.48 - 0.17) / (n - 1)) : 0;
+    return cardHTML(c, { cls, style: `margin:0 0 0 ${i ? `calc(var(--W) * ${-(0.17 - step).toFixed(4)})` : '0'};transform: rotate(${off * 3}deg) translateY(${Math.abs(off) * 4}px); z-index:${i + 1}` });
   }).join('');
   const fav = s.favour && s.favour.pi === ME ? `<div class="stat"><i>♛</i>${'I'.repeat(s.favour.val)}<small>Favour</small></div>` : '';
   const slots = `<div class="slots">${me.slots.map((sl) => (sl ? `<div class="slot full">${kcHTML(sl.card)}${sl.occ ? cardHTML(sl.occ, { cls: choosable.has(sl.occ.uid) ? 'ok' : '' }) : ''}</div>` : '<div class="slot"><span class="empty">Kingdom slot</span></div>')).join('')}</div>`;
@@ -253,11 +263,11 @@ function renderDock(me, T, choosable) {
     const c = COACH[coachP.key];
     if (modal.dataset.key !== coachP.key) { modal.dataset.key = coachP.key; modal.innerHTML = `<div class="cbox"><h3>${c.title}</h3><div class="cbody">${c.text}</div><button class="opt main" data-act="coachok">Got it</button></div>`; }
   } else if (modal) modal.remove();
-  dock.innerHTML = `<div class="dockin">${panel}<div class="handrow"><div class="hand">${hand || '<span class="empty">No cards in hand</span>'}</div>${slots}</div>
-    <div class="stats"><div class="stat fac" style="color:${me.color}"><i>♛</i>${esc(me.short)}<small>${s.order[0] === ME ? '1st' : '2nd'}</small></div><div class="stat"><i>◉</i>${me.inf}<small>Influence</small></div><div class="stat"><i>✒</i>${me.lore}<small>Lore</small></div>
+  morph(dock, `<div class="dockin">${panel}<div class="handrow"><div class="hand">${hand || '<span class="empty">No cards in hand</span>'}</div>${slots}</div>
+    <div class="stats"><div class="stat fac"><span class="emb" style="background-image:url('${BACK(me.faction)}')"></span><span class="rdb">${['I', 'II', 'III', 'IV', 'V', 'VI'][Math.min(s.round, s.rounds) - 1]}</span></div><div class="stat"><i>◉</i>${me.inf}<small>Influence</small></div><div class="stat"><i>✒</i>${me.lore}<small>Lore</small></div>
       <div class="stat"><i>⚑</i>${me.supporters}<small>Supporters</small></div><div class="stat"><i>✋</i>${me.hand.length}/${game.maxHand(me)}<small>Hand</small></div>
       <button class="stat" data-act="discard"><i>▤</i>${me.deck.length}<small>Deck</small></button><button class="stat" data-act="discard"><i>♻</i>${me.discard.length}<small>Discard</small></button>
-      <button class="stat" data-act="lost"><i>✝</i>${s.lost.filter((c) => c.owner === ME).length}<small>Lost</small></button>${fav}</div></div>`;
+      <button class="stat" data-act="lost"><i>✝</i>${s.lost.filter((c) => c.owner === ME).length}<small>Lost</small></button><div class="stat"><i>▽</i>${me.tactics.filter((x) => !x.exhausted).length}<small>Tactics</small></div>${fav}</div></div>`);
 }
 
 function findCard(uid) {

@@ -16,6 +16,7 @@ modules and has no build step or dependencies. It's a sibling of Argaia, Holodec
     `c.tmp` lasts the Round and `c.ctmp` lasts the Clash.
   - Regions: `cards` [{card, up, used}], `sup`/`fresh` Supporters, `ks` (Kingdom Cards placed there), `bonus`, `martial`.
 - `js/ai.js` holds `aiAnswer`, a generic chooser (highest option score + noise, card `ai` hints, plus Region planning for card placement).
+- `js/morph.js` patches the DOM in place (keyed by data-uid / data-l / data-k), so pictures aren't re-created on every update. Always render through `morph`; using innerHTML for the game makes the screen flicker.
 - `js/ui.js` is the board UI. It renders from state: the opponent, Great Road, Councils, the Map (Location art tiles, with card columns beside
   each Region), your board, and a fixed dock with a fanned hand and stats bar. `targets()` maps the current prompt onto the board
   (tiles, rows, road, Councils, opponent slots). Hand cards drag onto `[data-drop]` targets (`row:rid`, `bid`, `council:id`, `any`)
