@@ -1,6 +1,6 @@
 // Game data for King's Crown. Card text, stats and images come from js/cards.js,
 // which is generated from the Eerie Card Library (see tools/build-cards.py).
-import { CARDS } from './cards.js?v=17';
+import { CARDS } from './cards.js?v=19';
 export { CARDS };
 
 export const FACTIONS = [

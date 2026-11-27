@@ -420,3 +420,14 @@ body.ingame, .dock, .sheet .pboard, .tray { -webkit-user-select: none; user-sele
 .gnav .opt .ic { width: 16px; height: 16px; }
 .inl { background: none; border: 0; padding: 0; color: var(--gold2); font: 600 15px var(--serif); text-decoration: underline; }
 .ibtn.tipb .ic { width: 19px; height: 19px; color: var(--gold2); }
+
+/* Keep everything out of the notch / Dynamic Island and the status bar. */
+:root { --st: calc(env(safe-area-inset-top, 0px) + 8px); }
+#gbanner { padding-top: var(--st); background: linear-gradient(#060b0e 0, #060b0e var(--st), transparent var(--st)); }
+.vp { top: env(safe-area-inset-top, 0px); }
+.gshell { background: #060b0e; }
+.title { padding-top: calc(var(--st) + 20px); }
+.ng { padding-top: calc(var(--st) + 10px); }
+.sheet .inner { max-height: calc(100% - var(--st) - 16px); }
+.cmodal { padding-top: calc(var(--st) + 12px); }
+#gbanner .banner { border-top: 1.5px solid var(--frame); border-radius: 12px; }
