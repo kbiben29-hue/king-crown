@@ -431,3 +431,34 @@ body.ingame, .dock, .sheet .pboard, .tray { -webkit-user-select: none; user-sele
 .sheet .inner { max-height: calc(100% - var(--st) - 16px); }
 .cmodal { padding-top: calc(var(--st) + 12px); }
 #gbanner .banner { border-top: 1.5px solid var(--frame); border-radius: 12px; }
+
+/* iPhone Safari (not added to the Home Screen) draws its status bar over the page: keep a solid strip there. */
+.ios-safari { --st: max(calc(env(safe-area-inset-top, 0px) + 8px), 58px); }
+.ios-safari .vp { top: calc(var(--st) - 8px); }
+
+/* ================= coach / tutorial panel (doesn't block play) ================= */
+#gpanel { position: fixed; left: 0; right: 0; z-index: 11; display: flex; justify-content: center; pointer-events: none; padding: 0 6px; }
+.gpbox { pointer-events: auto; width: min(100%, 680px); background: rgba(9,16,21,.96); border: 1.5px solid var(--gold); border-radius: 12px; box-shadow: 0 10px 26px #000c; overflow: hidden; }
+.gphead { display: flex; justify-content: space-between; align-items: center; padding: 5px 10px; background: #f1d58b14; border-bottom: 1px solid #f1d58b33; font: 700 10.5px var(--display); letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+.gphead button { background: none; border: 1px solid #f1d58b55; border-radius: 12px; padding: 2px 10px; color: var(--gold2); font: 600 12px var(--sans); }
+.gpbody { max-height: 34vh; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding: 8px 12px 10px; font: 15.5px/1.4 var(--serif); color: #ece4cf; }
+.gpbody p { margin: 4px 0; }
+.gpbody h4 { margin: 0 0 4px; font: 700 15px var(--display); color: var(--gold2); text-transform: uppercase; letter-spacing: 1px; }
+.gpcoach .opt { margin-top: 6px; padding: 6px 14px; }
+.gpcoach + .gpsug { margin-top: 10px; padding-top: 8px; border-top: 1px solid #f1d58b33; }
+.gpdo { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding: 7px 9px; background: #f1d58b1c; border-radius: 8px; }
+.gpdo span { flex: 1; }
+.gpdo .ic { width: 15px; height: 15px; vertical-align: -2px; color: var(--gold2); }
+.gpdo .opt { flex: none; padding: 8px 10px; font-size: 13px; }
+.gpchip { pointer-events: auto; margin-left: auto; display: flex; align-items: center; gap: 5px; padding: 6px 12px; border-radius: 16px; background: rgba(9,16,21,.94); border: 1px solid var(--gold); color: var(--gold2); font: 600 13px var(--sans); box-shadow: 0 4px 12px #000a; }
+.gpchip .ic { width: 15px; height: 15px; }
+.suggest { outline: 3px solid #ffd35c !important; outline-offset: 1px; box-shadow: 0 0 18px 4px #ffd35caa !important; animation: sugpulse 1.2s infinite; }
+.mrow .tiles.suggest { outline-offset: -3px; }
+@keyframes sugpulse { 50% { box-shadow: 0 0 6px 1px #ffd35c66 !important; } }
+.gpbody { max-height: 27vh; font-size: 14.5px; padding: 6px 10px 8px; }
+.gpdo { margin: 0 0 6px; }
+.gptip { font-size: 14px; color: #d9d1bc; }
+.gpsug + .gpcoach { margin-top: 8px; padding-top: 6px; border-top: 1px solid #f1d58b33; }
+.gpcoach + .gpsug { margin-top: 0; padding-top: 0; border: 0; }
+.gpdo { flex-direction: column; align-items: stretch; gap: 6px; }
+.gpdo .opt { width: auto; align-self: flex-start; display: inline-block; margin: 0; padding: 7px 14px; }

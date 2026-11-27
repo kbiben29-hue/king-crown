@@ -2,7 +2,7 @@
 // the computer takes the best one with a little randomness. Card prompts carry an
 // `ai` hint (strong / weak / votes / lore ...). It only looks at public information
 // plus its own hand.
-import { REGIONS, regionOfLoc } from './data.js?v=19';
+import { REGIONS, regionOfLoc } from './data.js?v=22';
 
 const R = Math.random;
 
@@ -55,7 +55,7 @@ function findCard(s, uid) {
 // Which card goes to each Region: the strongest where our Herald is, the Agent (Deadly)
 // sometimes in another Region, and weak cards / the Ruse elsewhere.
 const allPlans = new WeakMap();
-function planRegions(p, s, game) {
+export function planRegions(p, s, game) {
   if (!allPlans.has(s)) allPlans.set(s, new Map());
   const plans = allPlans.get(s);
   const key = `${s.round}:${p.i}`;

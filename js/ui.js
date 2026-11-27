@@ -1,15 +1,16 @@
 // Board view: the Map window built from the real Location tiles, card spaces beside each
 // Region, the Great Road and Councils above, your Kingdom spaces below, and a fanned hand
 // you drag cards from.
-import { Game, regionName, councilName, kText } from './engine.js?v=19';
-import { aiAnswer } from './ai.js?v=19';
-import { COACH } from './coach.js?v=19';
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=19';
-import { RULES_HTML } from './rules.js?v=19';
-import { morph } from './morph.js?v=19';
-import { CHAPTERS, strategyTip } from './strategy.js?v=19';
+import { Game, regionName, councilName, kText } from './engine.js?v=22';
+import { aiAnswer, planRegions } from './ai.js?v=22';
+import { COACH } from './coach.js?v=22';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=22';
+import { RULES_HTML } from './rules.js?v=22';
+import { morph } from './morph.js?v=22';
+import { CHAPTERS, strategyTip } from './strategy.js?v=22';
 
 const $app = document.getElementById('app');
+if (/iPhone|iPod/.test(navigator.userAgent) && !navigator.standalone && !matchMedia('(display-mode: standalone)').matches) document.documentElement.classList.add('ios-safari');
 const $sheet = document.getElementById('sheet');
 const store = {
   get(k, d) { try { const v = localStorage.getItem('kc:' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
@@ -20,6 +21,7 @@ const RIDS = REGIONS.map((r) => r.id);
 
 let cfg = { wk: store.get('wk', { cards: 0, night: false, aeronauts: false, legendary: false, tower: false }), you: store.get('you', 'nobility'), them: store.get('them', 'clans'), rounds: store.get('rounds', 5), coach: store.get('coach', true) };
 let game = null, S = null, ME = 0;
+let note = null, panelOpen = true, sug = null, tutorial = false;
 let pending = null, coachP = null, beatP = null, showOpts = false, autoNext = null, toast = '';
 let seen = new Set();
 
@@ -48,6 +50,7 @@ function clearGame() {
   game = null;
   document.querySelector('.dock')?.remove();
   document.querySelector('.cmodal')?.remove();
+  document.getElementById('gpanel')?.remove();
   document.body.classList.remove('ingame');
 }
 
@@ -57,7 +60,8 @@ function title() {
   $app.innerHTML = `<div class="title" style="background-image:url('${LOCATIONS.castle.image}')">
     <div class="tbanner"><div class="tsmall">The</div><div class="tbig">Old King's<br>Crown</div><div class="trule"></div><div class="ttag">A tale of royalty, rebels and ruses.</div><div class="tsub">A learn-to-play companion</div></div>
     <div class="tbtns">
-      <button class="tbtn gold" data-act="newgame">Play vs computer</button>
+      <button class="tbtn gold" data-act="tutorial">Tutorial: your first game</button>
+      <button class="tbtn" data-act="newgame">Play vs computer</button>
       ${saved ? '<button class="tbtn" data-act="resume">Resume game</button>' : ''}
       <button class="tbtn" data-act="rules">How to play</button>
       <button class="tbtn" data-act="guide">Strategy guide</button>
@@ -101,10 +105,14 @@ function configure() {
 // ---------------- starting, saving and resuming ----------------
 // Every answer (yours and the computer's) is recorded, so a game can be rebuilt exactly by replaying them.
 let record = [], replay = [];
-function start(resume = false) {
+function start(resume = false, tut = false) {
   const saved = resume ? store.get('save', null) : null;
-  const opts = saved ? saved.opts : { seed: (Math.random() * 2 ** 31) | 0, factions: [cfg.you, cfg.them], humans: [true, false], rounds: cfg.rounds, wk: cfg.wk, coach: cfg.coach };
-  if (saved) cfg.coach = saved.opts.coach;
+  const opts = saved ? saved.opts : tut
+    ? { seed: (Math.random() * 2 ** 31) | 0, factions: ['nobility', 'clans'], humans: [true, false], rounds: 3, wk: { cards: 0 }, coach: true, tutorial: true }
+    : { seed: (Math.random() * 2 ** 31) | 0, factions: [cfg.you, cfg.them], humans: [true, false], rounds: cfg.rounds, wk: cfg.wk, coach: cfg.coach };
+  if (saved || tut) cfg.coach = opts.coach;
+  tutorial = !!opts.tutorial; note = null; sug = null; panelOpen = true;
+  if (tutorial && !saved) note = { key: 'tutorial', open: true };
   seen = new Set(saved ? saved.seen || [] : []); pending = coachP = beatP = autoNext = null; showOpts = false;
   record = []; replay = saved ? saved.answers.slice() : [];
   game = new Game(opts, io);
@@ -133,12 +141,80 @@ const io = {
     if (seen.has(key)) return;
     seen.add(key);
     if (!cfg.coach || !COACH[key]) return;
-    return new Promise((res) => { coachP = { key, res }; render(); });
+    note = { key, open: true }; panelOpen = true; render();
   },
   beat(text) { if (replay.length) return; return new Promise((res) => { beatP = { text, res }; render(); }); },
 };
 let raf = 0;
 function scheduleRender() { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); }
+
+// ---------------- coach notes & tutorial guidance (never block play) ----------------
+const TUT_INTRO = { title: 'Your first game', text: `<p>You're the <b>Nobility</b> against the computer's <b>Clans</b>, over a short 3-year game.</p><p>At every step this panel tells you what's happening, suggests a move and explains <b>why</b>. The suggested card or place glows gold. Follow it, tap <b>Do it for me</b>, or do something else; it's your game.</p><p>You can drag the board, pinch to zoom, and tap <b>Hide</b> to fold this panel away.</p>` };
+const nm = (c) => `<b>${esc(c.name)}</b> (Strength ${game.str(c)})`;
+// Work out a sensible move for the person's current prompt, with a reason.
+function suggestion(prompt) {
+  if (!prompt) return null;
+  if (sug && sug.prompt === prompt) return sug;
+  const me = S.players[ME];
+  let value = null, why = '';
+  try {
+    if (prompt.options) {
+      const best = prompt.options.reduce((a, o) => ((o.score ?? 0.5) > (a.score ?? 0.5) ? o : a), prompt.options[0]);
+      value = best.id;
+      why = `<b>${esc(best.label)}</b>${best.sub ? ` — ${esc(best.sub)}` : ''}`;
+      if (prompt.key === 'herald') why += ' Your Herald pays off where you can win, so put your strongest cards in this Region later.';
+    } else if (prompt.cards) {
+      if (prompt.key === 'place' && !prompt.region) {
+        const plan = planRegions(me, S, game);
+        const rid = (prompt.regions || RIDS).find((r) => plan[r] && prompt.cards.includes(plan[r]));
+        if (rid) {
+          value = { uid: plan[rid], rid };
+          const c = findCard(plan[rid]);
+          const herald = me.herald && game.regOf(me.herald) === rid;
+          why = `Put ${nm(c)} by the <b>${regionName(rid)}</b>. ${herald ? 'Your Herald is there, so this is where you want to win.' : game.str(c) <= 2 ? 'A cheap card for a Region you can afford to lose.' : 'Enough Strength to contest it without spending your best card.'}`;
+        }
+      }
+      if (value == null) {
+        value = aiAnswer(ME, prompt, S, game);
+        const c = value != null && findCard(value.uid ?? value);
+        if (c) why = prompt.key === 'bid' ? `Bid ${nm(c)}: strong enough to pick a Kingdom Card early, while your best cards stay for the Clashes.` : `Use ${nm(c)}.`;
+        else why = 'Skipping is fine here.';
+      }
+    }
+  } catch (e) { console.warn(e); }
+  sug = { prompt, value, why };
+  return sug;
+}
+function renderPanel() {
+  let el = document.getElementById('gpanel');
+  const prompt = pending && !beatP ? pending.prompt : null;
+  const c = note && note.open ? (note.key === 'tutorial' ? TUT_INTRO : COACH[note.key]) : null;
+  const s = tutorial && prompt ? suggestion(prompt) : null;
+  if (!c && !s) { if (el) el.remove(); return; }
+  if (!el) { el = document.createElement('div'); el.id = 'gpanel'; document.body.appendChild(el); }
+  el.style.top = (document.getElementById('gbanner')?.offsetHeight || 0) + 4 + 'px';
+  if (!panelOpen) { morph(el, `<button class="gpchip" data-act="panel">${ic('eye')} ${tutorial ? 'Show tutorial help' : 'Show coach'}</button>`); return; }
+  morph(el, `<div class="gpbox">
+    <div class="gphead"><span>${tutorial ? 'Tutorial' : 'Coach'}</span><button data-act="panel">Hide</button></div>
+    <div class="gpbody">
+      ${s ? `<div class="gpsug">${s.value != null || prompt.optional ? `<div class="gpdo"><span>${ic('eye')} <b>Try this:</b> ${s.why}</span><button class="opt main" data-act="dosug">Do it for me</button></div>` : ''}<div class="gptip">${strategyTip(prompt, S, S.players[ME], game)}</div></div>` : ''}
+      ${c ? `<div class="gpcoach"><h4>${c.title}</h4>${c.text}<button class="opt" data-act="coachok">Got it</button></div>` : ''}
+    </div></div>`);
+}
+function markSuggestion() {
+  document.querySelectorAll('.suggest').forEach((e) => e.classList.remove('suggest'));
+  if (!tutorial || !pending || beatP) return;
+  const s = suggestion(pending.prompt); if (!s || s.value == null) return;
+  const v = s.value, sel = [];
+  if (typeof v === 'object') sel.push(`.hand .card[data-uid="${v.uid}"]`, `.mrow[data-row="${v.rid}"] .tiles`);
+  else if (typeof v === 'number') sel.push(`.hand .card[data-uid="${v}"]`, `#zoom .card[data-uid="${v}"]`, `.dock .sheetcards .card[data-uid="${v}"]`);
+  else {
+    sel.push(`[data-act="opt"][data-id="${v}"]`, `.tile[data-l="${v}"]`, `.mrow[data-row="${v}"] .tiles`, `[data-opt="${v}"]`, `.ccard[data-c="${v}"]`);
+    let m; if ((m = /^sup:(\w+)$/.exec(v)) || (m = /^nf:(\w+)$/.exec(v))) sel.push(`.mrow[data-row="${m[1]}"] .tiles`);
+    if (pending.prompt.key === 'herald') sel.push('.tray .tok.herald');
+  }
+  for (const q of sel) document.querySelectorAll(q).forEach((e) => e.classList.add('suggest'));
+}
 
 // ---------------- what the current prompt lets you tap or drop on ----------------
 function targets() {
@@ -290,6 +366,7 @@ function render() {
   morph(document.getElementById('zoom'), `<div class="table">${top}${councils}${map}${road}${wkHTML}${mine}</div>`);
   renderDock(me, T, choosable);
   if (view.fit) fitBoard();
+  markSuggestion();
   const focus = s.current || (prompt && prompt.region) || null;
   if (focus && focus !== lastFocus) showRegion(focus);
   lastFocus = focus;
@@ -397,13 +474,7 @@ function renderDock(me, T, choosable) {
   }).join('');
   const fav = s.favour && s.favour.pi === ME ? `<div class="stat">${ic('kingdoms-favour', 'big')}${'I'.repeat(s.favour.val)}<small>Favour</small></div>` : '';
   const slots = `<div class="slots">${me.slots.map((sl) => (sl ? `<div class="slot full">${kcHTML(sl.card)}${sl.occ ? cardHTML(sl.occ, { cls: choosable.has(sl.occ.uid) ? 'ok' : '' }) : ''}</div>` : '<div class="slot"><span class="empty">Kingdom slot</span></div>')).join('')}</div>`;
-  // the coach is a pop-up whose button is always on screen; only its text scrolls
-  let modal = document.querySelector('.cmodal');
-  if (coachP) {
-    if (!modal) { modal = document.createElement('div'); modal.className = 'cmodal'; document.body.appendChild(modal); }
-    const c = COACH[coachP.key];
-    if (modal.dataset.key !== coachP.key) { modal.dataset.key = coachP.key; modal.innerHTML = `<div class="cbox"><h3>${c.title}</h3><div class="cbody">${c.text}</div><button class="opt main" data-act="coachok">Got it</button></div>`; }
-  } else if (modal) modal.remove();
+  renderPanel();
   const canHerald = pending && ['herald', 'legend'].includes(pending.prompt.key) && !coachP && !beatP;
   const canSup = Object.values(T.rows).some((v) => String(v).startsWith('sup:'));
   const tray = `<div class="tray">
@@ -650,10 +721,13 @@ document.addEventListener('click', (e) => {
       <button class="opt" data-act="browse">Browse the cards</button>
       <button class="opt" data-act="quit">Save and quit to the main menu</button></div>`); break;
     case 'togglecoach': cfg.coach = !cfg.coach; store.set('coach', cfg.coach); closeSheet(); render(); break;
-    case 'replaytips': seen = new Set(); cfg.coach = true; closeSheet(); render(); break;
+    case 'replaytips': seen = new Set(); cfg.coach = true; panelOpen = true; closeSheet(); render(); break;
     case 'quit': closeSheet(); title(); break;
     case 'toggleopts': showOpts = !showOpts; render(); break;
-    case 'coachok': { const r = coachP.res; coachP = null; r(); render(); break; }
+    case 'coachok': if (note) note.open = false; render(); break;
+    case 'panel': panelOpen = !panelOpen; render(); break;
+    case 'dosug': { const s2 = pending && suggestion(pending.prompt); if (s2) { closeSheet(); answer(s2.value); } break; }
+    case 'tutorial': closeSheet(); start(false, true); break;
     case 'beatok': { const r = beatP.res; beatP = null; r(); render(); break; }
     case 'opt': closeSheet(); answer(b.dataset.id); break;
     case 'skip': answer(null); break;

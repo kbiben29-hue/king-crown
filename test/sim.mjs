@@ -1,8 +1,8 @@
 // Plays many computer-vs-computer games with the real cards (and random Wild Kingdom modules)
 // to check the rules engine never gets stuck and never loses a card, Supporter or Boon.
-import { Game } from '../js/engine.js?v=19';
-import { aiAnswer } from '../js/ai.js?v=19';
-import { FACTIONS } from '../js/data.js?v=19';
+import { Game } from '../js/engine.js?v=22';
+import { aiAnswer } from '../js/ai.js?v=22';
+import { FACTIONS } from '../js/data.js?v=22';
 
 const N = +(process.argv[2] || 200);
 const wins = {}; let steps = 0;
