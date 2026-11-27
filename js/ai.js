@@ -2,7 +2,7 @@
 // the computer takes the best one with a little randomness. Card prompts carry an
 // `ai` hint (strong / weak / votes / lore ...). It only looks at public information
 // plus its own hand.
-import { REGIONS, regionOfLoc } from './data.js?v=9';
+import { REGIONS, regionOfLoc } from './data.js?v=12';
 
 const R = Math.random;
 
@@ -44,12 +44,12 @@ function bestOption(options) {
 
 function findCard(s, uid) {
   for (const p of s.players) {
-    for (const z of [p.hand, p.discard, p.deck, p.site, p.hq]) { const c = z.find((x) => x.uid === uid); if (c) return c; }
+    for (const z of [p.hand, p.discard, p.deck, p.site, p.hq, p.lsupply || []]) { const c = z.find((x) => x.uid === uid); if (c) return c; }
     for (const sl of p.slots) if (sl && sl.occ && sl.occ.uid === uid) return sl.occ;
   }
   for (const r of Object.values(s.regions)) for (const x of r.cards) if (x.card.uid === uid) return x.card;
   for (const e of Object.values(s.councils).flat()) if (e.card.uid === uid) return e.card;
-  return s.lost.find((c) => c.uid === uid);
+  return s.lost.find((c) => c.uid === uid) || (s.aeroDeck || []).find((c) => c.uid === uid);
 }
 
 // Which card goes to each Region: the strongest where our Herald is, the Agent (Deadly)

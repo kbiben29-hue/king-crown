@@ -76,5 +76,17 @@ export const RULES_HTML = `
 <dt>Archetypes</dt><dd>Heir, Captain, Follower, Cavalry, War Machine, Agent, Trader, Ruse, Champion — other cards refer to them (e.g. Agents Eliminate themselves if an opponent has an Active Follower in the Clash).</dd>
 <dt>Site of Power</dt><dd>Your five Advanced/HQ cards, bought with Lore. If it's empty at the end, every 2 leftover Lore is 1 Influence.</dd>
 </dl>
+<h3>Wild Kingdom expansion (optional modules)</h3>
+<p>Turn these on in setup. They can be mixed freely.</p>
+<dl class="glos">
+<dt>Wild Kingdom Cards</dt><dd>Mix 5, 10 or 15 of the new Kingdom Cards into a 30-card Kingdom deck (the rest are random base cards).</dd>
+<dt>Night Map</dt><dd>Night art for the six Locations, shuffled into a random layout. Regions stay Highlands, Plateau, Lowlands top to bottom.</dd>
+<dt>Visit & Travel</dt><dd>Some modules put a piece on a Location. When you claim that Location you may (or must) <b>Visit</b> the piece <i>instead of</i> taking the Location's reward. Your Herald Reward still counts. A piece that <b>Travels</b> moves diagonally down to the next Region, on the opposite side (Lowlands wrap to the Highlands).</dd>
+<dt>Allies</dt><dd>A Faction Card from another faction that now fights for you. Before Bids, anyone with an Ally in hand may declare an Ally Bid first. Before placing cards, anyone with Allies may place up to one face-down Ally per Region first.</dd>
+<dt>Aeronauts</dt><dd>The Near & Far starts on a random Location and Travels every Winter until someone claims it. Visiting: gain 1 Influence or 1 Lore, then take an Aeronaut into your hand as an Ally. When they're gone, the next visitor may unexhaust a Tactic and claims the Near & Far: a Supporter worth 3 Strength that always comes back to your board.</dd>
+<dt>Legendary Creatures</dt><dd>Each faction gets a Legendary piece that acts as a second Herald (never on the same Location as your Herald). Its Strength-13 card waits in your Supply: when you <i>lose</i> a Clash in the Region where your Legendary piece is, the card comes to your hand. It goes back to your Supply every Winter.</dd>
+<dt>Whispering Tower</dt><dd>Whoever claims the Tower's Location must visit it. Entrance: take a Boon. Labyrinth: look at two, keep one, give one to an opponent. Pinnacle: pay 1 Lore, take three, then discard two. You can stop after any level, then the Tower moves to another Region. In Spring, put Boons face down on your face-down cards (up to two each). They are revealed with the card and work while it stays Active.</dd>
+</dl>
+<p class="dim">The Travelling Town (its card isn't in the card library) and the Negotiating Table (a 3–4 player trading module) aren't included.</p>
 <p style="color:#b5a68c;font-size:13px;margin-top:18px">Unofficial fan-made learning aid. The Old King's Crown is by Pablo Clark / Eerie Idol Games. Card text and art © Eerie Idol Games, from the Eerie Card Library.</p>
 `;

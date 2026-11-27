@@ -1,12 +1,12 @@
 // Board view: the Map window built from the real Location tiles, card spaces beside each
 // Region, the Great Road and Councils above, your Kingdom spaces below, and a fanned hand
 // you drag cards from.
-import { Game, regionName, councilName, kText } from './engine.js?v=9';
-import { aiAnswer } from './ai.js?v=9';
-import { COACH } from './coach.js?v=9';
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=9';
-import { RULES_HTML } from './rules.js?v=9';
-import { morph } from './morph.js?v=9';
+import { Game, regionName, councilName, kText } from './engine.js?v=12';
+import { aiAnswer } from './ai.js?v=12';
+import { COACH } from './coach.js?v=12';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=12';
+import { RULES_HTML } from './rules.js?v=12';
+import { morph } from './morph.js?v=12';
 
 const $app = document.getElementById('app');
 const $sheet = document.getElementById('sheet');
@@ -17,7 +17,7 @@ const store = {
 const BACK = (f) => `https://cards.eerieidolgames.com/cards/tokc/en-US/${f[0].toUpperCase() + f.slice(1)}_Reverse.webp`;
 const RIDS = REGIONS.map((r) => r.id);
 
-let cfg = { you: store.get('you', 'nobility'), them: store.get('them', 'clans'), rounds: store.get('rounds', 5), coach: store.get('coach', true) };
+let cfg = { wk: store.get('wk', { cards: 0, night: false, aeronauts: false, legendary: false, tower: false }), you: store.get('you', 'nobility'), them: store.get('them', 'clans'), rounds: store.get('rounds', 5), coach: store.get('coach', true) };
 let game = null, S = null, ME = 0;
 let pending = null, coachP = null, beatP = null, showOpts = false, autoNext = null, toast = '';
 let seen = new Set();
@@ -29,6 +29,9 @@ const who = (pi) => (pi === ME ? 'You' : 'Computer');
 const COLOUR_IC = new Set(['spring', 'day', 'night', 'autumn', 'winter']);
 const ic = (n, cls = '') => (COLOUR_IC.has(n) ? `<img class="ic ${cls}" src="img/icons/${n}.svg" alt="">` : `<i class="ic ${cls}" style="-webkit-mask-image:url(img/icons/${n}.svg);mask-image:url(img/icons/${n}.svg)"></i>`);
 const ARCH_IC = { heir: 'heir', captain: 'captain', follower: 'follower', cavalry: 'cavalry', warmachine: 'war-machine', agent: 'agent', trader: 'trader', ruse: 'ruse', champion: 'champion' };
+const NIGHT_KEY = { castle: 'castle', wilderness: 'wilderness', harvest: 'harvest-field', battlefield: 'battlefield', shrine: 'shrine', necropolis: 'necropolis' };
+const locImg = (l) => (S && S.night ? CARDS.wk.night[NIGHT_KEY[l]].image : LOCATIONS[l].image);
+const boonText = (b) => b.text || (b.rules || []).map((r) => `${cap(r.season)}: ${r.text}`).join(' ');
 const SEASON = { year: 'Start of the Year', spring: 'Spring', summer: 'Summer', autumn: 'Autumn', winter: 'Winter', end: 'Game over', setup: '' };
 
 // ---------------- setup screen ----------------
@@ -52,6 +55,12 @@ function setup() {
       <button data-act="rounds" data-n="4" class="${cfg.rounds === 4 ? 'on' : ''}">Short game<small>4 Rounds</small></button>
       <button data-act="rounds" data-n="5" class="${cfg.rounds === 5 ? 'on' : ''}">Standard<small>5 Rounds (rulebook default)</small></button>
     </div>
+    <h3>Wild Kingdom expansion</h3>
+    <div class="pick">
+      ${[['night', 'Night Map', 'Night Location art, shuffled into a random layout'], ['aeronauts', 'Aeronauts', 'Visit the Near & Far to recruit Aeronaut Allies'], ['legendary', 'Legendary Creatures', 'A second Herald, and a Strength 13 card when you lose its Clash'], ['tower', 'Whispering Tower', 'Visit the Tower for Boons to put on your cards']].map(([k, n, d]) => `<button data-act="wk" data-k="${k}" class="${cfg.wk[k] ? 'on' : ''}">${n}<small>${d}</small></button>`).join('')}
+    </div>
+    <div class="pick" style="grid-template-columns:repeat(4,1fr);margin-top:8px">${[0, 5, 10, 15].map((n) => `<button data-act="wkcards" data-n="${n}" class="${cfg.wk.cards === n ? 'on' : ''}" style="text-align:center">${n}<small>WK cards</small></button>`).join('')}</div>
+    <div class="dim" style="margin-top:4px">Wild Kingdom Cards mixed into a 30-card Kingdom deck (0 = base game only).</div>
     <h3>Coach</h3>
     <div class="pick">
       <button data-act="coach" data-on="1" class="${cfg.coach ? 'on' : ''}">Coach on<small>Explains each step the first time</small></button>
@@ -67,7 +76,7 @@ function setup() {
 function start() {
   if (cfg.you === cfg.them) cfg.them = FACTIONS.find((f) => f.id !== cfg.you).id;
   seen = new Set(); pending = coachP = beatP = autoNext = null; showOpts = false;
-  game = new Game({ seed: (Math.random() * 2 ** 31) | 0, factions: [cfg.you, cfg.them], humans: [true, false], rounds: cfg.rounds }, io);
+  game = new Game({ seed: (Math.random() * 2 ** 31) | 0, factions: [cfg.you, cfg.them], humans: [true, false], rounds: cfg.rounds, wk: cfg.wk }, io);
   ME = 0; S = game.s;
   window.scrollTo(0, 0);
   render();
@@ -120,10 +129,10 @@ function targets() {
 
 // ---------------- rendering ----------------
 function cardHTML(c, { cls = '', mini = false, style = '' } = {}) {
-  const inf = c.inf ? `<span class="cinf">${c.inf}${ic('influence')}</span>` : '';
+  const inf = (c.inf ? `<span class="cinf">${c.inf}${ic('influence')}</span>` : '') + (c.boons && c.boons.length ? `<span class="boonb">${c.boons.length}</span>` : '');
   return `<button class="card ${mini ? 'mini' : ''} ${cls}" data-act="card" data-uid="${c.uid}" style="${style}"><img src="${c.image}" alt="${esc(c.name)}" draggable="false">${inf}<span class="cnm">${esc(c.name)}</span></button>`;
 }
-const backHTML = (f, mini = true) => `<div class="card back ${mini ? 'mini' : ''}"><img src="${BACK(f)}" alt="" draggable="false"></div>`;
+const backHTML = (f, mini = true, url = null, boons = 0) => `<div class="card back ${mini ? 'mini' : ''}"><img src="${url || BACK(f)}" alt="" draggable="false">${boons ? `<span class="boonb">${boons}</span>` : ''}</div>`;
 const kcHTML = (k, cls = '', extra = '') => `<button class="kc ${cls}" data-act="kinfo" data-uid="${k.uid}" ${extra}><img src="${k.image}" alt="${esc(k.name)}"><span class="kn">${esc(k.name)}</span></button>`;
 
 function render() {
@@ -192,17 +201,20 @@ function render() {
     const res = R.winner != null ? `<span class="res">${R.winner === ME ? '✓ yours' : '✗ theirs'}</span>` : R.tie ? '<span class="res">tie</span>' : '';
     const col = (p) => {
       const cs = R.cards.filter((c) => c.card.owner === p.i).map((c) => {
-        if (!c.up && p.i !== ME) return backHTML(p.faction);
+        if (!c.up && p.i !== ME) return backHTML(p.faction, true, c.card.back || (c.card.faction !== p.faction ? BACK(c.card.faction) : null), c.card.boons.length);
         return cardHTML(c.card, { mini: true, cls: `${!c.up ? 'down' : ''} ${c.used && !cur ? 'used' : ''} ${choosable.has(c.card.uid) ? 'ok' : ''}` });
       }).join('');
-      const sup = R.sup[p.i] ? `<span class="sup">${ic('supporter')}${R.sup[p.i]}</span>` : '';
+      const sup = (R.sup[p.i] ? `<span class="sup">${ic('supporter')}${R.sup[p.i]}</span>` : '') + (R.nf === p.i ? `<span class="sup nf">${ic('wind')} Near & Far +3</span>` : '');
       return `<div class="sidecol" style="background:linear-gradient(${p.color}22, transparent)">${sup}<div class="stack">${cs}</div></div>`;
     };
-    const tiles = r.locs.map((l) => {
-      const hs = s.players.filter((p) => p.herald === l).map((p) => `<span class="herald" style="background:${p.color}">${ic(p.faction)}</span>`).join('');
+    const tiles = s.map[r.id].map((l) => {
+      const hs = s.players.filter((p) => p.herald === l).map((p) => `<span class="herald" style="background:${p.color}">${ic(p.faction)}</span>`).join('')
+        + s.players.filter((p) => p.legend === l).map((p) => `<span class="herald legend" style="background:${p.color}" title="Legendary Creature">${ic(p.faction)}</span>`).join('')
+        + (s.pieces.tower === l ? `<span class="piece" title="Whispering Tower">${ic('tower')}</span>` : '')
+        + (s.pieces.nearfar === l ? `<span class="piece" title="Near & Far">${ic('wind')}</span>` : '');
       const mks = s.marks[l] ? s.players.filter((p) => s.marks[l][p.i]).map((p) => `<span class="mk" style="background:${p.color}">${s.marks[l][p.i]}</span>`).join('') : '';
       const lk = (s.locKs[l] || []).map((k) => `<span class="ktile">${esc(k.card.name)}</span>`).join('');
-      return `<button class="tile ${T.tiles[l] ? 'pickable' : ''} ${R.claimed === l ? 'claimed' : ''}" data-act="tile" data-l="${l}" data-rid="${r.id}"><img src="${LOCATIONS[l].image}" alt="${LOCATIONS[l].name}"><span class="tokens">${hs}${mks}</span>${lk}</button>`;
+      return `<button class="tile ${T.tiles[l] ? 'pickable' : ''} ${R.claimed === l ? 'claimed' : ''}" data-act="tile" data-l="${l}" data-rid="${r.id}"><img src="${locImg(l)}" alt="${LOCATIONS[l].name}"><span class="tokens">${hs}${mks}</span>${lk}</button>`;
     }).join('');
     const kOn = R.ks.map((k) => `<button data-act="kinfo" data-uid="${k.card.uid}" style="border-color:${s.players[k.owner].color}">${esc(k.card.name)}</button>`).join('') + (R.martial != null ? '<button>Martial Law</button>' : '');
     return `<div class="mrow ${pick ? 'pickable' : ''} ${cur ? 'cur' : ''}" data-act="row" data-rid="${r.id}" data-row="${r.id}" ${dropOK ? `data-drop="row:${r.id}"` : ''}>
@@ -215,7 +227,17 @@ function render() {
       ${me.tactics.map((t) => `<button class="chip ${t.exhausted ? 'ex' : ''}" data-act="tactic" data-pi="${me.i}" data-k="${t.k}">${ic('lore-cost')} ${esc(t.name)}${t.markers ? ` (${t.markers})` : ''}</button>`).join('')}
       <button class="chip fav" data-act="favour" data-f="${me.faction}">${ic('kingdoms-favour')} ${esc(CARDS.favour[me.faction].name)}${s.favour && s.favour.pi === ME ? ' ' + 'I'.repeat(s.favour.val) : ''}</button></div></div>`;
 
-  morph($app, `<div class="table">${banner}${top}${councils}${map}${road}${mine}</div>`);
+  // Wild Kingdom modules: the Whispering Tower, the Aeronauts and your Boons
+  let wkHTML = '';
+  if (s.tower || s.pieces.nearfar || s.aeroDeck.length || me.boons.length || me.lsupply.length || me.nf !== 'none') {
+    const T2 = s.tower;
+    wkHTML = `<div class="wkrow">
+      ${T2 ? `<button class="wkbox" data-act="tower"><img src="${CARDS.wk.tower.image}" alt=""><span>${ic('tower')} Whispering Tower${s.pieces.tower ? ` · ${LOCATIONS[s.pieces.tower].name}` : ''}<br><small>Entrance ${T2.entrance.length} · Labyrinth ${T2.lab.length} · Pinnacle ${T2.pin.length}</small></span></button>` : ''}
+      ${s.pieces.nearfar || s.aeroDeck.length || me.nf !== 'none' ? `<button class="wkbox" data-act="aero"><span>${ic('wind')} Aeronauts${s.pieces.nearfar ? ` · ${LOCATIONS[s.pieces.nearfar].name}` : ''}<br><small>${s.aeroDeck.length} Aeronaut${s.aeroDeck.length === 1 ? '' : 's'} left${me.nf !== 'none' ? ' · you have the Near & Far' : s.players.some((q) => q.nf !== 'none') ? ' · Near & Far claimed' : ''}</small></span></button>` : ''}
+    </div>
+    ${me.boons.length || me.lsupply.length ? `<div class="chips" style="margin:6px 8px 0">${me.lsupply.map((c) => `<button class="chip" data-act="card" data-uid="${c.uid}">${esc(c.name)} (in your Supply)</button>`).join('')}${me.boons.map((b) => `<button class="chip boonchip" data-act="boon" data-id="${b.bid}"><img src="${b.image}" alt="">${esc(boonText(b))}</button>`).join('')}</div>` : ''}`;
+  }
+  morph($app, `<div class="table">${banner}${top}${councils}${map}${road}${wkHTML}${mine}</div>`);
   renderDock(me, T, choosable);
   const focus = s.current || (prompt && prompt.region) || null;
   if (focus && focus !== lastFocus) {
@@ -277,12 +299,12 @@ function renderDock(me, T, choosable) {
 function findCard(uid) {
   const s = S;
   for (const p of s.players) {
-    for (const z of [p.hand, p.deck, p.discard, p.site, p.hq]) { const c = z.find((x) => x.uid === uid); if (c) return c; }
+    for (const z of [p.hand, p.deck, p.discard, p.site, p.hq, p.lsupply]) { const c = z.find((x) => x.uid === uid); if (c) return c; }
     for (const k of p.slots) if (k && k.occ && k.occ.uid === uid) return k.occ;
   }
   for (const r of Object.values(s.regions)) for (const c of r.cards) if (c.card.uid === uid) return c.card;
   for (const e of Object.values(s.councils).flat()) if (e.card.uid === uid) return e.card;
-  return s.lost.find((c) => c.uid === uid) || s.burned.find((c) => c.uid === uid);
+  return s.lost.find((c) => c.uid === uid) || s.burned.find((c) => c.uid === uid) || s.aeroDeck.find((c) => c.uid === uid);
 }
 function findKingdom(uid) {
   const s = S;
@@ -317,6 +339,8 @@ function cardSheet(uid) {
   for (const x of game.cmds(c, rid)) facts.push(`<li>${ic(x.season === 'summer' ? 'day' : x.season)} <b>${cap(x.cmd)}${x.arg ? ` (${x.arg})` : ''}</b> — ${CMD[x.cmd] || ''}${x.cmd === 'rally' ? (x.arg === 'self' ? ' (Just this card.)' : ' (Any two of your Active cards.)') : ''}</li>`);
   if (c.cost) facts.push(`<li>${ic('lore-cost')} Costs <b>${c.cost} Lore</b> at your Site of Power.</li>`);
   if (c.inf) facts.push(`<li>Has <b>${c.inf} Influence</b> on it, so it stays through Winter.</li>`);
+  if (game.isAlly(c)) facts.push(`<li><b>Ally</b> — a card from another faction that now fights for ${c.owner === ME ? 'you' : 'them'}.</li>`);
+  for (const b of c.boons || []) if (c.owner === ME || game.regionOf(c) && S.regions[game.regionOf(c)].cards.find((x) => x.card === c)?.up) facts.push(`<li>${ic('tower')} <b>Boon:</b> ${esc(boonText(b))}</li>`);
   let btns = '';
   if (can && p.key === 'place') btns = `<div class="btnrow">${(p.regions || RIDS).map((r) => `<button class="big" data-act="placeIn" data-uid="${uid}" data-rid="${r}">${regionName(r)}</button>`).join('')}</div>`;
   else if (can) btns = `<div class="btnrow"><button class="big" data-act="choose" data-uid="${uid}">${VERB[p.key] || 'Choose this card'}</button></div>`;
@@ -336,8 +360,8 @@ function tacticSheet(t, p) {
 function browse(f = 'nobility') {
   const cards = CARDS.factions[f];
   const g = (list, wide) => `<div class="gallery ${wide ? 'wide' : ''}">${list.map((c) => `<a href="${c.image}" target="_blank" rel="noopener"><img src="${c.image}" loading="lazy" alt="${esc(c.name)}"></a>`).join('')}</div>`;
-  sheet(`<h2>Card browser</h2><div class="pick tabs">${FACTIONS.map((x) => `<button data-act="browse" data-f="${x.id}" class="${x.id === f ? 'on' : ''}">${x.name.replace('The ', '')}</button>`).join('')}<button data-act="browse" data-f="kingdom" class="${f === 'kingdom' ? 'on' : ''}">Kingdom</button></div>
-    ${f === 'kingdom' ? g(CARDS.kingdom, true) : `<h3>Starting deck (14)</h3>${g(cards.filter((c) => c.num <= 14))}<h3>Site of Power (bought with Lore)</h3>${g(cards.filter((c) => c.num >= 15))}<h3>Tactics & Kingdom's Favour</h3>${g([...CARDS.tactics[f], CARDS.favour[f]], true)}`}`);
+  sheet(`<h2>Card browser</h2><div class="pick tabs">${FACTIONS.map((x) => `<button data-act="browse" data-f="${x.id}" class="${x.id === f ? 'on' : ''}">${x.name.replace('The ', '')}</button>`).join('')}<button data-act="browse" data-f="kingdom" class="${f === 'kingdom' ? 'on' : ''}">Kingdom</button><button data-act="browse" data-f="wk" class="${f === 'wk' ? 'on' : ''}">Wild Kingdom</button></div>
+    ${f === 'wk' ? `<h3>Aeronauts & Legendary Creatures</h3>${g(CARDS.wk.factionCards)}<h3>Wild Kingdom Cards</h3>${g(CARDS.wk.kingdom, true)}<h3>Night Map</h3>${g(Object.values(CARDS.wk.night), true)}<h3>Whispering Tower & Boons</h3>${g([CARDS.wk.tower], true)}${g(CARDS.wk.boons)}` : f === 'kingdom' ? g(CARDS.kingdom, true) : `<h3>Starting deck (14)</h3>${g(cards.filter((c) => c.num <= 14))}<h3>Site of Power (bought with Lore)</h3>${g(cards.filter((c) => c.num >= 15))}<h3>Tactics & Kingdom's Favour</h3>${g([...CARDS.tactics[f], CARDS.favour[f]], true)}`}`);
 }
 
 // ---------------- answering ----------------
@@ -406,6 +430,8 @@ document.addEventListener('click', (e) => {
   const T = game ? targets() : null;
   switch (a) {
     case 'fac': cfg[b.dataset.key] = b.dataset.id; store.set(b.dataset.key, b.dataset.id); setup(); break;
+    case 'wk': cfg.wk = { ...cfg.wk, [b.dataset.k]: !cfg.wk[b.dataset.k] }; store.set('wk', cfg.wk); setup(); break;
+    case 'wkcards': cfg.wk = { ...cfg.wk, cards: +b.dataset.n }; store.set('wk', cfg.wk); setup(); break;
     case 'rounds': cfg.rounds = +b.dataset.n; store.set('rounds', cfg.rounds); setup(); break;
     case 'coach': cfg.coach = b.dataset.on === '1'; store.set('coach', cfg.coach); setup(); break;
     case 'start': case 'again': start(); break;
@@ -428,6 +454,9 @@ document.addEventListener('click', (e) => {
     case 'opt': closeSheet(); answer(b.dataset.id); break;
     case 'skip': answer(null); break;
     case 'card': if (game) cardSheet(+b.dataset.uid); break;
+    case 'boon': { const bb = S.players[ME].boons.find((x) => String(x.bid) === b.dataset.id); if (bb) sheet(`<div class="detail kd"><img class="cimg" style="width:40%" src="${bb.image}" alt=""><div><h2>Boon</h2><p>${esc(boonText(bb))}</p><p class="dim">In Spring (as an Action) put Boons face down on your face-down cards by the Regions, up to two per card. They're revealed with the card and work while it stays Active.</p></div></div>`); break; }
+    case 'tower': { const T2 = S.tower; sheet(`<div class="detail kd"><img class="cimg wide" src="${CARDS.wk.tower.image}" alt=""><div><h2>The Whispering Tower</h2><p>${ic('tower')} On the <b>${S.pieces.tower ? LOCATIONS[S.pieces.tower].name : '—'}</b>. Whoever claims that Location <b>must</b> visit it instead of taking the Location's reward.</p><p><b>Entrance</b> (${T2.entrance.length}): take its Boon. <b>Labyrinth</b> (${T2.lab.length}): look at both, keep one, give the other to an opponent. <b>Pinnacle</b> (${T2.pin.length}): pay 1 Lore, take all three, then discard two Boons. You can leave after any level. Then the Tower moves to a Location in another Region.</p></div></div>`); break; }
+    case 'aero': sheet(`<h2>The Aeronauts</h2><p>${ic('wind')} The Near & Far is ${S.pieces.nearfar ? `on the <b>${LOCATIONS[S.pieces.nearfar].name}</b>; it travels diagonally down the Map each Winter` : 'claimed'}. If you claim its Location you <b>may</b> visit instead of taking the reward: gain 1 Influence or 1 Lore, then take an Aeronaut into your hand as an Ally. Once they're all gone, the next visitor may unexhaust a Tactic and claims the Near & Far: a Supporter worth 3 Strength that always comes home.</p><h3>Aeronauts still waiting</h3><div class="cards">${S.aeroDeck.map((c) => cardHTML(c)).join('') || '<p>None.</p>'}</div>`); break;
     case 'choose': closeSheet(); answer(+b.dataset.uid); break;
     case 'placeIn': closeSheet(); answer({ uid: +b.dataset.uid, rid: b.dataset.rid }); break;
     case 'row': if (T.rows[b.dataset.rid]) answer(T.rows[b.dataset.rid]); break;
@@ -436,7 +465,7 @@ document.addEventListener('click', (e) => {
       if (T.tiles[l]) return answer(T.tiles[l]);
       if (T.rows[rid]) return answer(T.rows[rid]);
       const L = LOCATIONS[l];
-      sheet(`<div class="detail kd"><img class="cimg wide" src="${L.image}" alt=""><div><h2>${L.name} <span class="dim">(${regionName(rid)})</span></h2><p><b>${L.inf} Influence</b> when you win this Region and claim this Location.</p><p>${esc(L.text)}</p><p>If your Herald is here too: +1 Influence, and steal 1 from every rival Herald here. Council of Relics cards can be cashed in then too.</p></div></div>`);
+      sheet(`<div class="detail kd"><img class="cimg wide" src="${locImg(l)}" alt=""><div><h2>${L.name} <span class="dim">(${regionName(rid)})</span></h2><p><b>${L.inf} Influence</b> when you win this Region and claim this Location.</p><p>${esc(L.text)}</p><p>If your Herald is here too: +1 Influence, and steal 1 from every rival Herald here. Council of Relics cards can be cashed in then too.</p></div></div>`);
       break;
     }
     case 'kinfo': { const k = findKingdom(+b.dataset.uid); if (k) kSheet(k, b.dataset.opt); break; }

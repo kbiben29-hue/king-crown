@@ -5,6 +5,11 @@ modules and has no build step or dependencies. It's a sibling of Argaia, Holodec
 
 - `data/tokc-cards.json` is the full decoded Eerie Card Library export. `tools/build-cards.py` turns it into `js/cards.js`
   (`CARDS.factions/kingdom/tactics/favour/map/councils`). Ability text that's only on the card art goes in `IMAGE_TEXT`.
+- Wild Kingdom (Waking Kingdom expansion) is in `CARDS.wk` and is switched on per module with `new Game({wk: {cards, night, aeronauts,
+  legendary, tower}})`. The Map layout lives in `s.map` (it's random with `night`), so use `regOf(loc)`/`s.map[rid]`, never the static
+  REGIONS locs. Module pieces sit in `s.pieces` (tower/nearfar). Visits happen in `claimLocation` → `visitTower`/`visitAeronauts`.
+  Boons are on `card.boons` (`hasBoon`), and win-effects run in `beforeRewards`/`afterClash`. Allies are cards whose `faction` differs from
+  their owner's (`isAlly`). Legendary Creatures use `p.legend` (a second Herald) and `p.lsupply`.
 - `js/data.js` holds factions, Regions/Locations (with their reward `fx`), Councils, archetype names and GAME constants.
 - `js/engine.js` is the `Game` class. The whole game is one async script (`run()` → `startOfYear/spring/summer/autumn/winter`).
   - Decisions go through `this.choose(pi, text, options)` (options `{id,label,sub,score}`), `this.pick(pi, text, cards, {ai, optional})`
@@ -26,5 +31,5 @@ modules and has no build step or dependencies. It's a sibling of Argaia, Holodec
   are the teaching text, in our own words.
 - Every file is loaded with a `?v=N` cache-buster (index.html and all js imports). Run `python3 tools/bump-version.py` before each push,
   or phones keep the old files (GitHub Pages caches for ~10 minutes and Safari can mix old and new modules).
-- `npm test` (`test/sim.mjs`) runs bot-vs-bot games for 2–4 players and checks that all 19 cards per player, 5 Supporters
-  per player and 51 Kingdom Cards are accounted for.
+- `npm test` (`test/sim.mjs`) runs bot-vs-bot games for 2–4 players and checks that every faction card (`game.allFaction`), Supporter,
+  Boon and Kingdom Card (`game.kingdomTotal`) is accounted for; half the games use random Wild Kingdom modules.

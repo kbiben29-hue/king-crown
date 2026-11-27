@@ -19,7 +19,17 @@ You play a real game against the computer on a board built from the real Locatio
   happened, and **Browse the cards** shows every card.
 - **Game lengths:** practice year (1 Round), quick (3), short (4) or standard (5).
 
-Not in yet: the Wild Kingdom expansion and the Simulacrum solo mode. Both are in `data/tokc-cards.json`.
+- **The Wild Kingdom (Waking Kingdom) expansion**, as options on the setup screen:
+  - 5, 10 or 15 Wild Kingdom Cards
+  - the randomised Night Map
+  - the Aeronauts module: the Near & Far, Aeronaut Allies, Travel
+  - the Legendary Creatures module
+  - the Whispering Tower module, with its 20 Boons
+
+  The rules come from the expansion rulebook (via RulesPal); the cards come from the card library. Two modules are left out:
+  the Travelling Town, because its card isn't in the library, and the 3–4 player Negotiating Table.
+
+Not in yet: the Simulacrum solo mode. Its cards are in `data/tokc-cards.json`.
 
 ## Card data
 

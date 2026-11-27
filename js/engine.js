@@ -1,7 +1,7 @@
 // Rules engine for The Old King's Crown (base game), using the real cards.
 // The whole game is one async script; every decision goes through io.ask(pi, prompt)
 // so the same code drives the phone UI, the computer opponent and the simulation test.
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, GAME, ARCH, regionOfLoc } from './data.js?v=9';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, GAME, ARCH, regionOfLoc } from './data.js?v=12';
 
 export function rng(seed) {
   let a = seed >>> 0;
@@ -22,10 +22,12 @@ const KF_STEP = { clans: 'day', uprising: 'spring', nobility: 'spring', gatherin
 const cap = (t) => t[0].toUpperCase() + t.slice(1);
 
 export class Game {
-  constructor({ seed = Date.now(), factions = ['nobility', 'clans'], humans = [true, false], rounds = GAME.rounds, kingdom = 'all' } = {}, io) {
+  constructor({ seed = Date.now(), factions = ['nobility', 'clans'], humans = [true, false], rounds = GAME.rounds, kingdom = 'all', wk = {} } = {}, io) {
     this.io = io;
     this.rand = rng(seed);
     this.nextId = 0;
+    this.allFaction = []; // every faction card instance (for checks)
+    this.wk = { cards: 0, night: false, aeronauts: false, legendary: false, tower: false, ...wk };
     const players = factions.map((f, i) => {
       const fac = FACTIONS.find((x) => x.id === f);
       const all = CARDS.factions[f].map((t) => this.mk(t, i));
@@ -37,13 +39,20 @@ export class Game {
         inf: 0, lore: 0, supporters: GAME.supporters, lostSup: 0, markers: GAME.markers,
         herald: null, slots: [null, null], ksupply: [], site: all.filter((c) => c.num >= 15), hq: [],
         tactics: CARDS.tactics[f].map((t) => ({ ...t, exhausted: false, markers: 0 })), siteName: CARDS.sites[f].name,
-        flags: {}, used: {},
+        flags: {}, used: {}, legend: null, lsupply: [], boons: [], nf: 'none', burnedSup: 0,
       };
+      if (this.wk.legendary) p.lsupply.push(this.mk(CARDS.wk.factionCards.find((c) => c.legendary && c.faction === f), i));
       for (const t of p.tactics) this.tacticSetup(p, t);
       while (p.hand.length < GAME.startHand && p.deck.length) p.hand.push(p.deck.pop());
       return p;
     });
-    const kdeck = CARDS.kingdom.filter((k) => kingdom === 'all' || kingdom.includes(k.k)).map((t) => this.mk(t, null));
+    let kdeck = CARDS.kingdom.filter((k) => kingdom === 'all' || kingdom.includes(k.k)).map((t) => this.mk(t, null));
+    if (this.wk.cards > 0) {
+      // Wild Kingdom: N random Wild Kingdom Cards plus random base cards up to 30 in total
+      const wkc = this.shuffle(CARDS.wk.kingdom.map((t) => this.mk(t, null))).slice(0, this.wk.cards);
+      kdeck = [...wkc, ...this.shuffle(kdeck).slice(0, 30 - wkc.length)];
+    }
+    this.kingdomTotal = kdeck.length;
     this.s = {
       round: 1, rounds, season: 'setup', step: '', players,
       order: this.shuffle(players.map((p) => p.i)),
@@ -53,11 +62,46 @@ export class Game {
       marks: {}, locKs: {}, favour: null,
       regions: Object.fromEntries(REGIONS.map((r) => [r.id, blankRegion()])),
       clashOrder: [], current: null, bids: null, log: [], over: false, result: null, peek: null,
+      map: { high: ['castle', 'wilderness'], plat: ['harvest', 'battlefield'], low: ['shrine', 'necropolis'] }, night: false,
+      pieces: {}, aeroDeck: [], tower: null, boonStack: [], boonDiscard: [], flags: {},
     };
+    this.setupWildKingdom();
     for (let n = 0; n < 4; n++) this.s.road.push(this.drawKingdom());
   }
 
-  mk(t, owner) { return { ...t, uid: ++this.nextId, owner, inf: 0, tmp: {}, ctmp: {} }; }
+  mk(t, owner) { const c = { ...t, uid: ++this.nextId, owner, inf: 0, tmp: {}, ctmp: {}, boons: [] }; if (t.faction) this.allFaction.push(c); return c; }
+
+  // ---- Wild Kingdom setup ------------------------------------------------
+  setupWildKingdom() {
+    const s = this.s, wk = this.wk;
+    if (wk.night) {
+      // Randomised Night Map: draw the six Location tokens and lay the tiles top-left to bottom-right.
+      s.night = true;
+      const bag = this.shuffle(['castle', 'wilderness', 'harvest', 'battlefield', 'shrine', 'necropolis']);
+      s.map = { high: bag.slice(0, 2), plat: bag.slice(2, 4), low: bag.slice(4, 6) };
+    }
+    // Starting Locations for module pieces: draw from the bag of six Location tokens.
+    const bag = this.shuffle(['castle', 'wilderness', 'harvest', 'battlefield', 'shrine', 'necropolis']);
+    if (wk.aeronauts) {
+      s.pieces.nearfar = bag.pop();
+      const aero = this.shuffle(CARDS.wk.factionCards.filter((c) => c.faction === 'aeronauts').map((t) => this.mk(t, null)));
+      s.aeroBox = aero.pop(); // one goes back in the box
+      s.aeroDeck = aero;
+    }
+    if (wk.tower) {
+      s.pieces.tower = bag.pop();
+      s.boonStack = this.shuffle(CARDS.wk.boons.map((b) => ({ ...b, bid: ++this.nextId })));
+      s.tower = { entrance: [s.boonStack.pop()], lab: [s.boonStack.pop(), s.boonStack.pop()], pin: [s.boonStack.pop(), s.boonStack.pop(), s.boonStack.pop()] };
+    }
+  }
+  regOf(loc) { return Object.keys(this.s.map).find((r) => this.s.map[r].includes(loc)); }
+  // Travel: diagonally down into the next Region, landing on the opposite side (Lowlands wrap to the Highlands).
+  travel(loc) {
+    const r = this.regOf(loc), i = this.s.map[r].indexOf(loc);
+    const order = ['high', 'plat', 'low'];
+    const next = order[(order.indexOf(r) + 1) % 3];
+    return this.s.map[next][1 - i];
+  }
   shuffle(a) {
     for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(this.rand() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
     return a;
@@ -98,6 +142,7 @@ export class Game {
   }
   has(p, k) { return this.kOwned(p).some((c) => c.k === k); }
   hasHQ(p, id) { return p.hq.some((c) => c.id === id); }
+  isAlly(c) { return !!c.faction && c.owner != null && c.faction !== this.P(c.owner).faction; }
   maxSlots(p) { return 2 + (this.hasHQ(p, 'UPRISING-18') ? 1 : 0); }
   maxHand(p) { return Math.min(8, p.handSize); }
 
@@ -111,7 +156,13 @@ export class Game {
     return b;
   }
   arch(c, rid) { return this.blank(c, rid) === 2 ? null : this.base(c).arch; }
-  str(c) { return (c.str || 0) + (c.tmp.addStr || 0); }
+  hasBoon(c, n) { return (c.boons || []).some((b) => b.n === n); }
+  str(c) { return (c.str || 0) + (c.tmp.addStr || 0) + (this.hasBoon(c, 2) ? 5 : 0) + (this.hasBoon(c, 7) ? 10 : 0); }
+  // Boon 4: while an opposing card with it is Active in this Clash, your cards can't use Commands.
+  suppressed(c, rid) {
+    if (!rid) return false;
+    return this.s.regions[rid].cards.some((x) => x.up && !x.used && x.card.owner !== c.owner && this.hasBoon(x.card, 4));
+  }
   traits(c, rid) {
     const b = this.base(c);
     const out = new Set(this.blank(c, rid) ? [] : b.traits);
@@ -122,9 +173,12 @@ export class Game {
     if (this.has(p, 'adventuring-party')) out.add('pathfinder');
     if (c.ctmp.invul) out.add('invulnerable');
     if (this.arch(c, rid) === 'heir' && p.flags.regalGuard) out.add('invulnerable');
+    if (this.hasBoon(c, 13)) out.add('invulnerable');
+    if (this.s.flags.arrows) out.delete('invulnerable'); // Arrows, Bright & True
     return out;
   }
   cmds(c, rid) {
+    if (this.suppressed(c, rid)) return [];
     const b = this.base(c);
     const out = this.blank(c, rid) ? [] : b.cmds.map((x) => ({ ...x }));
     for (const x of c.tmp.extra || []) out.push(...x.cmds.map((y) => ({ ...y })));
@@ -142,7 +196,12 @@ export class Game {
     if (c.tmp.flank) add('day', 'flank');
     if (c.ctmp.retreat) add('day', 'retreat');
     if (c.ctmp.ambush || c.tmp.ambush) add('day', 'ambush');
-    if (c.ctmp.deadly) add('night', 'deadly');
+    if (c.ctmp.deadly || c.tmp.deadlyRound) add('night', 'deadly');
+    if (this.hasBoon(c, 8)) add('day', 'flank');
+    if (this.hasBoon(c, 11)) add('night', 'deadly');
+    if (this.hasBoon(c, 12)) add('day', 'ambush');
+    if (this.hasBoon(c, 15)) add('autumn', 'rally', 'any two');
+    if (c.tmp.noRetreat) { const i = out.findIndex((x) => x.cmd === 'retreat'); if (i >= 0) out.splice(i, 1); }
     if (this.has(p, 'engineers-workshop')) for (const x of out.filter((y) => y.cmd === 'deploy' && y.season === 'autumn')) add('spring', 'deploy', x.arg);
     const seen = new Set();
     return out.filter((x) => { const k = x.season + x.cmd; if (seen.has(k)) return false; seen.add(k); return true; });
@@ -154,6 +213,7 @@ export class Game {
   votesOf(c) {
     if (!c.faction) return 0;
     let v = c.votes || 0;
+    if (c.owner == null) return v;
     const p = this.P(c.owner);
     if (this.hasHQ(p, 'NOBILITY-19') && !c.votes) v += 1;
     if (c.arch === 'follower' && this.has(p, 'tin-crowns')) v += this.s.order[0] === p.i ? 1 : 2;
@@ -175,7 +235,8 @@ export class Game {
   }
 
   // ---- moving faction cards -------------------------------------------
-  reset(c) { c.inf = 0; c.tmp = {}; c.ctmp = {}; }
+  // A card leaving play: clear its round/clash state; its Boons go to the Boon discard.
+  reset(c) { c.inf = 0; c.tmp = {}; c.ctmp = {}; if (c.boons && c.boons.length) { this.s.boonDiscard.push(...c.boons); c.boons = []; } }
   toDiscard(c) { this.reset(c); this.P(c.owner).discard.push(c); }
   toLost(c) { this.reset(c); this.s.lost.push(c); }
   toHand(c) { this.reset(c); this.P(c.owner).hand.push(c); }
@@ -215,7 +276,7 @@ export class Game {
     return true;
   }
   drawUpTo(p) { let guard = 0; while (p.hand.length < this.maxHand(p) && guard++ < 20) if (!this.drawOne(p)) break; }
-  gainInf(p, n, why) { if (n > 0) { p.inf += n; this.log(`${p.name} gains ${n} Influence — ${why}.`, 'inf'); } }
+  gainInf(p, n, why) { if (n > 0) { if (this.s.flags.abundance && why !== 'Herald Reward') n *= 2; p.inf += n; this.log(`${p.name} gains ${n} Influence — ${why}${this.s.flags.abundance ? ' (doubled by Unnatural Abundance)' : ''}.`, 'inf'); } }
 
   // Eliminate an Active card. Returns where it went.
   async eliminate(c) {
@@ -265,14 +326,16 @@ export class Game {
     p.lore += n;
     this.log(`${p.name} gains ${n} Lore — ${why}.`);
     for (;;) {
-      const can = p.site.filter((c) => c.cost <= p.lore);
+      const bind = this.has(p, 'binding-stone') ? this.opps(p.i).flatMap((q) => q.site) : [];
+      const can = [...p.site, ...bind].filter((c) => c.cost <= p.lore);
       if (!can.length) return;
       await this.coach('buy', p.i);
       const ch = await this.choose(p.i, `You have ${p.lore} Lore. Spend it now at your Site of Power (${p.siteName})? Lore can only be spent right when you gain it.`,
-        [...can.map((c) => ({ id: String(c.uid), label: `${c.name} — ${c.cost} Lore`, sub: c.hq ? `HQ: ${c.text}` : `Strength ${c.str}. ${c.text}`, card: c.uid, score: 1 + c.cost })), { id: 'done', label: 'Save the Lore', score: 0.5 }], { auto: false, key: 'buy' });
+        [...can.map((c) => ({ id: String(c.uid), label: `${c.name} — ${c.cost} Lore${c.owner !== p.i ? ` (${this.P(c.owner).short}'s, via Binding Stone)` : ''}`, sub: c.hq ? `HQ: ${c.text}` : `Strength ${c.str}. ${c.text}`, card: c.uid, score: 1 + c.cost })), { id: 'done', label: 'Save the Lore', score: 0.5 }], { auto: false, key: 'buy' });
       if (ch === 'done') return;
-      const c = p.site.find((x) => x.uid === +ch);
+      const c = can.find((x) => x.uid === +ch);
       p.lore -= c.cost;
+      if (!p.site.includes(c)) { const q = this.P(c.owner); this.takeFrom(q.site, c); c.owner = p.i; p.site.push(c); this.log(`Binding Stone: ${p.name} takes ${c.name} from ${q.name}'s Site of Power as an Ally.`); }
       await this.acquireSite(p, c);
     }
   }
@@ -360,7 +423,7 @@ export class Game {
       }
       case 'clans': {
         if (!rid) break;
-        const loc = await this.choose(p.i, 'Prophet of the Waves: move your Herald to a Location in this Region.', REGIONS.find((r) => r.id === rid).locs.map((l) => ({ id: l, label: locName(l), score: 1 })), { auto: false });
+        const loc = await this.choose(p.i, 'Prophet of the Waves: move your Herald to a Location in this Region.', this.s.map[rid].map((l) => ({ id: l, label: locName(l), score: 1 })), { auto: false });
         p.herald = loc;
         let moved = 0;
         for (const [r2, R2] of Object.entries(s.regions)) {
@@ -371,7 +434,7 @@ export class Game {
       }
       case 'gathering': {
         if (!p.herald) break;
-        const r = regionOfLoc(p.herald);
+        const r = this.regOf(p.herald);
         const c = await this.pick(p.i, `Herald of the Moon: move one of your Active cards in the ${regionName(r)} to your hand.`, s.regions[r].cards.filter((x) => x.up && x.card.owner === p.i).map((x) => x.card), { optional: true, ai: 'strong' });
         if (c) { this.detach(c); this.toHand(c); this.log(`${c.name} returns to ${p.name}'s hand.`); }
         break;
@@ -406,6 +469,7 @@ export class Game {
     await this.coach('intro');
     for (; this.s.round <= this.s.rounds; this.s.round++) {
       for (const p of this.s.players) { p.flags = {}; p.used = {}; }
+      this.s.flags = {};
       if (this.s.round > 1) await this.startOfYear();
       else this.log(`— Round 1 —`, 'head');
       await this.spring();
@@ -442,8 +506,15 @@ export class Game {
     this.step('spring', 'Place Bids');
     await this.coach('bid');
     const bids = {};
+    // Bidding with Allies: players with Allies declare first, in turn order, then everyone else bids.
     for (const p of this.turn()) {
-      if (!p.hand.length) continue;
+      const allies = p.hand.filter((c) => this.isAlly(c));
+      if (!allies.length) continue;
+      const c = await this.pick(p.i, 'You have an Ally in hand. Bid with an Ally now (everyone will know you did), or skip to bid normally.', allies, { key: 'bidAlly', optional: true, ai: 'none' });
+      if (c) { this.takeFrom(p.hand, c); bids[p.i] = c; this.log(`${p.name} declares a Bid with an Ally.`); }
+    }
+    for (const p of this.turn()) {
+      if (!p.hand.length || bids[p.i]) continue;
       const c = await this.pick(p.i, 'Bid: pick a card from your hand, face down. Only its Strength matters. The highest Bid picks a Kingdom Card first.', p.hand, { key: 'bid' });
       this.takeFrom(p.hand, c); bids[p.i] = c;
     }
@@ -479,6 +550,10 @@ export class Game {
           const def = card.role === 'champion' ? 0 : (sl.occ ? sl.occ.str : 0) + (this.has(op, 'white-watchtowers') ? 5 : 0);
           if (stealStr > def) opts.push({ id: `steal:${op.i}:${si}`, label: `Steal ${sl.card.name} from ${op.name}`, sub: `Your ${stealStr} beats their guard's ${def}. ${kText(sl.card)}`, score: 1.6 + this.rand(), kcard: sl.card.uid });
         });
+        for (const op of this.opps(pi)) op.ksupply.forEach((k) => {
+          const def = card.role === 'champion' ? 0 : 10;
+          if (k.isl && stealStr > def) opts.push({ id: `isteal:${op.i}:${k.uid}`, label: `Steal ${k.name} from ${op.name}'s Islands in the Sky`, sub: `Your ${stealStr} beats Strength ${def}. ${kText(k)}`, score: 1.6 + this.rand(), kcard: k.uid });
+        });
       }
       opts.push({ id: 'return', label: `Take nothing — ${card.name} goes back to your hand`, score: 0.1 });
       await this.coach('bidUse', pi);
@@ -489,6 +564,12 @@ export class Game {
         if (a === 'road') { kc = s.road[+b]; s.road[+b] = null; taken = true; }
         else kc = s.kdeck.splice(s.kdeck.length - 1 - +b, 1)[0];
         await this.acquireKingdom(p, kc, card);
+      } else if (kind === 'isteal') {
+        const op = this.P(+a), k = op.ksupply.find((x) => x.uid === +b);
+        this.takeFrom(op.ksupply, k); k.isl = false;
+        this.log(`${p.name} steals ${k.name} from ${op.name}'s Islands in the Sky!`, 'warn');
+        await this.acquireKingdom(p, k, card, true);
+        for (const q of s.players) if (this.has(q, 'emboldened-brigands')) this.gainInf(q, 1, 'Emboldened Brigands (a Kingdom Card was stolen)');
       } else if (kind === 'steal') {
         const op = this.P(+a), sl = op.slots[+b];
         op.slots[+b] = null;
@@ -505,14 +586,34 @@ export class Game {
     this.step('spring', 'Place Heralds');
     await this.coach('herald');
     for (const p of this.turn()) {
-      const opts = REGIONS.flatMap((r) => r.locs.map((l) => ({ id: l, label: `${LOCATIONS[l].name} (${r.name})`, sub: `${LOCATIONS[l].inf} Influence. ${LOCATIONS[l].text}`, score: LOCATIONS[l].inf + this.rand() * 1.5 })));
+      const opts = REGIONS.flatMap((r) => this.s.map[r.id].map((l) => ({ id: l, label: `${LOCATIONS[l].name} (${r.name})`, sub: `${LOCATIONS[l].inf} Influence. ${LOCATIONS[l].text}`, score: LOCATIONS[l].inf + this.rand() * 1.5 })));
       p.herald = await this.choose(p.i, 'Place your Herald on a Location. If you win that Region and choose this Location, you get the Herald Reward: +1 Influence, and steal 1 from each rival Herald there.', opts, { auto: false, key: 'herald' });
       this.log(`${p.name} places their Herald on the ${locName(p.herald)}.`);
+      if (this.wk.legendary) {
+        const lopts = opts.filter((o) => o.id !== p.herald);
+        p.legend = await this.choose(p.i, `Place your Legendary Creature piece (${p.lsupply[0] ? p.lsupply[0].name : 'it counts as a second Herald'}). It can't share a Location with your Herald. If you LOSE the Clash in its Region, its card comes to your hand.`, lopts, { auto: false, key: 'legend' });
+        this.log(`${p.name} places their Legendary Creature on the ${locName(p.legend)}.`);
+      }
     }
 
     this.step('spring', 'Place cards by Regions');
     await this.coach('place');
-    for (const p of this.turn()) await this.placeCards(p);
+    // Allies first: in turn order, players may place up to one face-down Ally per Region.
+    const allyRegions = {};
+    for (const p of this.turn()) {
+      allyRegions[p.i] = [];
+      for (;;) {
+        const allies = p.hand.filter((c) => this.isAlly(c));
+        const free = REGIONS.map((r) => r.id).filter((r) => !allyRegions[p.i].includes(r));
+        if (!allies.length || !free.length) break;
+        const c = await this.pick(p.i, 'Place an Ally face down by a Region before the others place their cards? (One Ally per Region; skip to place normally.)', allies, { key: 'placeAlly', optional: true, ai: 'none' });
+        if (!c) break;
+        const rid = await this.chooseRegion(p.i, `Which Region for your Ally?`, free);
+        this.takeFrom(p.hand, c); s.regions[rid].cards.push({ card: c, up: false, used: false });
+        allyRegions[p.i].push(rid); this.log(`${p.name} places an Ally by the ${regionName(rid)}.`);
+      }
+    }
+    for (const p of this.turn()) await this.placeCards(p, allyRegions[p.i]);
     this.log(`Everyone has placed their face-down cards.`);
 
     this.step('spring', 'Spring Actions');
@@ -523,6 +624,19 @@ export class Game {
   async acquireKingdom(p, kc, occ, stolen = false) {
     const s = this.s;
     const bold = kc.bold || [];
+    if (!stolen && bold.some((b) => b.startsWith('Burn your Bidding card'))) {
+      if (occ) { this.reset(occ); s.burned.push(occ); }
+      s.kdiscard.push(kc);
+      if (kc.k === 'a-last-gift') { p.handSize = Math.min(8, p.handSize + 2); this.log(`${p.name} takes A Last Gift: their Bid card is Burned and their Hand Size rises to ${p.handSize}.`, 'inf'); }
+      if (kc.k === 'the-sun-vault') { this.log(`${p.name} opens The Sun Vault (their Bid card is Burned).`); this.gainInf(p, Math.max(0, 7 - s.round), 'The Sun Vault'); }
+      return;
+    }
+    if (!stolen && this.has(p, 'islands-in-the-sky') && !bold.length && await this.yes(p.i, `Islands in the Sky: keep ${kc.name} in your Supply instead of a Kingdom space? (Your Bid card is discarded; it counts as guarded by Strength 10.)`, 'Islands in the Sky', 'Use a Kingdom space', 1.2)) {
+      if (occ) this.toDiscard(occ);
+      kc.isl = true; p.ksupply.push(kc);
+      this.log(`${p.name} keeps ${kc.name} on the Islands in the Sky.`);
+      return;
+    }
     if (!stolen && bold.some((b) => b.startsWith('Discard your Bidding card'))) {
       if (occ) this.toDiscard(occ);
       if (bold.some((b) => b.includes('in your Supply'))) { p.ksupply.push(kc); this.log(`${p.name} takes ${kc.name} into their Supply (their Bid card is discarded).`); }
@@ -589,9 +703,9 @@ export class Game {
     this.log(`The Great Road slides along: the oldest card${drop > 1 ? 's are' : ' is'} discarded and new Kingdom Cards are revealed.`);
   }
 
-  async placeCards(p) {
+  async placeCards(p, skip = []) {
     const s = this.s;
-    let free = REGIONS.map((r) => r.id);
+    let free = REGIONS.map((r) => r.id).filter((r) => !skip.includes(r));
     if (p.human) {
       // People drag cards onto whichever Region they like: the answer is {uid, rid} (or a uid for the first free Region).
       while (p.hand.length && free.length) {
@@ -604,14 +718,14 @@ export class Game {
       }
       return;
     }
-    if (p.hand.length >= 3) {
+    if (p.hand.length >= free.length) {
       for (const rid of free) {
         const c = await this.pick(p.i, `Place a face-down card next to the ${regionName(rid)}. You must put one card by each Region.`, p.hand, { key: 'place', region: rid });
         this.takeFrom(p.hand, c); s.regions[rid].cards.push({ card: c, up: false, used: false });
       }
     } else {
       while (p.hand.length && free.length) {
-        const rid = await this.chooseRegion(p.i, `You have fewer than 3 cards, so choose which Regions get one.`, free, { key: 'placeRegion', scores: Object.fromEntries(free.map((r) => [r, p.herald && regionOfLoc(p.herald) === r ? 2 : this.rand()])) });
+        const rid = await this.chooseRegion(p.i, `You have fewer than 3 cards, so choose which Regions get one.`, free, { key: 'placeRegion', scores: Object.fromEntries(free.map((r) => [r, p.herald && this.regOf(p.herald) === r ? 2 : this.rand()])) });
         free = free.filter((r) => r !== rid);
         const c = await this.pick(p.i, `Card for the ${regionName(rid)}:`, p.hand, { key: 'place', region: rid });
         this.takeFrom(p.hand, c); s.regions[rid].cards.push({ card: c, up: false, used: false });
@@ -663,6 +777,25 @@ export class Game {
         p.supporters--; s.regions[r.id].sup[p.i] = (s.regions[r.id].sup[p.i] || 0) + 1; s.regions[r.id].fresh[p.i] = (s.regions[r.id].fresh[p.i] || 0) + 1;
         this.log(`${p.name} places a Supporter in the ${r.name}.`);
       });
+      // Near & Far (Aeronauts): counts as a Supporter worth 3 Strength
+      if (p.nf === 'board') for (const r of REGIONS) add(`nf:${r.id}`, `Send the Near & Far to the ${r.name}`, 'It counts as a Supporter worth 3 Strength, and returns to your board in Winter.', this.supporterScore(p, r.id) + 0.3, async () => {
+        p.nf = r.id; s.regions[r.id].nf = p.i; s.regions[r.id].nfFresh = true;
+        this.log(`${p.name} sends the Near & Far to the ${r.name}.`);
+      });
+      // Boons (Whispering Tower): place face down on your face-down cards, up to two per card
+      const downs = this.downCards(p.i).filter((x) => (x.card.boons || []).length < 2);
+      if (p.boons.length && downs.length) add('boons', `Place Boons on your face-down cards (${p.boons.length} in your Supply)`, 'Up to two per card. They are revealed with the card and stay on it while it is Active.', 1.2, async () => {
+        for (;;) {
+          const left = this.downCards(p.i).filter((x) => (x.card.boons || []).length < 2);
+          if (!p.boons.length || !left.length) break;
+          const ch = await this.choose(p.i, 'Which Boon? (Or finish.)', [...p.boons.map((b) => ({ id: String(b.bid), label: boonLabel(b), score: 1 })), { id: 'stop', label: 'Finish placing Boons', score: 0.3 }], { auto: false, key: 'boon' });
+          if (ch === 'stop') break;
+          const b = p.boons.find((x) => String(x.bid) === ch);
+          const c = await this.pick(p.i, `Put "${boonLabel(b)}" on which face-down card?`, left.map((x) => x.card), { ai: 'strong' });
+          this.takeFrom(p.boons, b); c.boons.push(b);
+          this.log(`${p.name} places a Boon face down on a card by the ${regionName(this.regionOf(c))}.`);
+        }
+      });
       for (const c of p.hand) if (this.hasCmd(c, 'spring', 'deploy') && once('dep:' + c.uid)) add(`dep:${c.uid}`, `Deploy ${c.name} (Engineers' Workshop)`, 'Place it face up by a Region with 1 Influence on it.', 0.6, async () => { mark('dep:' + c.uid); await this.deploy(p, c); });
       this.springKingdom(p, kact, mark, add);
     }
@@ -673,7 +806,7 @@ export class Game {
 
   supporterScore(p, rid) {
     const placed = Object.values(this.s.regions).reduce((a, r) => a + (r.sup[p.i] || 0), 0);
-    const herald = p.herald && regionOfLoc(p.herald) === rid;
+    const herald = p.herald && this.regOf(p.herald) === rid;
     const budget = this.s.round === this.s.rounds ? 5 : p.supporters >= 4 ? 2 : 1;
     if (placed >= budget) return 0;
     return (herald ? 0.9 : 0.3) + this.rand() * 0.3;
@@ -756,6 +889,25 @@ export class Game {
       this.takeFrom(p.ksupply, kc);
       s.regions[r].ks.push({ card: kc, owner: p.i });
       this.log(`${p.name} places the Cracked Sundial on the ${regionName(r)}: no Day or Night Steps there this Round.`);
+    });
+    K('unnatural-abundance', 'Unnatural Abundance', 'For the rest of the Round, no Herald Rewards may be claimed and all other Influence gains are doubled. Discard this card.', 0.6, async () => {
+      s.flags.abundance = true; await this.discardKingdom(own('unnatural-abundance'), false);
+      this.log(`${p.name} calls an Unnatural Abundance: no Herald Rewards, all other Influence doubled this Round!`, 'warn');
+    });
+    K('arrows-bright-true', 'Arrows, Bright & True', 'For the rest of the Round, all Invulnerable (printed and gained) is blank.', 0.4, async () => {
+      s.flags.arrows = true; this.log(`${p.name} looses Arrows, Bright & True: nothing is Invulnerable this Round.`, 'warn');
+    });
+    K('odd-arrivals-at-court', 'Odd Arrivals at Court', 'Rearrange any number of cards at the Councils between Councils.', Object.values(s.councils).flat().length ? 0.5 : 0, async () => {
+      for (let n = 0; n < 12; n++) {
+        const all = Object.entries(s.councils).flatMap(([k, list]) => list.map((e) => ({ k, e })));
+        if (!all.length) break;
+        const c = await this.pick(p.i, 'Odd Arrivals at Court: move which Council card? (Or finish.)', all.map((x) => x.e.card), { optional: true, ai: 'none' });
+        if (!c) break;
+        const from = all.find((x) => x.e.card === c);
+        const to = await this.choose(p.i, `Move ${c.name} to which Council?`, COUNCILS.filter((x) => x.id !== from.k).map((x) => ({ id: x.id, label: x.name, score: 1 })), { auto: false });
+        s.councils[from.k].splice(s.councils[from.k].indexOf(from.e), 1); s.councils[to].push(from.e);
+        this.log(`${c.name} moves to the ${councilName(to)}.`);
+      }
     });
     K('grand-tourney', 'Grand Tourney', 'Everyone places a face-down card; same Strengths are discarded, the highest wins and claims any Location Reward. Discard this card.', p.hand.some((c) => c.str >= 8) ? 0.8 : 0.1, () => this.grandTourney(p));
   }
@@ -842,6 +994,7 @@ export class Game {
         const back = R.cards.filter((y) => !y.used && y.card.owner === p.i).map((y) => y.card);
         for (const y of back) { this.detach(y); this.toHand(y); }
         const sup = R.fresh[p.i] || 0; p.supporters += sup; R.sup[p.i] = (R.sup[p.i] || 0) - sup; R.fresh[p.i] = 0;
+        if (R.nf === p.i) { R.nf = null; R.nfFresh = false; p.nf = 'board'; }
         this.log(`${p.name} Retreats from the ${regionName(rid)}: ${back.map((y) => y.name).join(', ') || 'no cards'} back to hand${sup ? `, ${sup} Supporter(s) back to their board` : ''}.`);
         if (smuggle && this.loreOf(c) > 0 && await this.yes(p.i, `Smuggler's Pass: Journey with ${c.name}?`, 'Journey', 'No', 1)) await this.journey(p, c, "Smuggler's Pass");
       }, true);
@@ -851,6 +1004,11 @@ export class Game {
         s.regions[to].cards.push({ card: c, up: true, used: false });
         c.ctmp = { usedCmd: { flank: true } };
         this.log(`${p.name}'s ${c.name} Flanks from the ${regionName(rid)} to the ${regionName(to)}.`);
+        if (c.role === 'rook') {
+          const n = R.fresh[p.i] || 0;
+          if (n && await this.yes(p.i, `Rook the Engineer: move your ${n} Supporter(s) here with it?`, 'Move them', 'Leave them', 1)) { R.fresh[p.i] = 0; R.sup[p.i] -= n; s.regions[to].sup[p.i] = (s.regions[to].sup[p.i] || 0) + n; s.regions[to].fresh[p.i] = (s.regions[to].fresh[p.i] || 0) + n; }
+          for (const y of R.cards.filter((z) => z.up && !z.used && z.card.owner === p.i).slice()) if (await this.yes(p.i, `Rook the Engineer: move ${y.card.name} with it?`, 'Move it', 'Leave it', 0.3)) { R.cards.splice(R.cards.indexOf(y), 1); s.regions[to].cards.push(y); }
+        }
         if (this.textIs(c, 'CLANS-16', rid) && (R.fresh[p.i] || 0) > 0 && await this.yes(p.i, `Raid & Raze: move your ${R.fresh[p.i]} Supporter(s) here with it?`, 'Move them', 'Leave them', 1)) {
           const n = R.fresh[p.i]; R.fresh[p.i] = 0; R.sup[p.i] -= n; s.regions[to].sup[p.i] = (s.regions[to].sup[p.i] || 0) + n; s.regions[to].fresh[p.i] = (s.regions[to].fresh[p.i] || 0) + n;
         }
@@ -861,6 +1019,39 @@ export class Game {
         c.tmp.tooth = true; c.tmp.addStr = (c.tmp.addStr || 0) + (b.str || 0); (c.tmp.extra = c.tmp.extra || []).push(b);
         this.log(`${p.name} Burns ${b.name}: Ritual of the Tooth gains Strength ${b.str} and its abilities this Round.`);
       });
+    }
+    // Boon and Aeronaut Day actions on your Active cards here
+    for (const x of mine) {
+      const c = x.card, key = (n) => `b${n}:${c.uid}`;
+      if (this.hasBoon(c, 3) && !p.used[key(3)] && s.lost.some((y) => y.owner === p.i)) add(key(3), `Boon on ${c.name}: swap it with one of your Lost cards`, '', 0.5, async () => {
+        p.used[key(3)] = true;
+        const inn = await this.pick(p.i, 'Bring which of your Lost cards into this Clash?', s.lost.filter((y) => y.owner === p.i), { ai: 'strong' });
+        this.takeFrom(s.lost, inn); this.reset(inn); x.card = inn; this.toLost(c);
+        this.log(`${p.name} swaps ${c.name} for ${inn.name} from the Lost Pile (Boon).`);
+      });
+      if (this.hasBoon(c, 20) && !p.used[key(20)] && p.hand.length) add(key(20), `Boon on ${c.name}: swap it with a card from your hand`, '', 0.6, async () => {
+        p.used[key(20)] = true;
+        const inn = await this.pick(p.i, 'Swap in which card from your hand?', p.hand, { ai: 'strong' });
+        this.takeFrom(p.hand, inn); x.card = inn; this.toHand(c);
+        this.log(`${p.name} swaps ${c.name} for ${inn.name} from their hand (Boon).`);
+      });
+      if (this.hasBoon(c, 5) && !p.used[key(5)]) add(key(5), `Boon on ${c.name}: discard every card in this Clash with Strength 3 or less`, '', 0.5, async () => {
+        p.used[key(5)] = true;
+        for (const y of R.cards.filter((z) => z.up && !z.used && this.str(z.card) <= 3)) { this.detach(y.card); this.toDiscard(y.card); this.log(`${y.card.name} is discarded (Boon).`); }
+      });
+      if (c.role === 'waxwing' && !p.used[key('wax')]) {
+        const others = this.activeCards(null).filter((a) => a.rid !== rid);
+        add(key('wax'), `Waxwing the Sniper: gain Deadly this Round${others.length ? ', or shoot an Active card in another Region' : ''}`, 'Either way, Waxwing can no longer Retreat this Round.', 0.9, async () => {
+          p.used[key('wax')] = true;
+          const ch = await this.choose(p.i, 'Waxwing the Sniper: choose one.', [{ id: 'deadly', label: 'Waxwing gains Deadly until the end of the Round', score: 1 }, ...(others.length ? [{ id: 'shoot', label: 'Move an Active card in another Region to its owner\'s Discard Pile', score: 0.9 }] : [])], { auto: false });
+          if (ch === 'deadly') c.tmp.deadlyRound = true;
+          else {
+            const v = await this.pick(p.i, 'Which Active card in another Region?', others.filter((a) => a.card.owner !== p.i).map((a) => a.card).concat(others.filter((a) => a.card.owner === p.i).map((a) => a.card)), { ai: 'strong' });
+            if (v) { this.detach(v); this.toDiscard(v); this.log(`Waxwing shoots ${v.name}: it goes to the Discard Pile.`, 'warn'); }
+          }
+          c.tmp.noRetreat = true;
+        });
+      }
     }
     const door = p.hq.find((c) => c.id === 'GATHERING-19');
     if (door && door.markers > 0 && mine.length && !p.used.door) add('door', 'The Door in the Night: give an Active card Ambush this Round', 'Remove a marker; remove another to let it Ambush from your Discard Pile.', 0.4, async () => {
@@ -949,11 +1140,12 @@ export class Game {
       const c = a.card;
       for (const cm of this.cmds(c, a.rid).filter((y) => y.season === 'autumn' && y.cmd === 'rally')) {
         if (!once('rally:' + c.uid)) continue;
+        if (cm.arg === 'self' && c.tmp.noRally) continue;
         if (cm.arg === 'self') add(`rally:${c.uid}`, `Rally ${c.name}: return it to your hand`, 'Rally (self).', 1.2, async () => { mark('rally:' + c.uid); this.detach(c); this.toHand(c); this.log(`${p.name} Rallies ${c.name} back to hand.`); });
         else add(`rally:${c.uid}`, `Rally with ${c.name}: return any two of your Active cards to hand`, 'Rally (any two).', 1.1, async () => {
           mark('rally:' + c.uid);
           for (let n = 0; n < 2; n++) {
-            const r = await this.pick(p.i, `Rally: return which Active card to your hand (${2 - n} left)?`, this.activeCards(p.i).map((y) => y.card), { optional: true, ai: 'strong' });
+            const r = await this.pick(p.i, `Rally: return which Active card to your hand (${2 - n} left)?`, this.activeCards(p.i).map((y) => y.card).filter((y) => !y.tmp.noRally), { optional: true, ai: 'strong' });
             if (!r) break; this.detach(r); this.toHand(r); this.log(`${p.name} Rallies ${r.name} back to hand.`);
           }
         });
@@ -970,6 +1162,40 @@ export class Game {
         this.govern(p.i, c, await this.askCouncil(p.i, c));
       });
     }
+    for (const a of this.activeCards(p.i)) {
+      const c = a.card, key = (n) => `b${n}:${c.uid}`;
+      if (this.hasBoon(c, 6) && once(key(6))) add(key(6), `Boon on ${c.name}: Journey or Govern with it`, '', 0.8, async () => {
+        mark(key(6));
+        const ch = await this.choose(p.i, `Journey or Govern with ${c.name}?`, [...(this.loreOf(c) ? [{ id: 'j', label: 'Journey', score: 1 }] : []), ...(this.votesOf(c) ? [{ id: 'g', label: 'Govern', score: 1 }] : []), { id: 'none', label: 'Neither', score: 0 }], { auto: false });
+        if (ch === 'j') await this.journey(p, c); else if (ch === 'g') this.govern(p.i, c, await this.askCouncil(p.i, c));
+      });
+      if (this.hasBoon(c, 18) && once(key(18))) add(key(18), `Boon on ${c.name}: place 1 Influence on it (it stays through Winter)`, '', 0.7, async () => { mark(key(18)); c.inf++; });
+      if (c.role === 'lark' && once(key('lark')) && p.discard.length) add(key('lark'), 'Lark the Medic: move up to three cards from your Discard Pile to the bottom of your Deck', 'Then Lark cannot Rally back to your hand this Round.', 0.6, async () => {
+        mark(key('lark'));
+        for (let n = 0; n < 3; n++) { const d = await this.pick(p.i, `Move which card to the bottom of your Deck (${3 - n} left)?`, p.discard, { optional: true, ai: 'strong' }); if (!d) break; this.detach(d); this.toDeckBottom(d); }
+        c.tmp.noRally = true;
+      });
+    }
+    if (s.lost.length) K('the-laboratory', 'The Laboratory', 'Move any card in the Lost Pile to your hand. It is yours for the rest of the game.', 1.1, async () => {
+      const c = await this.pick(p.i, 'Which card from the Lost Pile?', s.lost, { ai: 'strong' });
+      if (!c) return; this.takeFrom(s.lost, c); c.owner = p.i; this.reset(c); p.hand.push(c);
+      this.log(`${p.name} takes ${c.name} from the Lost Pile (The Laboratory).`, 'inf');
+    });
+    for (const [rid, R] of Object.entries(s.regions)) for (const k of R.ks) if (k.owner === p.i && k.card.k === 'sudden-eclipse' && once('k:eclipse:' + rid)) add(`k:eclipse:${rid}`, `Sudden Eclipse: claim a Location Reward in the ${regionName(rid)}`, '', 1.3, async () => {
+      mark('k:eclipse:' + rid);
+      const loc = await this.choose(p.i, 'Claim which Location Reward?', s.map[rid].map((l) => ({ id: l, label: locName(l), sub: LOCATIONS[l].text, score: LOCATIONS[l].inf + this.rand() })), { auto: false, key: 'loc' });
+      R.blocked = false;
+      await this.claimLocation(p, loc, null, false);
+    });
+    const exOpp = this.opps(p.i).filter((q) => q.tactics.some((x) => x.exhausted));
+    if (exOpp.length && (p.inf || p.lore)) K('velvet-auction-room', 'Velvet Auction Room', "Give an opponent 1 Influence and 1 Lore, then take one of their Exhausted Tactics, unexhausted, as your own.", 0.7, async () => {
+      const q = exOpp.length > 1 ? this.P(+(await this.choose(p.i, 'Which opponent?', exOpp.map((o) => ({ id: String(o.i), label: o.name, score: 1 }))))) : exOpp[0];
+      if (p.inf) { p.inf--; q.inf++; } if (p.lore) { p.lore--; q.lore++; }
+      const k = await this.choose(p.i, 'Take which Exhausted Tactic?', q.tactics.filter((x) => x.exhausted).map((x) => ({ id: x.k, label: x.name, sub: x.rules.map((r) => r.text).join(' '), score: 1 })), { auto: false });
+      const tt = q.tactics.find((x) => x.k === k); q.tactics.splice(q.tactics.indexOf(tt), 1);
+      tt.exhausted = false; p.tactics.push(tt); this.tacticSetup(p, tt);
+      this.log(`${p.name} buys ${q.name}'s Tactic ${tt.name} at the Velvet Auction Room.`, 'inf');
+    });
     const myCouncil = Object.values(s.councils).flat().filter((e) => e.owner === p.i);
     if (myCouncil.length) K('abandoned-estate', 'Abandoned Estate', 'Discard one of your cards from a Council to increase your Hand Size by one. Discard this card.', p.handSize < 7 ? 0.9 : 0, async () => {
       const c = await this.pick(p.i, 'Discard which of your cards from a Council?', myCouncil.map((e) => e.card), { ai: 'weak' });
@@ -1188,7 +1414,14 @@ export class Game {
     const sundial = () => R.ks.some((k) => k.card.k === 'cracked-sundial');
     for (;;) {
       this.step('summer', `${regionName(rid)}: Reveal`);
-      R.cards.filter((c) => !c.used && !c.up).forEach((c) => (c.up = true));
+      const revealed = R.cards.filter((c) => !c.used && !c.up);
+      revealed.forEach((c) => (c.up = true));
+      if (revealed.some((x) => this.hasBoon(x.card, 19))) {
+        for (const [pi, n] of Object.entries(R.sup)) if (n > 0) { this.P(+pi).lostSup += n; R.sup[pi] = 0; R.fresh[pi] = 0; }
+        this.log(`A Boon is revealed: every Supporter in the ${regionName(rid)} goes to the Lost Pile!`, 'warn');
+      }
+      const boonsNow = R.cards.filter((x) => x.up && !x.used && x.card.boons.length);
+      if (boonsNow.length) this.log(`Boons revealed in the ${regionName(rid)}: ${boonsNow.map((x) => `${this.P(x.card.owner).short} ${x.card.name}: ${x.card.boons.map(boonLabel).join(' / ')}`).join('; ')}.`);
       this.log(`${regionName(rid)} Clash — Active: ${fresh().map((c) => `${this.P(c.card.owner).short} ${c.card.name} (${this.str(c.card)})`).join(', ') || 'no cards'}.`, 'head');
       if (first) await this.coach('reveal');
 
@@ -1216,7 +1449,9 @@ export class Game {
         const cards = fresh().filter((c) => c.card.owner === pi);
         const cs = cards.reduce((a, c) => a + this.str(c.card), 0);
         const sup = (R.fresh[pi] || 0) * (p.flags.stones ? 2 : 1);
-        const bonus = R.bonus[pi] || 0;
+        const nf = R.nf === pi && R.nfFresh ? 3 : 0;
+        const wyrm = this.has(p, 'the-wyrm') && p.herald && this.regOf(p.herald) === rid && !R.wyrmUsed ? 5 : 0;
+        const bonus = (R.bonus[pi] || 0) + nf + wyrm;
         let t = cs + sup + bonus;
         const halved = citadel && citadel.owner !== pi && t > 0;
         if (halved) t = Math.ceil(t / 2);
@@ -1226,7 +1461,7 @@ export class Game {
       const eye = fresh().some((c) => this.textIs(c.card, 'GATHERING-18', rid));
       const activeNow = fresh().map((c) => c.card);
       fresh().forEach((c) => (c.used = true));
-      R.fresh = {}; R.bonus = {};
+      R.fresh = {}; R.bonus = {}; R.nfFresh = false; R.wyrmUsed = true;
       if (first) await this.coach('tally');
       const summary = contenders.map((pi) => `${this.P(pi).short} ${totals[pi]} (${parts[pi]})`).join(' vs ');
       this.log(`${regionName(rid)} Strength: ${summary}.`);
@@ -1247,9 +1482,11 @@ export class Game {
       if (winners.length === 1 && best > 0) {
         const w = this.P(winners[0]);
         await this.beat(`${regionName(rid)}: ${summary}. ${w.name} wins!`);
+        await this.beforeRewards(rid, w, activeNow);
         if (activeNow.some((c) => c.owner === w.i && this.textIs(c, 'CLANS-17', rid))) this.gainInf(w, 1, 'Riders of the North Sky');
         if (this.has(w, 'old-kings-signet') && activeNow.some((c) => c.owner === w.i && this.arch(c, rid) === 'heir')) this.gainInf(w, 1, "Old King's Signet");
         await this.claim(w, rid);
+        await this.afterClash(rid, activeNow);
         R.resolved = true;
         return;
       }
@@ -1265,9 +1502,60 @@ export class Game {
         this.takeFrom(p.hand, c); R.cards.push({ card: c, up: false, used: false });
         played.push(p.i); this.log(`${p.name} adds another card to the ${regionName(rid)}.`);
       }
-      if (!played.length) { this.log(`Everyone passed: the ${regionName(rid)} is a tie. Nobody claims its rewards this Round.`, 'warn'); R.tie = true; R.resolved = true; return; }
+      if (!played.length) { this.log(`Everyone passed: the ${regionName(rid)} is a tie. Nobody claims its rewards this Round.`, 'warn'); R.tie = true; R.resolved = true; await this.afterClash(rid, activeNow); return; }
+      await this.afterClash(rid, activeNow);
       contenders = winners;
       first = false;
+    }
+  }
+
+  // Legendary Creatures: losing a Clash where your Legendary piece is brings its card to your hand.
+  async legendLosers(rid, winnerPi) {
+    if (!this.wk.legendary) return;
+    for (const p of this.s.players) {
+      if (p.i === winnerPi || !p.legend || this.regOf(p.legend) !== rid || !p.lsupply.length) continue;
+      const c = p.lsupply.pop(); this.reset(c); p.hand.push(c);
+      this.log(`${p.name} lost the ${regionName(rid)}, where their Legendary Creature stands: ${c.name} comes to their hand!`, 'warn');
+    }
+  }
+  // After the winner is known, before any rewards.
+  async beforeRewards(rid, w, activeNow) {
+    const s = this.s, R = s.regions[rid];
+    await this.legendLosers(rid, w.i);
+    for (const c of activeNow.filter((x) => x.owner === w.i)) {
+      if (c.legendary && w.legend && this.regOf(w.legend) === rid) { this.gainInf(w, 1, `${c.name} with its Legendary piece`); await this.gainLore(w, 1, c.name); }
+      for (const b of c.boons.slice()) {
+        switch (b.n) {
+          case 1: this.gainInf(w, 1, 'a Boon'); await this.gainLore(w, 1, 'a Boon'); break;
+          case 14: this.gainInf(w, 2, 'a Boon'); await this.gainLore(w, 2, 'a Boon'); c.tmp.burnAfter = true; break;
+          case 17: w.handSize = Math.min(8, w.handSize + 1); this.log(`${w.name}'s Hand Size rises to ${w.handSize} (a Boon).`); break;
+          case 10: {
+            const sv = this.votes(w.i, 'secrets'), ov = this.votes(w.i, 'oaths');
+            if (sv && w.markers) await this.secrets(w, sv);
+            if (ov) this.returnSupporters(w, ov + (this.opps(w.i).every((q) => this.votes(q.i, 'oaths') < ov) ? 1 : 0), 'a Boon: Council of Oaths');
+            break;
+          }
+          case 9: if (s.tower && await this.yes(w.i, 'A Boon lets you visit the Whispering Tower now. Visit it?', 'Visit the Tower', 'No', 1.2)) await this.visitTower(w); break;
+          case 16: R.extraClaim = (R.extraClaim || 0) + 1; break;
+        }
+      }
+    }
+    if (R.ks.some((k) => k.card.k === 'sudden-eclipse') && s.season === 'summer') { R.blocked = true; this.log(`Sudden Eclipse: the Location Rewards in the ${regionName(rid)} are blank this Summer.`, 'warn'); }
+  }
+  // Boons that burn their card after the Clash, then clean up.
+  async afterClash(rid, activeNow) {
+    const s = this.s, R = s.regions[rid];
+    for (const c of activeNow) {
+      if ((this.hasBoon(c, 7) || this.hasBoon(c, 11) || c.tmp.burnAfter) && this.regionOf(c) === rid) {
+        this.detach(c); this.reset(c); s.burned.push(c);
+        this.log(`${this.P(c.owner).name}'s ${c.name} is Burned after the Clash (Boon).`, 'warn');
+      }
+    }
+    if (R.extraClaim && R.winner != null) {
+      R.extraClaim = 0;
+      const w = this.P(R.winner);
+      const loc = await this.choose(w.i, `A Boon: claim another Location Reward in the ${regionName(rid)}.`, s.map[rid].map((l) => ({ id: l, label: locName(l), sub: LOCATIONS[l].text, score: LOCATIONS[l].inf + this.rand() })), { auto: false, key: 'loc', region: rid });
+      await this.claimLocation(w, loc, null, false);
     }
   }
 
@@ -1292,8 +1580,20 @@ export class Game {
     await this.coach('night');
     const killers = new Set();
     const traitsBefore = new Map([...doomed.keys()].map((c) => [c, this.hasTrait(c, 'invulnerable', rid)]));
+    // Peregrine the Captain (Aeronauts): discard it instead of your cards being Eliminated
+    for (const p of s.players) {
+      const mine = [...doomed.keys()].filter((c) => c.owner === p.i && !traitsBefore.get(c));
+      if (!mine.length) continue;
+      const per = [...this.activeCards(p.i).map((a) => a.card), ...Object.values(s.councils).flat().filter((e) => e.owner === p.i).map((e) => e.card)].find((c) => c.id === 'WK-FC5' && !mine.includes(c));
+      if (per && await this.yes(p.i, `Peregrine the Captain: discard Peregrine instead of losing ${mine.map((c) => c.name).join(', ')}?`, 'Discard Peregrine', 'No', mine.some((c) => c.str >= 6) ? 1.5 : 0.3)) {
+        this.detach(per); this.toDiscard(per); mine.forEach((c) => doomed.delete(c));
+        this.log(`${p.name} discards Peregrine the Captain to save their cards.`);
+      }
+    }
+    let anyGone = false;
     for (const [c, killer] of doomed) {
       if (traitsBefore.get(c)) { this.log(`${c.name} is Invulnerable and survives the Night.`); continue; }
+      anyGone = true;
       const to = await this.eliminate(c);
       this.log(`Night: ${this.P(c.owner).name}'s ${c.name} is Eliminated${killer === c ? '' : ` by ${killer.name}`} → ${to}.`, 'warn');
       if (killer !== c) killers.add(killer);
@@ -1303,6 +1603,7 @@ export class Game {
       if (p.flags.streets) { this.gainInf(p, 1, 'School of the Streets'); await this.gainLore(p, 1, 'School of the Streets'); }
       if (k.arch === 'heir' && this.has(p, 'assassins-guild')) this.gainInf(p, 1, "Assassins' Guild");
     }
+    if (anyGone) for (const q of s.players) if (this.has(q, 'blood-seeking-box')) { this.gainInf(q, 1, 'Blood Seeking Box'); await this.gainLore(q, 1, 'Blood Seeking Box'); }
     for (const c of ploy) {
       const p = this.P(c.owner);
       if (await this.yes(p.i, 'Black Powder Ploy: choose your reward.', 'Gain 1 Influence', 'Gain 1 Lore', 1)) this.gainInf(p, 1, 'Black Powder Ploy'); else await this.gainLore(p, 1, 'Black Powder Ploy');
@@ -1312,7 +1613,7 @@ export class Game {
   async claim(p, rid) {
     this.step('summer', `${regionName(rid)}: Claim Rewards`);
     await this.coach('claim');
-    const R = this.s.regions[rid], reg = REGIONS.find((r) => r.id === rid);
+    const R = this.s.regions[rid], reg = { locs: this.s.map[rid] };
     const loc = await this.choose(p.i, `You won the ${regionName(rid)}! Choose one Location to claim.`, reg.locs.map((l) => {
       const herald = this.s.players.filter((q) => q.herald === l);
       return { id: l, label: `${LOCATIONS[l].name}: ${LOCATIONS[l].inf} Influence`, sub: LOCATIONS[l].text + (herald.length ? ` Heralds here: ${herald.map((q) => q.short).join(', ')}.` : ''), score: LOCATIONS[l].inf + (p.herald === l ? 1.5 : 0) + (l === 'harvest' ? 0.4 : 0) + this.rand() * 0.5 };
@@ -1323,7 +1624,75 @@ export class Game {
 
   async claimLocation(p, loc, rid, ignoreInf) {
     const s = this.s;
+    const blank = rid && s.regions[rid].blocked;
+    // Wild Kingdom pieces on the Location: the Whispering Tower MUST be visited; the Aeronauts MAY be (instead of the reward).
+    let visited = false;
+    if (!blank && s.pieces.tower === loc) { visited = true; await this.visitTower(p); }
+    else if (!blank && s.pieces.nearfar === loc && await this.yes(p.i, `The Near & Far (Aeronauts) is here. Visit the Aeronauts instead of taking the ${locName(loc)}'s reward?`, 'Visit the Aeronauts', `Take the ${locName(loc)}`, s.aeroDeck.length ? 1.2 : 0.6)) { visited = true; await this.visitAeronauts(p); }
+    if (!visited && !blank) await this.locationReward(p, loc, ignoreInf);
+    if (blank) this.log(`The ${locName(loc)}'s reward is blank (Sudden Eclipse).`);
+    await this.heraldReward(p, loc, rid);
+  }
+
+  async visitAeronauts(p) {
+    const s = this.s;
+    if ((await this.choose(p.i, 'Visiting the Aeronauts: gain 1 Influence or 1 Lore?', [{ id: 'inf', label: 'Gain 1 Influence', score: 1 }, { id: 'lore', label: 'Gain 1 Lore', score: 0.9 }], { auto: false })) === 'inf') this.gainInf(p, 1, 'the Aeronauts');
+    else await this.gainLore(p, 1, 'the Aeronauts');
+    if (s.aeroDeck.length) {
+      const c = await this.pick(p.i, 'Choose an Aeronaut to join you as an Ally (into your hand).', s.aeroDeck, { ai: 'strong', key: 'aeronaut' });
+      this.takeFrom(s.aeroDeck, c); c.owner = p.i; this.reset(c); p.hand.push(c);
+      this.log(`${c.name} joins ${p.name} as an Ally.`, 'inf');
+    } else if (s.pieces.nearfar) {
+      const ex = p.tactics.filter((x) => x.exhausted);
+      if (ex.length) {
+        const k = await this.choose(p.i, 'You may flip one Exhausted Tactic back to Unexhausted.', [...ex.map((x) => ({ id: x.k, label: x.name, score: 1 })), { id: 'none', label: 'No', score: 0.1 }], { auto: false });
+        const tt = p.tactics.find((x) => x.k === k); if (tt) { tt.exhausted = false; this.tacticSetup(p, tt); }
+      }
+      delete s.pieces.nearfar; p.nf = 'board';
+      this.log(`${p.name} claims the Near & Far! It is a Supporter worth 3 Strength that always returns to their board.`, 'inf');
+    }
+  }
+
+  async visitTower(p) {
+    const s = this.s, T = s.tower;
+    this.log(`${p.name} visits the Whispering Tower.`);
+    const explored = [];
+    if (T.entrance.length) { const b = T.entrance.pop(); p.boons.push(b); explored.push('entrance'); this.log(`The Entrance: ${p.name} takes a Boon.`); }
+    if (T.lab.length && await this.yes(p.i, 'Climb to the Labyrinth? Look at its two Boons: keep one, give the other to an opponent.', 'Climb', 'Leave the Tower', 1)) {
+      explored.push('lab');
+      const keep = await this.choose(p.i, 'The Labyrinth: which Boon do you keep? (The other goes to an opponent.)', T.lab.map((b) => ({ id: String(b.bid), label: boonLabel(b), score: [2, 7, 14, 16, 13, 11].includes(b.n) ? 2 : 1 })), { auto: false, key: 'boon' });
+      const kb = T.lab.find((b) => String(b.bid) === keep), gb = T.lab.find((b) => b !== kb);
+      p.boons.push(kb);
+      if (gb) { const op = this.opps(p.i)[0]; op.boons.push(gb); this.log(`The Labyrinth: ${p.name} keeps a Boon and gives one to ${op.name}.`); }
+      T.lab = [];
+      if (T.pin.length && p.lore >= 1 && await this.yes(p.i, 'Climb to the Pinnacle? Pay 1 Lore, take all three Boons, then discard two Boons from your Supply.', 'Climb (1 Lore)', 'Leave the Tower', 0.9)) {
+        explored.push('pin'); p.lore--; p.boons.push(...T.pin); T.pin = [];
+        for (let n = 0; n < 2 && p.boons.length; n++) {
+          const d = await this.choose(p.i, `The Pinnacle: discard a Boon from your Supply (${2 - n} left).`, p.boons.map((b) => ({ id: String(b.bid), label: boonLabel(b), score: [2, 7, 14, 16, 13, 11].includes(b.n) ? 0 : 1 })), { auto: false, key: 'boon' });
+          const b = p.boons.find((x) => String(x.bid) === d); this.takeFrom(p.boons, b); s.boonDiscard.push(b);
+        }
+        this.log(`The Pinnacle: ${p.name} pays 1 Lore and takes the Boons there.`);
+      }
+    }
+    const draw = () => { if (!s.boonStack.length) { s.boonStack = this.shuffle(s.boonDiscard); s.boonDiscard = []; } return s.boonStack.pop(); };
+    for (const lv of explored) { const n = { entrance: 1, lab: 2, pin: 3 }[lv]; while (T[lv].length < n) { const b = draw(); if (!b) break; T[lv].push(b); } }
+    const here = this.regOf(s.pieces.tower);
+    const to = await this.choose(p.i, 'Move the Whispering Tower to a Location in a different Region.', Object.keys(LOCATIONS).filter((l) => this.regOf(l) !== here).map((l) => ({ id: l, label: `${locName(l)} (${regionName(this.regOf(l))})`, score: this.rand() })), { auto: false, key: 'towerLoc' });
+    s.pieces.tower = to;
+    this.log(`The Whispering Tower moves to the ${locName(to)}.`);
+  }
+
+  async locationReward(p, loc, ignoreInf) {
+    const s = this.s;
     if (!ignoreInf) this.gainInf(p, LOCATIONS[loc].inf, `the ${locName(loc)}`);
+    for (const k of (s.locKs[loc] || []).slice()) if (k.card.k === 'the-golden-caravan') {
+      if (k.owner === p.i) {
+        this.gainInf(p, 2, 'The Golden Caravan');
+        const to = this.travel(loc);
+        s.locKs[loc] = s.locKs[loc].filter((x) => x !== k); (s.locKs[to] = s.locKs[to] || []).push(k);
+        this.log(`The Golden Caravan travels on to the ${locName(to)}.`);
+      } else this.gainInf(p, 1, "an opponent's Golden Caravan");
+    }
     for (const k of s.locKs[loc] || []) if (k.card.k === 'merchants-guild') this.gainInf(this.P(k.owner), 1, "Merchants' Guild");
     switch (LOCATIONS[loc].fx) {
       case 'favour': await this.takeFavour(p); break;
@@ -1362,9 +1731,14 @@ export class Game {
         break;
       }
     }
-    if (!rid || p.herald !== loc) return;
-    this.gainInf(p, 1, 'Herald Reward');
-    for (const op of this.opps(p.i)) if (op.herald === loc && op.inf > 0) { op.inf--; p.inf++; this.log(`${p.name} steals 1 Influence from ${op.name}'s Herald.`, 'inf'); }
+  }
+
+  async heraldReward(p, loc, rid) {
+    const s = this.s;
+    if (!rid || (p.herald !== loc && p.legend !== loc)) return;
+    if (s.flags.abundance) { this.log('Unnatural Abundance: no Herald Rewards this Round.'); return; }
+    this.gainInf(p, 1, p.herald === loc ? 'Herald Reward' : 'Herald Reward (Legendary Creature)');
+    for (const op of this.opps(p.i)) if ((op.herald === loc || op.legend === loc) && op.inf > 0) { op.inf--; p.inf++; this.log(`${p.name} steals 1 Influence from ${op.name}'s ${op.herald === loc ? 'Herald' : 'Legendary Creature'}.`, 'inf'); }
     for (const e of s.councils.relics.filter((x) => x.owner === p.i)) {
       const v = this.votesOf(e.card);
       if (v && await this.yes(p.i, `Council of Relics: discard your ${e.card.name} from the Council for ${v} Influence?`, `Discard for ${v}`, 'Keep it', s.round >= s.rounds - 1 ? 2 : 0.4)) {
@@ -1402,15 +1776,31 @@ export class Game {
       }
     }
     for (const [rid, R] of Object.entries(s.regions)) for (const x of R.cards) if (x.up && this.textIs(x.card, 'NOBILITY-18', rid) && (R.sup[x.card.owner] || 0) >= 2) { x.card.inf++; this.log('Gilded Wall gains 1 Influence.'); }
-    for (const p of s.players) p.herald = null;
+    // Wild Kingdom winter effects
+    for (const p of s.players) {
+      if (this.has(p, 'a-dread-deal')) {
+        const mine = s.lost.filter((c) => c.owner === p.i);
+        if (mine.length) { mine.forEach((c) => { this.takeFrom(s.lost, c); s.burned.push(c); }); await this.gainLore(p, 2, 'A Dread Deal'); this.log(`A Dread Deal: ${p.name} Burns ${mine.length} Lost card(s).`); }
+        else { await this.discardKingdom(this.kOwned(p).find((k) => k.k === 'a-dread-deal'), false); this.log(`A Dread Deal is discarded (nothing to Burn).`); }
+      }
+      const leg = this.allFaction.find((c) => c.legendary && c.owner === p.i);
+      if (leg && !p.hand.includes(leg) && !p.lsupply.includes(leg) && !s.burned.includes(leg)) { this.detach(leg); this.reset(leg); p.lsupply.push(leg); this.log(`${leg.name} returns to ${p.name}'s Supply.`); }
+      if (p.nf !== 'none' && p.nf !== 'board') p.nf = 'board';
+    }
+    if (s.pieces.nearfar) { const to = this.travel(s.pieces.nearfar); this.log(`The Near & Far travels to the ${locName(to)}.`); s.pieces.nearfar = to; }
+    for (const p of s.players) { p.herald = null; p.legend = null; }
     for (const [rid, R] of Object.entries(s.regions)) {
       const nr = blankRegion();
-      for (const [pi, n] of Object.entries(R.sup)) if (n > 0) { if (this.P(+pi).flags.stones) { nr.sup[pi] = n; nr.fresh[pi] = n; } else this.P(+pi).lostSup += n; }
+      for (const [pi, n] of Object.entries(R.sup)) if (n > 0) {
+        const q = this.P(+pi);
+        if (this.has(q, 'the-wyrm')) { q.burnedSup += n; this.log(`The Wyrm: ${q.name}'s ${n} Supporter(s) on the Map are Burned.`, 'warn'); }
+        else if (q.flags.stones) { nr.sup[pi] = n; nr.fresh[pi] = n; } else q.lostSup += n;
+      }
       for (const x of R.cards) {
         if (x.up && x.card.inf > 0) { x.card.inf--; x.used = false; x.card.ctmp = {}; x.card.tmp = {}; nr.cards.push(x); }
         else this.toDiscard(x.card);
       }
-      for (const k of R.ks) { if (['ruined-citadel', 'poisoners-ball', 'cracked-sundial'].includes(k.card.k)) s.kdiscard.push(k.card); else nr.ks.push(k); }
+      for (const k of R.ks) { if (['ruined-citadel', 'poisoners-ball', 'cracked-sundial', 'sudden-eclipse'].includes(k.card.k)) s.kdiscard.push(k.card); else nr.ks.push(k); }
       s.regions[rid] = nr;
     }
     for (const p of s.players) for (const c of [...p.hand, ...p.discard, ...p.deck]) { c.tmp = {}; c.ctmp = {}; }
@@ -1422,8 +1812,10 @@ export class Game {
     const s = this.s;
     s.season = 'end'; s.step = 'Game over';
     for (const p of s.players) if (!p.site.length && p.lore >= 2) this.gainInf(p, Math.floor(p.lore / 2), `empty Site of Power (${p.siteName}: 1 per 2 Lore)`);
+    for (const p of s.players) if (this.has(p, 'the-once-crown-found')) this.gainInf(p, 3, 'The Once Crown, Found');
     const fav = s.favour ? s.favour.pi : null;
-    const rank = s.players.slice().sort((a, b) => b.inf - a.inf || (fav === b.i) - (fav === a.i) || s.order.indexOf(a.i) - s.order.indexOf(b.i));
+    const crown = (q) => (this.has(q, 'the-once-crown-found') ? 1 : 0);
+    const rank = s.players.slice().sort((a, b) => b.inf - a.inf || crown(b) - crown(a) || (fav === b.i) - (fav === a.i) || s.order.indexOf(a.i) - s.order.indexOf(b.i));
     s.over = true;
     s.result = { winner: rank[0].i, scores: s.players.map((p) => p.inf) };
     this.log(`Game over! ${rank[0].name} claims the Old King's Crown with ${rank[0].inf} Influence.`, 'head');
@@ -1433,5 +1825,6 @@ export class Game {
 }
 
 function blankRegion() { return { cards: [], sup: {}, fresh: {}, bonus: {}, ks: [], winner: null, claimed: null, tie: false, resolved: false, martial: null, firstDone: false }; }
+export function boonLabel(b) { return b.text || (b.rules || []).map((r) => `${cap(r.season)}: ${r.text}`).join(' '); }
 export function kText(k) { return [k.text, ...(k.rules || []).map((r) => `${cap(r.season)}: ${r.text}`)].filter(Boolean).join(' '); }
 export { regionOfLoc, ARCH };

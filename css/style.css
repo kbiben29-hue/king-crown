@@ -215,7 +215,7 @@ b { color: #fff6e2; }
 .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 6px; }
 .gallery.wide { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
 .gallery img { width: 100%; border-radius: 6px; display: block; }
-.tabs { grid-template-columns: repeat(5, 1fr) !important; margin-bottom: 8px; }
+.tabs { grid-template-columns: repeat(3, 1fr) !important; margin-bottom: 8px; }
 .tabs button { padding: 8px 4px !important; text-align: center !important; font-size: 12px; }
 
 @media (min-width: 761px) {
@@ -251,3 +251,17 @@ i.ic { background: currentColor; -webkit-mask-position: center; mask-position: c
 .ccard .ccount { position: absolute; top: 3px; right: 3px; font: 700 9px var(--display); background: #000c; color: var(--gold2); padding: 1px 5px; border-radius: 4px; }
 .ccard.pickable { border-color: var(--gold2); box-shadow: 0 0 0 2px var(--gold2), 0 0 14px rgba(241,213,139,.6); }
 .ccard.over { box-shadow: 0 0 0 3px #fff; }
+
+/* Wild Kingdom */
+.herald.legend { border-radius: 6px; transform: rotate(45deg); }
+.herald.legend .ic { transform: rotate(-45deg); }
+.piece { width: 26px; height: 26px; border-radius: 50%; background: #f1d58b; color: #1a1408; display: grid; place-items: center; border: 2px solid #fff; box-shadow: 0 2px 5px #000d; }
+.piece .ic { width: 17px; height: 17px; }
+.sup.nf { background: #23404a; }
+.boonb { position: absolute; top: 2px; left: 2px; background: #7c5cd6; color: #fff; font: 800 9px/1 var(--sans); padding: 2px 4px; border-radius: 9px; border: 1px solid #fff; }
+.wkrow { display: flex; gap: 6px; margin: 8px 6px 0; }
+.wkbox { flex: 1; display: flex; gap: 6px; align-items: center; background: rgba(6,10,13,.88); border: 1px solid var(--frame); border-radius: 8px; padding: 5px; text-align: left; font: 700 11px var(--display); color: var(--gold2); }
+.wkbox img { width: 46px; border-radius: 4px; }
+.wkbox small { font: 500 10.5px var(--sans); color: var(--dim); }
+.boonchip { display: inline-flex; align-items: center; gap: 5px; max-width: 100%; }
+.boonchip img { width: 18px; height: 18px; border-radius: 50%; }
