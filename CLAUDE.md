@@ -25,6 +25,7 @@ modules and has no build step or dependencies. It's a sibling of Argaia, Holodec
   mono icons render as CSS masks so they take the text colour, and spring/day/night/autumn/winter are full-colour images.
 - `js/morph.js` patches the DOM in place (keyed by data-uid / data-l / data-k), so pictures aren't re-created on every update. Always render through `morph`; using innerHTML for the game makes the screen flicker.
 - `js/ui.js` starts on `title()` (art background, torn banner), then `setup()` (New Game: Heir-portrait faction tiles, Configure sheet). In game the body is fixed: `#gbanner` + viewport `#vp` > `#zoom` (fixed 760px board, transform set by pinch/two-finger/wheel in `initZoom`; morph only the children). Pieces (`tok()`) sit in the dock `.tray` and drag onto `tile:`/`row:` drops (`dropPiece`). Tapping the stats bar opens `playerBoard(pi)`. Every io.ask answer is recorded and saved (`kc:save`); Resume replays it into a Game with the same seed.
+- `js/strategy.js` is the Strategy guide (`CHAPTERS`, opened with `guide(id)`) and `strategyTip(prompt, s, me)` for the in-game eye button (`tipSheet`). Our own words.
 - `js/ui.js` is the board UI. It renders from state: the opponent, Great Road, Councils, the Map (Location art tiles, with card columns beside
   each Region), your board, and a fixed dock with a fanned hand and stats bar. `targets()` maps the current prompt onto the board
   (tiles, rows, road, Councils, opponent slots). Hand cards drag onto `[data-drop]` targets (`row:rid`, `bid`, `council:id`, `any`)

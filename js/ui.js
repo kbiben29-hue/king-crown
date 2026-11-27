@@ -1,12 +1,13 @@
 // Board view: the Map window built from the real Location tiles, card spaces beside each
 // Region, the Great Road and Councils above, your Kingdom spaces below, and a fanned hand
 // you drag cards from.
-import { Game, regionName, councilName, kText } from './engine.js?v=15';
-import { aiAnswer } from './ai.js?v=15';
-import { COACH } from './coach.js?v=15';
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=15';
-import { RULES_HTML } from './rules.js?v=15';
-import { morph } from './morph.js?v=15';
+import { Game, regionName, councilName, kText } from './engine.js?v=17';
+import { aiAnswer } from './ai.js?v=17';
+import { COACH } from './coach.js?v=17';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=17';
+import { RULES_HTML } from './rules.js?v=17';
+import { morph } from './morph.js?v=17';
+import { CHAPTERS, strategyTip } from './strategy.js?v=17';
 
 const $app = document.getElementById('app');
 const $sheet = document.getElementById('sheet');
@@ -59,6 +60,7 @@ function title() {
       <button class="tbtn gold" data-act="newgame">Play vs computer</button>
       ${saved ? '<button class="tbtn" data-act="resume">Resume game</button>' : ''}
       <button class="tbtn" data-act="rules">How to play</button>
+      <button class="tbtn" data-act="guide">Strategy guide</button>
       <button class="tbtn" data-act="browse">Card library</button>
     </div>
     <div class="tfoot">The Old King's Crown was designed by Pablo Clark and published by <a href="https://www.eerieidolgames.com" target="_blank" rel="noopener">Eerie Idol Games</a>. This is an unofficial, fan-made learning tool. Card text and art are © Eerie Idol Games, loaded from the <a href="https://library.eerieidolgames.com/" target="_blank" rel="noopener">Eerie Card Library</a>.</div>
@@ -78,7 +80,7 @@ function setup() {
     <div class="fgrid">${FACTIONS.map((f) => `<button class="ftile ${cfg.you === f.id ? 'you' : cfg.them === f.id ? 'them' : ''}" data-act="fac" data-id="${f.id}" style="--fc:${f.color}">
       <img src="${heirArt(f.id)}" alt=""><span class="fname"><span class="fcrown" style="color:${f.color}">${ic(f.id)}</span><span>${f.name.replace('The ', '')}<small>${cfg.you === f.id ? 'You' : cfg.them === f.id ? 'Computer' : 'Open'}</small></span></span></button>`).join('')}</div>
     <h2 class="fh">${F(cfg.you).name}</h2>
-    <p class="fdesc"><span class="fcrown" style="color:${F(cfg.you).color}">${ic(cfg.you)}</span>${FDESC[cfg.you]}</p>
+    <p class="fdesc"><span class="fcrown" style="color:${F(cfg.you).color}">${ic(cfg.you)}</span>${FDESC[cfg.you]} <button class="inl" data-act="guide" data-c="${cfg.you}">How to play them well ›</button></p>
     <div class="seats"><button class="seat" data-act="noop"><span class="sn" style="background:${F(cfg.you).color}">1</span><span style="color:${F(cfg.you).color}">${ic(cfg.you)}</span>${F(cfg.you).name.replace('The ', '')}<small>You</small></button>
       <button class="seat" data-act="cycleopp"><span class="sn" style="background:${F(cfg.them).color}">2</span><span style="color:${F(cfg.them).color}">${ic(cfg.them)}</span>${F(cfg.them).name.replace('The ', '')}<small>Computer ↻</small></button></div>
     <button class="tbtn gold wide" data-act="start">Start game</button>
@@ -199,7 +201,7 @@ function render() {
   const banner = `<div class="banner"><div class="row"><div class="grow">
       <div class="step">${esc(SEASON[s.season] || '')}${s.step ? ' · ' + esc(s.step.replace(/^.*?: /, '')) : ''} · Round ${Math.min(s.round, s.rounds)}/${s.rounds}</div>
       <div class="msg ${msg.length > 70 ? 'long' : ''}">${esc(msg)}</div></div>
-      <button class="ibtn" data-act="rules" aria-label="Rules">?</button><button class="ibtn" data-act="log" aria-label="Log">☰</button><button class="ibtn" data-act="menu" aria-label="Menu">⚙</button></div>
+      <button class="ibtn tipb" data-act="tip" aria-label="Strategy tip">${ic('eye')}</button><button class="ibtn" data-act="rules" aria-label="Rules">?</button><button class="ibtn" data-act="log" aria-label="Log">☰</button><button class="ibtn" data-act="menu" aria-label="Menu">⚙</button></div>
       ${chips.length ? `<div class="more">${chips.join('')}</div>` : ''}
       ${toast ? `<div class="more"><span class="chip">${esc(toast)}</span></div>` : ''}</div>`;
 
@@ -461,6 +463,31 @@ function playerBoard(pi) {
   </div>`);
 }
 
+// ---------------- strategy guide ----------------
+const GH = { ic, card: (f, n) => CARDS.factions[f].find((c) => c.num === n).image };
+const TIP_CH = { bid: 'bid', bidAlly: 'bid', bidUse: 'bid', herald: 'herald', legend: 'herald', place: 'place', placeRegion: 'place', placeAlly: 'place', clashOrder: 'summer', tie: 'summer', tieCard: 'summer', ambushCard: 'summer', loc: 'locations', council: 'autumn', governCard: 'autumn', castleGovern: 'autumn', journeyCard: 'autumn', buy: 'autumn' };
+function guide(id) {
+  const i = Math.max(0, CHAPTERS.findIndex((c) => c.id === id));
+  const c = CHAPTERS[i], prev = CHAPTERS[i - 1], next = CHAPTERS[i + 1];
+  const F = c.faction && FACTIONS.find((f) => f.id === c.faction);
+  sheet(`<div class="guide">
+    <div class="gtoc">${CHAPTERS.map((x, k) => `<button class="${k === i ? 'on' : ''}" data-act="guide" data-c="${x.id}">${ic(x.icon)}<span>${k + 1}</span></button>`).join('')}</div>
+    ${F ? `<div class="ghero" style="--fc:${F.color}"><img src="${heirArt(F.id)}" alt=""><span>${ic(F.id)}</span></div>` : ''}
+    <div class="gnum">Strategy · ${i + 1} of ${CHAPTERS.length}</div>
+    <h2>${ic(c.icon)} ${c.title}</h2>
+    ${c.body(GH)}
+    <div class="gnav">${prev ? `<button class="opt" data-act="guide" data-c="${prev.id}">‹ ${prev.title}</button>` : '<span></span>'}${next ? `<button class="opt main" data-act="guide" data-c="${next.id}">${next.title} ›</button>` : `<button class="opt main" data-act="close">Done</button>`}</div>
+  </div>`);
+}
+function tipSheet() {
+  const prompt = pending && pending.prompt;
+  const me = S.players[ME];
+  const ch = (prompt && TIP_CH[prompt.key]) || (prompt && prompt.key === 'action' ? (S.season === 'autumn' ? 'autumn' : S.season === 'spring' ? 'place' : 'summer') : 'idea');
+  sheet(`<div class="guide"><div class="gnum">Strategy tip</div><h2>${ic('eye')} What should I do here?</h2>
+    <div class="tipbox tipbig">${strategyTip(prompt, S, me, game)}</div>
+    <div class="gnav"><button class="opt" data-act="guide" data-c="${me.faction}">${ic(me.faction)} Playing the ${esc(FACTIONS.find((f) => f.id === me.faction).name.replace('The ', ''))}</button><button class="opt main" data-act="guide" data-c="${ch}">Read more ›</button></div></div>`);
+}
+
 function closeSheet() { $sheet.classList.add('hidden'); $sheet.innerHTML = ''; }
 
 const TRAIT = { resilient: 'if Eliminated, goes to your Discard Pile instead of the Lost Pile.', invulnerable: "can't be Eliminated.", pathfinder: 'after a Journey, goes to your Discard Pile instead of the Lost Pile.' };
@@ -611,12 +638,15 @@ document.addEventListener('click', (e) => {
     case 'zout': { const r = document.getElementById('vp').getBoundingClientRect(); zoomAt(1 / 1.3, r.left + r.width / 2, r.top + r.height / 2); break; }
     case 'zfit': view.fit = true; view.y = 0; fitBoard(); break;
     case 'rules': sheet(RULES_HTML); break;
+    case 'guide': guide(b.dataset.c); break;
+    case 'tip': if (game) tipSheet(); break;
     case 'browse': browse(b.dataset.f); break;
     case 'log': logSheet(); break;
     case 'close': closeSheet(); break;
     case 'menu': sheet(`<h2>Menu</h2><div class="opts">
       <button class="opt" data-act="togglecoach">${cfg.coach ? 'Turn coach off' : 'Turn coach on'}</button>
       <button class="opt" data-act="replaytips">Show all coach tips again</button>
+      <button class="opt" data-act="guide">Strategy guide</button>
       <button class="opt" data-act="browse">Browse the cards</button>
       <button class="opt" data-act="quit">Save and quit to the main menu</button></div>`); break;
     case 'togglecoach': cfg.coach = !cfg.coach; store.set('coach', cfg.coach); closeSheet(); render(); break;
