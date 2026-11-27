@@ -462,3 +462,21 @@ body.ingame, .dock, .sheet .pboard, .tray { -webkit-user-select: none; user-sele
 .gpcoach + .gpsug { margin-top: 0; padding-top: 0; border: 0; }
 .gpdo { flex-direction: column; align-items: stretch; gap: 6px; }
 .gpdo .opt { width: auto; align-self: flex-start; display: inline-block; margin: 0; padding: 7px 14px; }
+
+/* ================= choices shown as cards ================= */
+.ostrip { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 6px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+.ocard { position: relative; flex: none; width: 92px; padding: 0; border: 2px solid var(--gold); border-radius: 8px; overflow: hidden; background: #000; box-shadow: 0 4px 12px #000b; animation: pulse 1.6s infinite; }
+.ocard.wide { width: 150px; }
+.ocard img { display: block; width: 100%; aspect-ratio: 5/7; object-fit: cover; }
+.ocard.wide img { aspect-ratio: 7/5; }
+.ocard .ol { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; padding: 3px 5px 4px; font: 600 11px/1.2 var(--sans); color: #f6efde; background: #0b151b; text-align: left; min-height: 30px; }
+.ocard .oi { position: absolute; top: 4px; right: 4px; width: 22px; height: 22px; border-radius: 50%; background: #000c; border: 1px solid var(--gold2); color: var(--gold2); font: italic 700 13px/20px var(--serif); text-align: center; }
+.ocard.suggest { animation: sugpulse 1.2s infinite; }
+.opts.small { margin-top: 4px; }
+.opts .opt.quiet { background: #0f1a20; border-color: #34505d; color: var(--dim); }
+.opt .ic { width: 15px; height: 15px; vertical-align: -2px; }
+.ocard.itile { width: 92px; display: flex; flex-direction: column; background: linear-gradient(#18303a, #0b151b); }
+.ocard.itile .ib { flex: 1; display: grid; place-items: center; aspect-ratio: 5/5.2; }
+.ocard.itile .ib .ic { width: 46px; height: 46px; color: var(--gold2); }
+.ocard.itile .ol { -webkit-line-clamp: 3; min-height: 42px; }
+.ostrip { align-items: stretch; }

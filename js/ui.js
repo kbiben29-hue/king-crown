@@ -1,13 +1,13 @@
 // Board view: the Map window built from the real Location tiles, card spaces beside each
 // Region, the Great Road and Councils above, your Kingdom spaces below, and a fanned hand
 // you drag cards from.
-import { Game, regionName, councilName, kText } from './engine.js?v=22';
-import { aiAnswer, planRegions } from './ai.js?v=22';
-import { COACH } from './coach.js?v=22';
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=22';
-import { RULES_HTML } from './rules.js?v=22';
-import { morph } from './morph.js?v=22';
-import { CHAPTERS, strategyTip } from './strategy.js?v=22';
+import { Game, regionName, councilName, kText } from './engine.js?v=24';
+import { aiAnswer, planRegions } from './ai.js?v=24';
+import { COACH } from './coach.js?v=24';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=24';
+import { RULES_HTML } from './rules.js?v=24';
+import { morph } from './morph.js?v=24';
+import { CHAPTERS, strategyTip } from './strategy.js?v=24';
 
 const $app = document.getElementById('app');
 if (/iPhone|iPod/.test(navigator.userAgent) && !navigator.standalone && !matchMedia('(display-mode: standalone)').matches) document.documentElement.classList.add('ios-safari');
@@ -216,6 +216,42 @@ function markSuggestion() {
   for (const q of sel) document.querySelectorAll(q).forEach((e) => e.classList.add('suggest'));
 }
 
+// ---------------- choices shown as cards ----------------
+// Find the card picture behind a menu option, so the choice can be shown as the card itself.
+function optImg(o) {
+  const id = String(o.id), me = S.players[ME];
+  if (LOCATIONS[id] || RIDS.includes(id) || /^(sup|nf):/.test(id)) return null; // those are on the Map already
+  let m;
+  if (o.kcard) { const k = findKingdom(o.kcard); if (k) return { img: k.image, name: k.name, wide: true }; }
+  if ((m = /^kf:(\w+)$/.exec(id))) { const f = CARDS.favour[m[1]]; return { img: f.image, name: f.name, wide: true }; }
+  if ((m = /^t:(.+)$/.exec(id))) { const x = S.players.flatMap((p) => p.tactics).find((q) => q.k === m[1]); if (x) return { img: x.image, name: x.name, wide: true }; }
+  if ((m = /^k:(.+)$/.exec(id))) { const k = game.kOwned(me).find((c) => c.k === m[1]); if (k) return { img: k.image, name: k.name, wide: true }; }
+  const C = COUNCILS.find((c) => c.id === id);
+  if (C) return { img: C.image, name: C.name, wide: true };
+  if (id === 'secrets' || id === 'oaths') { const c2 = COUNCILS.find((c) => c.id === id); return { img: c2.image, name: c2.name, wide: true }; }
+  const tac = S.players.flatMap((p) => p.tactics).find((q) => q.k === id);
+  if (tac) return { img: tac.image, name: tac.name, wide: true };
+  const num = (m = /^(?:[a-z]+:)?(\d+)$/.exec(id)) && +m[1];
+  if (num != null && num !== false) {
+    if (pending.prompt.key === 'boon' || /^\d+$/.test(id) && me.boons.some((b) => b.bid === num)) { const b = [...me.boons, ...(S.tower ? [...S.tower.entrance, ...S.tower.lab, ...S.tower.pin] : [])].find((x) => x.bid === num); if (b) return { img: b.image, name: 'Boon', wide: false }; }
+    const c = findCard(num); if (c && c.image) return { img: c.image, name: c.name, wide: false };
+    const k = findKingdom(num); if (k) return { img: k.image, name: k.name, wide: true };
+  }
+  return null;
+}
+const ICON_OPT = { govern: ['votes', 'Govern'], journey: ['lore', 'Journey'], done: ['', ''], return: ['', ''] };
+const QUIET = new Set(['done', 'return', 'no', 'pass', 'stop', 'none']);
+function iconTile(o) {
+  const icn = ICON_OPT[o.id] && ICON_OPT[o.id][0] || (/supporter/i.test(o.label) ? 'supporter' : /lore/i.test(o.label) ? 'lore' : /influence/i.test(o.label) ? 'influence' : /vote|govern|council/i.test(o.label) ? 'votes' : 'heir');
+  return `<button class="ocard itile" data-act="opt" data-id="${esc(o.id)}"><span class="ib">${ic(icn)}</span><span class="ol">${esc(o.label)}</span>${o.sub ? `<span class="oi" data-act="oinfo" data-id="${esc(o.id)}">i</span>` : ''}</button>`;
+}
+function optionCardsHTML(list, plain = []) {
+  return `<div class="ostrip">${plain.filter((o) => !QUIET.has(o.id)).map(iconTile).join('')}${list.map((o) => {
+    const im = optImg(o);
+    return `<button class="ocard ${im.wide ? 'wide' : ''}" data-act="opt" data-id="${esc(o.id)}"><img src="${im.img}" alt="${esc(im.name)}" draggable="false"><span class="ol">${esc(o.label)}</span><span class="oi" data-act="oinfo" data-id="${esc(o.id)}">i</span></button>`;
+  }).join('')}</div>`;
+}
+
 // ---------------- what the current prompt lets you tap or drop on ----------------
 function targets() {
   const t = { tiles: {}, rows: {}, nf: {}, road: {}, oppSlots: {}, councils: {}, rest: [], drop: null };
@@ -270,8 +306,9 @@ function render() {
   const chips = [];
   if (prompt && !coachP && !beatP) {
     const mapped = Object.keys(T.tiles).length + Object.keys(T.rows).length + Object.keys(T.road).length + Object.keys(T.oppSlots).length + Object.keys(T.councils).length;
-    if (mapped && T.rest.length <= 3) for (const o of T.rest) chips.push(`<button class="chip ${o.id === 'done' || o.id === 'return' ? '' : 'go'}" data-act="opt" data-id="${esc(o.id)}">${esc(o.label.length > 46 ? o.label.slice(0, 44) + '…' : o.label)}</button>`);
-    else if (mapped && T.rest.length) chips.push(`<button class="chip go" data-act="toggleopts">${showOpts ? 'Hide' : 'Show'} other options (${T.rest.length})</button>`);
+    const plainRest = T.rest.filter((o) => !optImg(o));
+    if (mapped && plainRest.length <= 3) for (const o of plainRest) chips.push(`<button class="chip ${o.id === 'done' || o.id === 'return' ? '' : 'go'}" data-act="opt" data-id="${esc(o.id)}">${esc(o.label.length > 46 ? o.label.slice(0, 44) + '…' : o.label)}</button>`);
+    else if (mapped && plainRest.length) chips.push(`<button class="chip go" data-act="toggleopts">${showOpts ? 'Hide' : 'Show'} other options (${plainRest.length})</button>`);
     if (prompt.cards && prompt.optional) chips.push(`<button class="chip" data-act="skip">Skip</button>`);
   }
   const banner = `<div class="banner"><div class="row"><div class="grow">
@@ -455,10 +492,17 @@ function renderDock(me, T, choosable) {
     const p = pending.prompt;
     const mapped = Object.keys(T.tiles).length + Object.keys(T.rows).length + Object.keys(T.road).length + Object.keys(T.oppSlots).length + Object.keys(T.councils).length;
     const peek = s.peek ? `<div class="dim">👁 ${esc(s.peek)}</div>` : '';
-    if (p.options && (!mapped || (showOpts && T.rest.length > 3))) {
-      const list = mapped ? T.rest : p.options;
-      panel = `<div class="panel">${peek}<div class="opts">${list.map((o) => `<button class="opt" data-act="opt" data-id="${esc(o.id)}">${esc(o.label)}${o.sub ? `<small>${esc(o.sub)}</small>` : ''}</button>`).join('')}</div></div>`;
-    } else if (peek) panel = `<div class="panel">${peek}</div>`;
+    if (p.options) {
+      // Options that are cards (Tactics, Kingdom Cards, the Favour, cards to buy, Councils…) show as the cards themselves.
+      const pool = p.options.filter((o) => !T.tiles[o.id] && !T.rows[o.id] && !Object.values(T.nf).includes(o.id) && !(p.key !== 'council' && T.councils[o.id]));
+      const cardOpts = p.options.filter((o) => optImg(o));
+      const plain = (mapped ? T.rest : pool).filter((o) => !optImg(o));
+      const showPlain = plain.length && (!mapped || (showOpts && plain.length > 3));
+      // with card choices on screen, the other choices become tiles in the same row; "Done"-type answers stay small buttons
+      const tiles = cardOpts.length && showPlain;
+      if (cardOpts.length || showPlain || peek) panel = `<div class="panel">${peek}${cardOpts.length ? optionCardsHTML(cardOpts, tiles ? plain : []) : ''}
+        ${showPlain ? `<div class="opts ${cardOpts.length ? 'small' : ''}">${(tiles ? plain.filter((o) => QUIET.has(o.id)) : plain).map((o) => { const icn = ICON_OPT[o.id]; return `<button class="opt ${o.id === 'done' || o.id === 'return' || o.id === 'no' || o.id === 'pass' ? 'quiet' : ''}" data-act="opt" data-id="${esc(o.id)}">${icn && icn[0] ? ic(icn[0]) + ' ' : ''}${esc(o.label)}${o.sub && !cardOpts.length ? `<small>${esc(o.sub)}</small>` : ''}</button>`; }).join('')}</div>` : ''}</div>`;
+    }
     // cards you can choose that aren't in your hand or on the Map
     const onBoard = new Set([...Object.values(s.regions).flatMap((R) => R.cards.map((x) => x.card.uid)), ...me.slots.filter((x) => x && x.occ).map((x) => x.occ.uid)]);
     const extra = p.cards ? p.cards.filter((uid) => !me.hand.some((c) => c.uid === uid) && !onBoard.has(uid)).map(findCard).filter(Boolean) : [];
@@ -477,7 +521,7 @@ function renderDock(me, T, choosable) {
   renderPanel();
   const canHerald = pending && ['herald', 'legend'].includes(pending.prompt.key) && !coachP && !beatP;
   const canSup = Object.values(T.rows).some((v) => String(v).startsWith('sup:'));
-  const tray = `<div class="tray">
+  const tray = !(canHerald || canSup || Object.keys(T.nf).length) ? '' : `<div class="tray">
     ${!me.herald ? tok(me, 'herald', 'data-piece="herald"', canHerald && pending.prompt.key === 'herald' ? 'live' : '') : ''}
     ${game.wk.legendary && !me.legend ? tok(me, 'legend', 'data-piece="legend"', canHerald && pending.prompt.key === 'legend' ? 'live' : '') : ''}
     ${Array.from({ length: me.supporters }, () => tok(me, 'sup', 'data-piece="sup"', canSup ? 'live' : '')).join('')}
@@ -730,6 +774,12 @@ document.addEventListener('click', (e) => {
     case 'tutorial': closeSheet(); start(false, true); break;
     case 'beatok': { const r = beatP.res; beatP = null; r(); render(); break; }
     case 'opt': closeSheet(); answer(b.dataset.id); break;
+    case 'oinfo': {
+      const o = pending && pending.prompt.options && pending.prompt.options.find((x) => String(x.id) === b.dataset.id); if (!o) break;
+      const im = optImg(o);
+      sheet(`<div class="detail kd"><img class="cimg ${im && im.wide ? 'wide' : ''}" src="${im ? im.img : ''}" alt=""><div><h2>${esc(o.label)}</h2>${o.sub ? `<p>${esc(o.sub)}</p>` : ''}</div></div><button class="opt main" data-act="opt" data-id="${esc(o.id)}">Choose this</button>`);
+      break;
+    }
     case 'skip': answer(null); break;
     case 'card': if (game) cardSheet(+b.dataset.uid); break;
     case 'boon': { const bb = S.players[ME].boons.find((x) => String(x.bid) === b.dataset.id); if (bb) sheet(`<div class="detail kd"><img class="cimg" style="width:40%" src="${bb.image}" alt=""><div><h2>Boon</h2><p>${esc(boonText(bb))}</p><p class="dim">In Spring (as an Action) put Boons face down on your face-down cards by the Regions, up to two per card. They're revealed with the card and work while it stays Active.</p></div></div>`); break; }

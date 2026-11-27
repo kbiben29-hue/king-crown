@@ -1,7 +1,7 @@
 // Rules engine for The Old King's Crown (base game), using the real cards.
 // The whole game is one async script; every decision goes through io.ask(pi, prompt)
 // so the same code drives the phone UI, the computer opponent and the simulation test.
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, GAME, ARCH, regionOfLoc } from './data.js?v=22';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, GAME, ARCH, regionOfLoc } from './data.js?v=24';
 
 export function rng(seed) {
   let a = seed >>> 0;

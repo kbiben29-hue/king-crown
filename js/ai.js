@@ -2,7 +2,7 @@
 // the computer takes the best one with a little randomness. Card prompts carry an
 // `ai` hint (strong / weak / votes / lore ...). It only looks at public information
 // plus its own hand.
-import { REGIONS, regionOfLoc } from './data.js?v=22';
+import { REGIONS, regionOfLoc } from './data.js?v=24';
 
 const R = Math.random;
 
