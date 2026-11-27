@@ -1,12 +1,12 @@
 // Board view: the Map window built from the real Location tiles, card spaces beside each
 // Region, the Great Road and Councils above, your Kingdom spaces below, and a fanned hand
 // you drag cards from.
-import { Game, regionName, councilName, kText } from './engine.js?v=12';
-import { aiAnswer } from './ai.js?v=12';
-import { COACH } from './coach.js?v=12';
-import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=12';
-import { RULES_HTML } from './rules.js?v=12';
-import { morph } from './morph.js?v=12';
+import { Game, regionName, councilName, kText } from './engine.js?v=15';
+import { aiAnswer } from './ai.js?v=15';
+import { COACH } from './coach.js?v=15';
+import { CARDS, FACTIONS, REGIONS, LOCATIONS, COUNCILS, ARCH } from './data.js?v=15';
+import { RULES_HTML } from './rules.js?v=15';
+import { morph } from './morph.js?v=15';
 
 const $app = document.getElementById('app');
 const $sheet = document.getElementById('sheet');
@@ -34,77 +34,113 @@ const locImg = (l) => (S && S.night ? CARDS.wk.night[NIGHT_KEY[l]].image : LOCAT
 const boonText = (b) => b.text || (b.rules || []).map((r) => `${cap(r.season)}: ${r.text}`).join(' ');
 const SEASON = { year: 'Start of the Year', spring: 'Spring', summer: 'Summer', autumn: 'Autumn', winter: 'Winter', end: 'Game over', setup: '' };
 
-// ---------------- setup screen ----------------
-function setup() {
+// ---------------- title & new game screens ----------------
+const FDESC = {
+  nobility: 'Choose the Nobility if you like a steady, powerful game: strong Councils, Supporters that hit harder, and a Royal Seal to win the Bid that matters.',
+  clans: 'Choose the Clans if you enjoy mobility and momentum: Flanking across the Map, Sea Lanes, and snatching rivals’ Kingdom Cards with River Runners.',
+  uprising: 'Choose the Uprising if you like ambushes and dirty tricks: Deadly Heirs, False Orders that shuffle your rivals’ plans, and Night Raids on their hands.',
+  gathering: 'Choose the Gathering if you like strange rituals: pulling cards back from the Lost Pile, swapping cards across the Map and bending the rules of a Clash.',
+};
+const heirArt = (f) => CARDS.factions[f].find((c) => c.num === 14).image;
+
+function clearGame() {
   game = null;
   document.querySelector('.dock')?.remove();
   document.querySelector('.cmodal')?.remove();
-  const fac = (key) => `<div class="pick">${FACTIONS.map((f) => {
-    const heir = CARDS.factions[f.id].find((c) => c.num === 14);
-    return `<button data-act="fac" data-key="${key}" data-id="${f.id}" class="${cfg[key] === f.id ? 'on' : ''}"><span class="swatch" style="background:${f.color}"></span>${f.name}<small>Heir: ${esc(heir.name)}</small></button>`;
-  }).join('')}</div>`;
-  $app.innerHTML = `<div class="setup">
-    <h1>King's Crown</h1>
-    <div class="tag">Learn to play <i>The Old King's Crown</i> on the real board with the real cards, with a coach explaining each step.</div>
-    <h3>Your faction</h3>${fac('you')}
-    <h3>Computer opponent</h3>${fac('them')}
-    <h3>Game length</h3>
-    <div class="pick">
-      <button data-act="rounds" data-n="1" class="${cfg.rounds === 1 ? 'on' : ''}">Practice year<small>1 Round — just the basics</small></button>
-      <button data-act="rounds" data-n="3" class="${cfg.rounds === 3 ? 'on' : ''}">Quick<small>3 Rounds</small></button>
-      <button data-act="rounds" data-n="4" class="${cfg.rounds === 4 ? 'on' : ''}">Short game<small>4 Rounds</small></button>
-      <button data-act="rounds" data-n="5" class="${cfg.rounds === 5 ? 'on' : ''}">Standard<small>5 Rounds (rulebook default)</small></button>
+  document.body.classList.remove('ingame');
+}
+
+function title() {
+  clearGame();
+  const saved = store.get('save', null);
+  $app.innerHTML = `<div class="title" style="background-image:url('${LOCATIONS.castle.image}')">
+    <div class="tbanner"><div class="tsmall">The</div><div class="tbig">Old King's<br>Crown</div><div class="trule"></div><div class="ttag">A tale of royalty, rebels and ruses.</div><div class="tsub">A learn-to-play companion</div></div>
+    <div class="tbtns">
+      <button class="tbtn gold" data-act="newgame">Play vs computer</button>
+      ${saved ? '<button class="tbtn" data-act="resume">Resume game</button>' : ''}
+      <button class="tbtn" data-act="rules">How to play</button>
+      <button class="tbtn" data-act="browse">Card library</button>
     </div>
-    <h3>Wild Kingdom expansion</h3>
-    <div class="pick">
-      ${[['night', 'Night Map', 'Night Location art, shuffled into a random layout'], ['aeronauts', 'Aeronauts', 'Visit the Near & Far to recruit Aeronaut Allies'], ['legendary', 'Legendary Creatures', 'A second Herald, and a Strength 13 card when you lose its Clash'], ['tower', 'Whispering Tower', 'Visit the Tower for Boons to put on your cards']].map(([k, n, d]) => `<button data-act="wk" data-k="${k}" class="${cfg.wk[k] ? 'on' : ''}">${n}<small>${d}</small></button>`).join('')}
-    </div>
-    <div class="pick" style="grid-template-columns:repeat(4,1fr);margin-top:8px">${[0, 5, 10, 15].map((n) => `<button data-act="wkcards" data-n="${n}" class="${cfg.wk.cards === n ? 'on' : ''}" style="text-align:center">${n}<small>WK cards</small></button>`).join('')}</div>
-    <div class="dim" style="margin-top:4px">Wild Kingdom Cards mixed into a 30-card Kingdom deck (0 = base game only).</div>
-    <h3>Coach</h3>
-    <div class="pick">
-      <button data-act="coach" data-on="1" class="${cfg.coach ? 'on' : ''}">Coach on<small>Explains each step the first time</small></button>
-      <button data-act="coach" data-on="0" class="${!cfg.coach ? 'on' : ''}">Coach off<small>Just the prompts</small></button>
-    </div>
-    <button class="big" data-act="start">Start the game</button>
-    <button class="link" data-act="rules">Read the rules overview</button>
-    <button class="link" data-act="browse">Browse the cards</button>
-    <div class="note">Unofficial fan-made learning aid. Card text and art © Eerie Idol Games, loaded from the <a href="https://library.eerieidolgames.com/" target="_blank" rel="noopener">Eerie Card Library</a>. Base game only (no Wild Kingdom or solo mode yet).</div>
+    <div class="tfoot">The Old King's Crown was designed by Pablo Clark and published by <a href="https://www.eerieidolgames.com" target="_blank" rel="noopener">Eerie Idol Games</a>. This is an unofficial, fan-made learning tool. Card text and art are © Eerie Idol Games, loaded from the <a href="https://library.eerieidolgames.com/" target="_blank" rel="noopener">Eerie Card Library</a>.</div>
   </div>`;
 }
 
-function start() {
+function setup() {
+  clearGame();
   if (cfg.you === cfg.them) cfg.them = FACTIONS.find((f) => f.id !== cfg.you).id;
-  seen = new Set(); pending = coachP = beatP = autoNext = null; showOpts = false;
-  game = new Game({ seed: (Math.random() * 2 ** 31) | 0, factions: [cfg.you, cfg.them], humans: [true, false], rounds: cfg.rounds, wk: cfg.wk }, io);
-  ME = 0; S = game.s;
-  window.scrollTo(0, 0);
-  render();
-  game.run().then(() => render()).catch((e) => { console.error(e); alert('Something went wrong: ' + e.message); });
+  const wkOn = cfg.wk.cards || cfg.wk.night || cfg.wk.aeronauts || cfg.wk.legendary || cfg.wk.tower;
+  const F = (id) => FACTIONS.find((f) => f.id === id);
+  $app.innerHTML = `<div class="ng">
+    <button class="back" data-act="title">‹ Main menu</button>
+    <h1>New Game</h1>
+    <button class="cfgrow" data-act="configure"><span>2 players, ${cfg.rounds} year${cfg.rounds > 1 ? 's' : ''}, ${wkOn ? 'Wild Kingdom' : 'Base'}${cfg.coach ? ', coach on' : ''}</span><b>Configure</b></button>
+    <h2>Choose your faction</h2>
+    <div class="fgrid">${FACTIONS.map((f) => `<button class="ftile ${cfg.you === f.id ? 'you' : cfg.them === f.id ? 'them' : ''}" data-act="fac" data-id="${f.id}" style="--fc:${f.color}">
+      <img src="${heirArt(f.id)}" alt=""><span class="fname"><span class="fcrown" style="color:${f.color}">${ic(f.id)}</span><span>${f.name.replace('The ', '')}<small>${cfg.you === f.id ? 'You' : cfg.them === f.id ? 'Computer' : 'Open'}</small></span></span></button>`).join('')}</div>
+    <h2 class="fh">${F(cfg.you).name}</h2>
+    <p class="fdesc"><span class="fcrown" style="color:${F(cfg.you).color}">${ic(cfg.you)}</span>${FDESC[cfg.you]}</p>
+    <div class="seats"><button class="seat" data-act="noop"><span class="sn" style="background:${F(cfg.you).color}">1</span><span style="color:${F(cfg.you).color}">${ic(cfg.you)}</span>${F(cfg.you).name.replace('The ', '')}<small>You</small></button>
+      <button class="seat" data-act="cycleopp"><span class="sn" style="background:${F(cfg.them).color}">2</span><span style="color:${F(cfg.them).color}">${ic(cfg.them)}</span>${F(cfg.them).name.replace('The ', '')}<small>Computer ↻</small></button></div>
+    <button class="tbtn gold wide" data-act="start">Start game</button>
+  </div>`;
 }
+
+function configure() {
+  sheet(`<h2>Configure</h2>
+    <h3>Game length</h3><div class="pick">${[[1, 'Practice year', '1 Round — just the basics'], [3, 'Quick', '3 years'], [4, 'Short', '4 years'], [5, 'Standard', '5 years (rulebook default)']].map(([n, a, b]) => `<button data-act="rounds" data-n="${n}" class="${cfg.rounds === n ? 'on' : ''}">${a}<small>${b}</small></button>`).join('')}</div>
+    <h3>Coach</h3><div class="pick"><button data-act="coach" data-on="1" class="${cfg.coach ? 'on' : ''}">Coach on<small>Explains each step the first time</small></button><button data-act="coach" data-on="0" class="${!cfg.coach ? 'on' : ''}">Coach off<small>Just the prompts</small></button></div>
+    <h3>Wild Kingdom expansion</h3><div class="pick">
+      ${[['night', 'Night Map', 'Night art in a random layout'], ['aeronauts', 'Aeronauts', 'Recruit Aeronaut Allies at the Near & Far'], ['legendary', 'Legendary Creatures', 'A second Herald and a Strength 13 card'], ['tower', 'Whispering Tower', 'Visit the Tower for Boons']].map(([k, n, d]) => `<button data-act="wk" data-k="${k}" class="${cfg.wk[k] ? 'on' : ''}">${n}<small>${d}</small></button>`).join('')}</div>
+    <div class="pick" style="grid-template-columns:repeat(4,1fr);margin-top:8px">${[0, 5, 10, 15].map((n) => `<button data-act="wkcards" data-n="${n}" class="${cfg.wk.cards === n ? 'on' : ''}" style="text-align:center">${n}<small>WK cards</small></button>`).join('')}</div>
+    <p class="dim">Wild Kingdom Cards are mixed into a 30-card Kingdom deck (0 = base game only).</p>
+    <button class="big" data-act="close">Done</button>`);
+}
+
+// ---------------- starting, saving and resuming ----------------
+// Every answer (yours and the computer's) is recorded, so a game can be rebuilt exactly by replaying them.
+let record = [], replay = [];
+function start(resume = false) {
+  const saved = resume ? store.get('save', null) : null;
+  const opts = saved ? saved.opts : { seed: (Math.random() * 2 ** 31) | 0, factions: [cfg.you, cfg.them], humans: [true, false], rounds: cfg.rounds, wk: cfg.wk, coach: cfg.coach };
+  if (saved) cfg.coach = saved.opts.coach;
+  seen = new Set(saved ? saved.seen || [] : []); pending = coachP = beatP = autoNext = null; showOpts = false;
+  record = []; replay = saved ? saved.answers.slice() : [];
+  game = new Game(opts, io);
+  game.opts = opts;
+  ME = 0; S = game.s;
+  document.body.classList.add('ingame');
+  $app.innerHTML = '';
+  view = { s: 0, x: 0, y: 200, fit: true };
+  render();
+  game.run().then(() => { store.set('save', null); render(); }).catch((e) => { console.error(e); alert('Something went wrong: ' + e.message); });
+}
+function save() { if (game && !S.over) store.set('save', { opts: game.opts, answers: record, seen: [...seen] }); }
 
 const io = {
   update(s) { S = s; scheduleRender(); },
   ask(pi, prompt, s, g) {
-    if (!s.players[pi].human) return aiAnswer(pi, prompt, s, g);
-    if (autoNext && autoNext.key === prompt.key && prompt.options?.some((o) => o.id === autoNext.id)) { const id = autoNext.id; autoNext = null; return id; }
+    if (replay.length) { const a = replay.shift(); record.push(a); return a; }
+    if (!s.players[pi].human) { const a = aiAnswer(pi, prompt, s, g); record.push(a); return a; }
+    if (autoNext && autoNext.key === prompt.key && prompt.options?.some((o) => o.id === autoNext.id)) { const id = autoNext.id; autoNext = null; record.push(id); save(); return id; }
     autoNext = null;
-    return new Promise((res) => { pending = { prompt, res }; showOpts = false; render(); });
+    save();
+    return new Promise((res) => { pending = { prompt, res: (v) => { record.push(v); res(v); } }; showOpts = false; render(); });
   },
   coach(key) {
+    if (replay.length) { seen.add(key); return; }
     if (seen.has(key)) return;
     seen.add(key);
     if (!cfg.coach || !COACH[key]) return;
     return new Promise((res) => { coachP = { key, res }; render(); });
   },
-  beat(text) { return new Promise((res) => { beatP = { text, res }; render(); }); },
+  beat(text) { if (replay.length) return; return new Promise((res) => { beatP = { text, res }; render(); }); },
 };
 let raf = 0;
 function scheduleRender() { if (!raf) raf = requestAnimationFrame(() => { raf = 0; render(); }); }
 
 // ---------------- what the current prompt lets you tap or drop on ----------------
 function targets() {
-  const t = { tiles: {}, rows: {}, road: {}, oppSlots: {}, councils: {}, rest: [], drop: null };
+  const t = { tiles: {}, rows: {}, nf: {}, road: {}, oppSlots: {}, councils: {}, rest: [], drop: null };
   const p = pending && !coachP && !beatP ? pending.prompt : null;
   if (!p) return t;
   if (p.options) for (const o of p.options) {
@@ -112,6 +148,7 @@ function targets() {
     if (LOCATIONS[o.id]) t.tiles[o.id] = o.id;
     else if (RIDS.includes(o.id)) t.rows[o.id] = o.id;
     else if ((m = /^sup:(\w+)$/.exec(o.id))) t.rows[m[1]] = o.id;
+    else if ((m = /^nf:(\w+)$/.exec(o.id))) t.nf[m[1]] = o.id;
     else if ((m = /^take:road:(\d)$/.exec(o.id))) t.road[m[1]] = o.id;
     else if ((m = /^steal:(\d+):(\d+)$/.exec(o.id))) t.oppSlots[`${m[1]}:${m[2]}`] = o.id;
     else if (p.key === 'council' && COUNCILS.some((c) => c.id === o.id)) { t.councils[o.id] = o.id; t.rest.push(o); }
@@ -134,6 +171,9 @@ function cardHTML(c, { cls = '', mini = false, style = '' } = {}) {
 }
 const backHTML = (f, mini = true, url = null, boons = 0) => `<div class="card back ${mini ? 'mini' : ''}"><img src="${url || BACK(f)}" alt="" draggable="false">${boons ? `<span class="boonb">${boons}</span>` : ''}</div>`;
 const kcHTML = (k, cls = '', extra = '') => `<button class="kc ${cls}" data-act="kinfo" data-uid="${k.uid}" ${extra}><img src="${k.image}" alt="${esc(k.name)}"><span class="kn">${esc(k.name)}</span></button>`;
+
+// Wooden-style pieces: Heralds are pawns, Legendary Creatures diamonds, Supporters small blocks.
+const tok = (p, kind, extra = '', cls = '') => `<span class="tok ${kind} ${cls}" style="--fc:${p.color}" ${extra}>${kind === 'sup' ? ic('supporter') : kind === 'nf' ? ic('wind') : ic(p.faction)}</span>`;
 
 function render() {
   if (!game) return;
@@ -196,7 +236,8 @@ function render() {
     const R = s.regions[r.id];
     const mk = s.clashOrder.indexOf(r.id);
     const dropOK = T.drop && T.drop.rows && T.drop.rows.includes(r.id);
-    const pick = T.rows[r.id] || dropOK;
+    const pick = T.rows[r.id] || T.nf[r.id] || dropOK;
+    const rowDrop = dropOK || T.rows[r.id] || T.nf[r.id];
     const cur = s.current === r.id;
     const res = R.winner != null ? `<span class="res">${R.winner === ME ? '✓ yours' : '✗ theirs'}</span>` : R.tie ? '<span class="res">tie</span>' : '';
     const col = (p) => {
@@ -204,20 +245,20 @@ function render() {
         if (!c.up && p.i !== ME) return backHTML(p.faction, true, c.card.back || (c.card.faction !== p.faction ? BACK(c.card.faction) : null), c.card.boons.length);
         return cardHTML(c.card, { mini: true, cls: `${!c.up ? 'down' : ''} ${c.used && !cur ? 'used' : ''} ${choosable.has(c.card.uid) ? 'ok' : ''}` });
       }).join('');
-      const sup = (R.sup[p.i] ? `<span class="sup">${ic('supporter')}${R.sup[p.i]}</span>` : '') + (R.nf === p.i ? `<span class="sup nf">${ic('wind')} Near & Far +3</span>` : '');
+      const sup = (R.sup[p.i] || R.nf === p.i) ? `<span class="toks">${Array.from({ length: R.sup[p.i] || 0 }, () => tok(p, 'sup')).join('')}${R.nf === p.i ? tok(p, 'nf') : ''}</span>` : '';
       return `<div class="sidecol" style="background:linear-gradient(${p.color}22, transparent)">${sup}<div class="stack">${cs}</div></div>`;
     };
     const tiles = s.map[r.id].map((l) => {
-      const hs = s.players.filter((p) => p.herald === l).map((p) => `<span class="herald" style="background:${p.color}">${ic(p.faction)}</span>`).join('')
-        + s.players.filter((p) => p.legend === l).map((p) => `<span class="herald legend" style="background:${p.color}" title="Legendary Creature">${ic(p.faction)}</span>`).join('')
+      const hs = s.players.filter((p) => p.herald === l).map((p) => tok(p, 'herald')).join('')
+        + s.players.filter((p) => p.legend === l).map((p) => tok(p, 'legend')).join('')
         + (s.pieces.tower === l ? `<span class="piece" title="Whispering Tower">${ic('tower')}</span>` : '')
         + (s.pieces.nearfar === l ? `<span class="piece" title="Near & Far">${ic('wind')}</span>` : '');
       const mks = s.marks[l] ? s.players.filter((p) => s.marks[l][p.i]).map((p) => `<span class="mk" style="background:${p.color}">${s.marks[l][p.i]}</span>`).join('') : '';
       const lk = (s.locKs[l] || []).map((k) => `<span class="ktile">${esc(k.card.name)}</span>`).join('');
-      return `<button class="tile ${T.tiles[l] ? 'pickable' : ''} ${R.claimed === l ? 'claimed' : ''}" data-act="tile" data-l="${l}" data-rid="${r.id}"><img src="${locImg(l)}" alt="${LOCATIONS[l].name}"><span class="tokens">${hs}${mks}</span>${lk}</button>`;
+      return `<button class="tile ${T.tiles[l] ? 'pickable' : ''} ${R.claimed === l ? 'claimed' : ''}" data-act="tile" data-l="${l}" data-rid="${r.id}" ${T.tiles[l] ? `data-drop="tile:${l}"` : ''}><img src="${locImg(l)}" alt="${LOCATIONS[l].name}"><span class="tokens">${hs}${mks}</span>${lk}</button>`;
     }).join('');
     const kOn = R.ks.map((k) => `<button data-act="kinfo" data-uid="${k.card.uid}" style="border-color:${s.players[k.owner].color}">${esc(k.card.name)}</button>`).join('') + (R.martial != null ? '<button>Martial Law</button>' : '');
-    return `<div class="mrow ${pick ? 'pickable' : ''} ${cur ? 'cur' : ''}" data-act="row" data-rid="${r.id}" data-row="${r.id}" ${dropOK ? `data-drop="row:${r.id}"` : ''}>
+    return `<div class="mrow ${pick ? 'pickable' : ''} ${cur ? 'cur' : ''}" data-act="row" data-rid="${r.id}" data-row="${r.id}" ${rowDrop ? `data-drop="row:${r.id}"` : ''}>
       ${col(me)}<div class="tiles"><span class="rname">${mk >= 0 ? `<span class="cm">${['I', 'II', 'III'][mk]}</span>` : ''}${r.name}${res}</span>${tiles}${kOn ? `<div class="rks">${kOn}</div>` : ''}</div>${opp ? col(opp) : ''}</div>`;
   }).join('')}</div>`;
 
@@ -237,17 +278,89 @@ function render() {
     </div>
     ${me.boons.length || me.lsupply.length ? `<div class="chips" style="margin:6px 8px 0">${me.lsupply.map((c) => `<button class="chip" data-act="card" data-uid="${c.uid}">${esc(c.name)} (in your Supply)</button>`).join('')}${me.boons.map((b) => `<button class="chip boonchip" data-act="boon" data-id="${b.bid}"><img src="${b.image}" alt="">${esc(boonText(b))}</button>`).join('')}</div>` : ''}`;
   }
-  morph($app, `<div class="table">${banner}${top}${councils}${map}${road}${wkHTML}${mine}</div>`);
-  renderDock(me, T, choosable);
-  const focus = s.current || (prompt && prompt.region) || null;
-  if (focus && focus !== lastFocus) {
-    const el = $app.querySelector(`.mrow[data-row="${focus}"]`);
-    const topH = $app.querySelector('.banner').offsetHeight;
-    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - topH - 10, behavior: 'smooth' });
+  // The game screen: a fixed banner, a board you can pinch-zoom and pan, and the hand dock.
+  if (!document.getElementById('zoom')) {
+    $app.innerHTML = `<div class="gshell"><div id="gbanner"></div><div class="vp" id="vp"><div id="zoom"></div></div>
+      <div class="zbtns"><button data-act="zin" aria-label="Zoom in">+</button><button data-act="zout" aria-label="Zoom out">−</button><button data-act="zfit" aria-label="Fit">⤢</button></div></div>`;
+    initZoom();
   }
+  morph(document.getElementById('gbanner'), banner);
+  morph(document.getElementById('zoom'), `<div class="table">${top}${councils}${map}${road}${wkHTML}${mine}</div>`);
+  renderDock(me, T, choosable);
+  if (view.fit) fitBoard();
+  const focus = s.current || (prompt && prompt.region) || null;
+  if (focus && focus !== lastFocus) showRegion(focus);
   lastFocus = focus;
 }
 let lastFocus = null;
+
+// ---------------- zoom & pan (two fingers, mouse wheel, or the +/− buttons) ----------------
+const BOARD_W = 760;
+let view = { s: 0, x: 0, y: 0, fit: true };
+function applyView() { const z = document.getElementById('zoom'); if (z) z.style.transform = `translate(${view.x}px, ${view.y}px) scale(${view.s})`; }
+function fitBoard() {
+  const vp = document.getElementById('vp'); if (!vp) return;
+  view.s = vp.clientWidth / BOARD_W; view.x = 0;
+  clampView(); applyView();
+}
+function clampView() {
+  const vp = document.getElementById('vp'), z = document.getElementById('zoom'); if (!vp || !z) return;
+  const w = BOARD_W * view.s, h = z.scrollHeight * view.s;
+  const top = (document.getElementById('gbanner')?.offsetHeight || 0) + 6;
+  const bot = (document.querySelector('.dock')?.offsetHeight || 0) + 6;
+  const minX = Math.min(0, vp.clientWidth - w), maxX = Math.max(0, vp.clientWidth - w);
+  const maxY = top, minY = Math.min(top, vp.clientHeight - bot - h);
+  view.x = Math.min(maxX, Math.max(minX, view.x)); view.y = Math.min(maxY, Math.max(minY, view.y));
+}
+function zoomAt(f, cx, cy) {
+  const vp = document.getElementById('vp'), r = vp.getBoundingClientRect();
+  const px = cx - r.left, py = cy - r.top;
+  const fitS = vp.clientWidth / BOARD_W;
+  const ns = Math.min(fitS * 4, Math.max(fitS * 0.6, view.s * f));
+  view.x = px - (px - view.x) * (ns / view.s); view.y = py - (py - view.y) * (ns / view.s); view.s = ns;
+  view.fit = Math.abs(ns - fitS) < 0.001; clampView(); applyView();
+}
+function showRegion(rid) {
+  const vp = document.getElementById('vp'), el = document.querySelector(`#zoom .mrow[data-row="${rid}"]`); if (!vp || !el) return;
+  const er = el.getBoundingClientRect();
+  const top = (document.getElementById('gbanner')?.offsetHeight || 0) + 8, bot = window.innerHeight - (document.querySelector('.dock')?.offsetHeight || 0);
+  if (er.top < top || er.bottom > bot) { view.y += top - er.top; clampView(); const z = document.getElementById('zoom'); z.style.transition = 'transform .35s'; applyView(); setTimeout(() => (z.style.transition = ''), 400); }
+}
+function initZoom() {
+  const vp = document.getElementById('vp');
+  const pts = new Map(); let g = null, pan = null;
+  vp.addEventListener('pointerdown', (e) => {
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pts.size === 2) {
+      const [a, b] = [...pts.values()];
+      g = { d: Math.hypot(a.x - b.x, a.y - b.y), mx: (a.x + b.x) / 2, my: (a.y + b.y) / 2, s: view.s, x: view.x, y: view.y };
+      pan = null; drag = null;
+    } else if (pts.size === 1) pan = { x: e.clientX, y: e.clientY, vx: view.x, vy: view.y, moved: false };
+  });
+  vp.addEventListener('pointermove', (e) => {
+    if (!pts.has(e.pointerId)) return;
+    pts.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (g && pts.size >= 2) {
+      const [a, b] = [...pts.values()];
+      const d = Math.hypot(a.x - b.x, a.y - b.y), mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
+      const r = vp.getBoundingClientRect();
+      const fitS = vp.clientWidth / BOARD_W;
+      const ns = Math.min(fitS * 4, Math.max(fitS * 0.6, g.s * d / g.d));
+      const ox = g.mx - r.left, oy = g.my - r.top;
+      view.s = ns; view.x = mx - r.left - (ox - g.x) * (ns / g.s); view.y = my - r.top - (oy - g.y) * (ns / g.s);
+      view.fit = false; clampView(); applyView(); e.preventDefault();
+    } else if (pan && !drag) {
+      if (!pan.moved && Math.hypot(e.clientX - pan.x, e.clientY - pan.y) < 8) return;
+      pan.moved = true; view.x = pan.vx + e.clientX - pan.x; view.y = pan.vy + e.clientY - pan.y; clampView(); applyView();
+    }
+  }, { passive: false });
+  const up = (e) => { if ((pan && pan.moved) || g) justDragged = Date.now(); pts.delete(e.pointerId); if (pts.size < 2) g = null; pan = null; };
+  vp.addEventListener('pointerup', up); vp.addEventListener('pointercancel', up);
+  // trackpad pinch / ctrl+wheel zooms; a plain wheel scrolls the board
+  vp.addEventListener('wheel', (e) => { e.preventDefault(); if (e.ctrlKey || e.metaKey) zoomAt(Math.exp(-e.deltaY * 0.01), e.clientX, e.clientY); else { view.x -= e.deltaX; view.y -= e.deltaY; clampView(); applyView(); } }, { passive: false });
+  for (const ev of ['gesturestart', 'gesturechange']) document.addEventListener(ev, (e) => e.preventDefault());
+  window.addEventListener('resize', () => { if (view.fit) fitBoard(); else { clampView(); applyView(); } });
+}
 
 function renderDock(me, T, choosable) {
   let dock = document.querySelector('.dock');
@@ -289,8 +402,16 @@ function renderDock(me, T, choosable) {
     const c = COACH[coachP.key];
     if (modal.dataset.key !== coachP.key) { modal.dataset.key = coachP.key; modal.innerHTML = `<div class="cbox"><h3>${c.title}</h3><div class="cbody">${c.text}</div><button class="opt main" data-act="coachok">Got it</button></div>`; }
   } else if (modal) modal.remove();
-  morph(dock, `<div class="dockin">${panel}<div class="handrow"><div class="hand">${hand || '<span class="empty">No cards in hand</span>'}</div>${slots}</div>
-    <div class="stats"><div class="stat fac"><span class="emb" style="background-image:url('${BACK(me.faction)}')"></span><span class="rdb">${['I', 'II', 'III', 'IV', 'V', 'VI'][Math.min(s.round, s.rounds) - 1]}</span></div><div class="stat">${ic('influence', 'big')}${me.inf}<small>Influence</small></div><div class="stat">${ic('lore', 'big')}${me.lore}<small>Lore</small></div>
+  const canHerald = pending && ['herald', 'legend'].includes(pending.prompt.key) && !coachP && !beatP;
+  const canSup = Object.values(T.rows).some((v) => String(v).startsWith('sup:'));
+  const tray = `<div class="tray">
+    ${!me.herald ? tok(me, 'herald', 'data-piece="herald"', canHerald && pending.prompt.key === 'herald' ? 'live' : '') : ''}
+    ${game.wk.legendary && !me.legend ? tok(me, 'legend', 'data-piece="legend"', canHerald && pending.prompt.key === 'legend' ? 'live' : '') : ''}
+    ${Array.from({ length: me.supporters }, () => tok(me, 'sup', 'data-piece="sup"', canSup ? 'live' : '')).join('')}
+    ${me.nf === 'board' ? tok(me, 'nf', 'data-piece="nf"', Object.keys(T.nf).length ? 'live' : '') : ''}
+    ${canHerald ? '<span class="thint">Drag your Herald onto a Location</span>' : canSup ? '<span class="thint">Drag a Supporter to a Region</span>' : Object.keys(T.nf).length ? '<span class="thint">Drag the Near & Far to a Region</span>' : ''}</div>`;
+  morph(dock, `<div class="dockin">${panel}${tray}<div class="handrow"><div class="hand">${hand || '<span class="empty">No cards in hand</span>'}</div>${slots}</div>
+    <div class="stats" data-act="pboard"><div class="stat fac"><span class="emb" style="background-image:url('${BACK(me.faction)}')"></span><span class="rdb">${['I', 'II', 'III', 'IV', 'V', 'VI'][Math.min(s.round, s.rounds) - 1]}</span></div><div class="stat">${ic('influence', 'big')}${me.inf}<small>Influence</small></div><div class="stat">${ic('lore', 'big')}${me.lore}<small>Lore</small></div>
       <div class="stat">${ic('supporter', 'big')}${me.supporters}<small>Supporters</small></div><div class="stat"><span class="cic hand"></span>${me.hand.length}/${game.maxHand(me)}<small>Hand</small></div>
       <button class="stat" data-act="discard"><span class="cic deck"></span>${me.deck.length}<small>Deck</small></button><button class="stat" data-act="discard"><span class="cic discard"></span>${me.discard.length}<small>Discard</small></button>
       <button class="stat" data-act="lost"><span class="cic lost"></span>${s.lost.filter((c) => c.owner === ME).length}<small>Lost</small></button><div class="stat">${ic('lore-cost', 'big')}${me.tactics.filter((x) => !x.exhausted).length}<small>Tactics</small></div>${fav}</div></div>`);
@@ -315,6 +436,31 @@ function findKingdom(uid) {
 
 // ---------------- sheets ----------------
 function sheet(html) { $sheet.innerHTML = `<div class="inner"><button class="close" data-act="close">Close</button>${html}</div>`; $sheet.classList.remove('hidden'); $sheet.scrollTop = 0; }
+function playerBoard(pi) {
+  const p = S.players[pi];
+  const fav = CARDS.favour[p.faction];
+  const tabs = S.players.map((q) => `<button class="pbtab ${q.i === pi ? 'on' : ''}" style="--fc:${q.color}" data-act="pboard" data-pi="${q.i}">${q.i + 1} ${ic(q.faction)} ${esc(q.short)}</button>`).join('');
+  const mineP = pi === ME;
+  const pile = (lbl, n, img) => `<div class="pile"><div class="pimg">${img ? `<img src="${img}" alt="">` : ''}<span class="pn">${n}</span></div><small>${lbl}</small></div>`;
+  const deckImg = BACK(p.faction);
+  const discImg = p.discard.length ? p.discard[p.discard.length - 1].image : null;
+  const slot = (sl) => sl ? `<div class="pslot">${kcHTML(sl.card)}${sl.occ ? `<span class="pocc">${esc(sl.occ.name)}</span>` : ''}</div>` : '<div class="pslot empty">Kingdom card</div>';
+  const stat = (icn, v, l) => `<div class="pst">${ic(icn, 'big')}<b>${v}</b><small>${l}</small></div>`;
+  sheet(`<div class="pbtabs">${tabs}</div><div class="pboard" style="--fc:${p.color}">
+    <div class="pbtop">${pile('Deck', p.deck.length, deckImg)}<button class="pilebtn" data-act="${mineP ? 'discard' : 'player'}" data-pi="${p.i}">${pile('Discard', p.discard.length, discImg)}</button>
+      ${slot(p.slots[0])}${slot(p.slots[1])}
+      <button class="pfav" data-act="favour" data-f="${p.faction}"><img src="${fav.image}" alt="${esc(fav.name)}">${S.favour && S.favour.pi === p.i ? `<span class="pn">${'I'.repeat(S.favour.val)}</span>` : ''}</button></div>
+    <div class="pstats">${stat('influence', p.inf, 'Influence')}${stat('lore', p.lore, 'Lore')}<div class="pst"><span class="cic hand"></span><b>${p.hand.length}/${game.maxHand(p)}</b><small>Hand</small></div>
+      <div class="pst"><span class="cic deck"></span><b>${p.site.length}</b><small>Site of Power</small></div><div class="pst">${ic('supporter', 'big')}<b>${p.ksupply.length + p.lsupply.length}</b><small>Supply</small></div><div class="pst"><span class="cic lost"></span><b>${S.lost.filter((c) => c.owner === p.i).length}</b><small>Lost</small></div></div>
+    <div class="pbname"><span class="fcrown">${ic(p.faction)}</span>${esc(p.name)}<small>${who(p.i)}</small></div>
+    <div class="pbrow"><span>Herald</span><b>${p.herald ? esc(LOCATIONS[p.herald].name) : 'Unplaced'}</b>${S.players[pi].legend ? `<span>Legend</span><b>${esc(LOCATIONS[p.legend].name)}</b>` : ''}</div>
+    <div class="pbrow"><span>Supporters</span><span class="toks">${Array.from({ length: p.supporters }, () => tok(p, 'sup')).join('')}${p.nf === 'board' ? tok(p, 'nf') : ''}</span>${p.lostSup ? `<small>${p.lostSup} lost</small>` : ''}</div>
+    <h3>Tactics</h3><div class="ptac">${p.tactics.map((x) => `<button class="${x.exhausted ? 'ex' : ''}" data-act="tactic" data-pi="${p.i}" data-k="${x.k}"><img src="${x.image}" alt="${esc(x.name)}">${x.exhausted ? '<span>Used</span>' : ''}</button>`).join('')}</div>
+    ${p.hq.length ? `<h3>HQ</h3><div class="cards">${p.hq.map((c) => cardHTML(c)).join('')}</div>` : ''}
+    ${p.boons.length && mineP ? `<h3>Boons</h3><div class="chips">${p.boons.map((b) => `<button class="chip boonchip" data-act="boon" data-id="${b.bid}"><img src="${b.image}" alt="">${esc(boonText(b))}</button>`).join('')}</div>` : ''}
+  </div>`);
+}
+
 function closeSheet() { $sheet.classList.add('hidden'); $sheet.innerHTML = ''; }
 
 const TRAIT = { resilient: 'if Eliminated, goes to your Discard Pile instead of the Lost Pile.', invulnerable: "can't be Eliminated.", pathfinder: 'after a Journey, goes to your Discard Pile instead of the Lost Pile.' };
@@ -371,6 +517,16 @@ function answer(v) {
 }
 function flash(t) { toast = t; render(); setTimeout(() => { if (toast === t) { toast = ''; render(); } }, 2200); }
 
+function dropPiece(piece, spec) {
+  const p = pending && !coachP && !beatP ? pending.prompt : null;
+  const T = targets();
+  const [kind, arg] = spec.split(':');
+  if (p && (piece === 'herald' || piece === 'legend') && p.key === piece && kind === 'tile' && T.tiles[arg]) return answer(T.tiles[arg]);
+  if (p && piece === 'sup' && kind === 'row' && String(T.rows[arg] || '').startsWith('sup:')) return answer(T.rows[arg]);
+  if (p && piece === 'nf' && kind === 'row' && T.nf[arg]) return answer(T.nf[arg]);
+  const why = { herald: 'Your Herald goes on a Location when the game asks you to place it (Start of the Year).', legend: 'Your Legendary Creature is placed right after your Herald.', sup: 'Supporters go by a Region when you take the Place a Supporter action in Spring.', nf: 'The Near & Far goes by a Region as a Spring action.' };
+  flash(why[piece]);
+}
 function drop(uid, spec) {
   const p = pending && !coachP && !beatP ? pending.prompt : null;
   if (!p || !p.cards || !p.cards.includes(uid)) return flash("That card can't be used right now.");
@@ -386,6 +542,8 @@ function drop(uid, spec) {
 // ---------------- dragging cards from your hand ----------------
 let drag = null, justDragged = 0;
 document.addEventListener('pointerdown', (e) => {
+  const pc = e.target.closest('.tray [data-piece]');
+  if (pc && pending) { drag = { piece: pc.dataset.piece, el: pc, x: e.clientX, y: e.clientY, moved: false, ghost: null, over: null }; return; }
   const el = e.target.closest('.hand .card, .sheetcards .card');
   if (!el || !pending) return;
   drag = { uid: +el.dataset.uid, el, x: e.clientX, y: e.clientY, moved: false, ghost: null, over: null };
@@ -395,11 +553,12 @@ document.addEventListener('pointermove', (e) => {
   if (!drag.moved) {
     if (Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 10) return;
     const p = pending && pending.prompt;
-    if (!p || !p.cards || !p.cards.includes(drag.uid)) { drag = null; return; }
+    if (!drag.piece && (!p || !p.cards || !p.cards.includes(drag.uid))) { drag = null; return; }
     drag.moved = true;
     drag.el.classList.add('dragging');
-    drag.ghost = document.createElement('div'); drag.ghost.className = 'ghost';
-    drag.ghost.innerHTML = drag.el.querySelector('img').outerHTML;
+    drag.ghost = document.createElement('div'); drag.ghost.className = drag.piece ? 'ghost pghost' : 'ghost';
+    drag.ghost.innerHTML = drag.piece ? drag.el.outerHTML : drag.el.querySelector('img').outerHTML;
+    if (drag.piece) document.body.classList.add('placing-' + drag.piece);
     document.body.appendChild(drag.ghost);
   }
   e.preventDefault();
@@ -416,10 +575,11 @@ document.addEventListener('pointerup', (e) => {
   if (!dd.moved) return;
   justDragged = Date.now();
   dd.ghost.remove(); dd.el.classList.remove('dragging');
-  if (dd.over) { dd.over.classList.remove('over'); drop(dd.uid, dd.over.dataset.drop); }
+  document.body.classList.remove('placing-herald', 'placing-legend', 'placing-sup', 'placing-nf');
+  if (dd.over) { dd.over.classList.remove('over'); if (dd.piece) dropPiece(dd.piece, dd.over.dataset.drop); else drop(dd.uid, dd.over.dataset.drop); }
   else render();
 });
-document.addEventListener('pointercancel', () => { if (drag && drag.ghost) drag.ghost.remove(); drag = null; render(); });
+document.addEventListener('pointercancel', () => { if (drag && drag.ghost) drag.ghost.remove(); drag = null; document.body.classList.remove('placing-herald', 'placing-legend', 'placing-sup', 'placing-nf'); render(); });
 
 // ---------------- taps ----------------
 document.addEventListener('click', (e) => {
@@ -429,13 +589,27 @@ document.addEventListener('click', (e) => {
   const a = b.dataset.act;
   const T = game ? targets() : null;
   switch (a) {
-    case 'fac': cfg[b.dataset.key] = b.dataset.id; store.set(b.dataset.key, b.dataset.id); setup(); break;
-    case 'wk': cfg.wk = { ...cfg.wk, [b.dataset.k]: !cfg.wk[b.dataset.k] }; store.set('wk', cfg.wk); setup(); break;
-    case 'wkcards': cfg.wk = { ...cfg.wk, cards: +b.dataset.n }; store.set('wk', cfg.wk); setup(); break;
-    case 'rounds': cfg.rounds = +b.dataset.n; store.set('rounds', cfg.rounds); setup(); break;
-    case 'coach': cfg.coach = b.dataset.on === '1'; store.set('coach', cfg.coach); setup(); break;
-    case 'start': case 'again': start(); break;
-    case 'newsetup': setup(); break;
+    case 'fac': {
+      const id = b.dataset.id;
+      if (id === cfg.them) { cfg.them = cfg.you; store.set('them', cfg.them); }
+      cfg.you = id; store.set('you', id); setup(); break;
+    }
+    case 'cycleopp': { const ids = FACTIONS.map((f) => f.id).filter((f) => f !== cfg.you); cfg.them = ids[(ids.indexOf(cfg.them) + 1) % ids.length]; store.set('them', cfg.them); setup(); break; }
+    case 'configure': configure(); break;
+    case 'wk': cfg.wk = { ...cfg.wk, [b.dataset.k]: !cfg.wk[b.dataset.k] }; store.set('wk', cfg.wk); setup(); configure(); break;
+    case 'wkcards': cfg.wk = { ...cfg.wk, cards: +b.dataset.n }; store.set('wk', cfg.wk); setup(); configure(); break;
+    case 'rounds': cfg.rounds = +b.dataset.n; store.set('rounds', cfg.rounds); setup(); configure(); break;
+    case 'coach': cfg.coach = b.dataset.on === '1'; store.set('coach', cfg.coach); if (game) { closeSheet(); render(); } else { setup(); configure(); } break;
+    case 'title': closeSheet(); title(); break;
+    case 'newgame': setup(); break;
+    case 'resume': start(true); break;
+    case 'start': case 'again': closeSheet(); start(); break;
+    case 'newsetup': closeSheet(); setup(); break;
+    case 'noop': break;
+    case 'pboard': if (game) playerBoard(b.dataset.pi != null ? +b.dataset.pi : ME); break;
+    case 'zin': { const r = document.getElementById('vp').getBoundingClientRect(); zoomAt(1.3, r.left + r.width / 2, r.top + r.height / 2); break; }
+    case 'zout': { const r = document.getElementById('vp').getBoundingClientRect(); zoomAt(1 / 1.3, r.left + r.width / 2, r.top + r.height / 2); break; }
+    case 'zfit': view.fit = true; view.y = 0; fitBoard(); break;
     case 'rules': sheet(RULES_HTML); break;
     case 'browse': browse(b.dataset.f); break;
     case 'log': logSheet(); break;
@@ -444,10 +618,10 @@ document.addEventListener('click', (e) => {
       <button class="opt" data-act="togglecoach">${cfg.coach ? 'Turn coach off' : 'Turn coach on'}</button>
       <button class="opt" data-act="replaytips">Show all coach tips again</button>
       <button class="opt" data-act="browse">Browse the cards</button>
-      <button class="opt" data-act="quit">Quit to setup</button></div>`); break;
+      <button class="opt" data-act="quit">Save and quit to the main menu</button></div>`); break;
     case 'togglecoach': cfg.coach = !cfg.coach; store.set('coach', cfg.coach); closeSheet(); render(); break;
     case 'replaytips': seen = new Set(); cfg.coach = true; closeSheet(); render(); break;
-    case 'quit': closeSheet(); if (!game || S.over || confirm('Quit this game?')) setup(); break;
+    case 'quit': closeSheet(); title(); break;
     case 'toggleopts': showOpts = !showOpts; render(); break;
     case 'coachok': { const r = coachP.res; coachP = null; r(); render(); break; }
     case 'beatok': { const r = beatP.res; beatP = null; r(); render(); break; }
@@ -471,7 +645,7 @@ document.addEventListener('click', (e) => {
     case 'kinfo': { const k = findKingdom(+b.dataset.uid); if (k) kSheet(k, b.dataset.opt); break; }
     case 'tactic': { const p = S.players[+b.dataset.pi]; tacticSheet(p.tactics.find((t) => t.k === b.dataset.k), p); break; }
     case 'favour': { const f = CARDS.favour[b.dataset.f]; sheet(`<div class="detail kd"><img class="cimg wide" src="${f.image}" alt=""><div><h2>${esc(f.name)}</h2><p>Kingdom's Favour action. Whoever claims the Harvest Field takes the Kingdom's Favour (set to III). Each use turns it down one; after I it goes back to the Harvest Field. It also wins tied games.</p>${f.rules.map((r) => `<p><b>${cap(r.season)}:</b> ${esc(r.text)}</p>`).join('')}</div></div>`); break; }
-    case 'player': { const p = S.players[+b.dataset.pi]; sheet(`<h2>${esc(p.name)}</h2><p>${who(p.i)}. Influence <b>${p.inf}</b>, Lore <b>${p.lore}</b>, Hand Size <b>${game.maxHand(p)}</b>, Supporters on board <b>${p.supporters}</b> (Lost: ${p.lostSup}).</p>
+    case 'player': if (b.closest('.obox')) { playerBoard(+b.dataset.pi); break; } { const p = S.players[+b.dataset.pi]; sheet(`<h2>${esc(p.name)}</h2><p>${who(p.i)}. Influence <b>${p.inf}</b>, Lore <b>${p.lore}</b>, Hand Size <b>${game.maxHand(p)}</b>, Supporters on board <b>${p.supporters}</b> (Lost: ${p.lostSup}).</p>
       <p>HQ: ${p.hq.map((c) => esc(c.name)).join(', ') || 'none'}. Tactics: ${p.tactics.map((t) => `${esc(t.name)}${t.exhausted ? ' (used)' : ''}`).join(', ')}.</p>
       <h3>Discard Pile</h3><div class="cards">${p.discard.map((c) => cardHTML(c)).join('') || '<p>Empty.</p>'}</div><h3>Site of Power — ${esc(p.siteName)}</h3><div class="cards">${p.site.map((c) => cardHTML(c)).join('') || '<p>Empty.</p>'}</div>`); break; }
     case 'council': {
@@ -485,4 +659,4 @@ document.addEventListener('click', (e) => {
   }
 });
 
-setup();
+title();
